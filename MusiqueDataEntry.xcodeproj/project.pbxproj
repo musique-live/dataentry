@@ -9,7 +9,6 @@
 /* Begin PBXBuildFile section */
 		DB7176F81EA7E713008666AC /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB7176F71EA7E712008666AC /* AppDelegate.swift */; };
 		DB7176FA1EA7E713008666AC /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB7176F91EA7E713008666AC /* ViewController.swift */; };
-		DB7176FD1EA7E713008666AC /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DB7176FB1EA7E713008666AC /* Main.storyboard */; };
 		DB7176FF1EA7E713008666AC /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DB7176FE1EA7E713008666AC /* Assets.xcassets */; };
 		DB7177021EA7E713008666AC /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DB7177001EA7E713008666AC /* LaunchScreen.storyboard */; };
 		DB71770D1EA7E713008666AC /* MusiqueDataEntryTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB71770C1EA7E713008666AC /* MusiqueDataEntryTests.swift */; };
@@ -37,7 +36,6 @@
 		DB7176F41EA7E712008666AC /* MusiqueDataEntry.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MusiqueDataEntry.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		DB7176F71EA7E712008666AC /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		DB7176F91EA7E713008666AC /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
-		DB7176FC1EA7E713008666AC /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		DB7176FE1EA7E713008666AC /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		DB7177011EA7E713008666AC /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		DB7177031EA7E713008666AC /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -99,7 +97,6 @@
 			children = (
 				DB7176F71EA7E712008666AC /* AppDelegate.swift */,
 				DB7176F91EA7E713008666AC /* ViewController.swift */,
-				DB7176FB1EA7E713008666AC /* Main.storyboard */,
 				DB7176FE1EA7E713008666AC /* Assets.xcassets */,
 				DB7177001EA7E713008666AC /* LaunchScreen.storyboard */,
 				DB7177031EA7E713008666AC /* Info.plist */,
@@ -237,7 +234,6 @@
 			files = (
 				DB7177021EA7E713008666AC /* LaunchScreen.storyboard in Resources */,
 				DB7176FF1EA7E713008666AC /* Assets.xcassets in Resources */,
-				DB7176FD1EA7E713008666AC /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -299,14 +295,6 @@
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
-		DB7176FB1EA7E713008666AC /* Main.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				DB7176FC1EA7E713008666AC /* Base */,
-			);
-			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
 		DB7177001EA7E713008666AC /* LaunchScreen.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
@@ -421,6 +409,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = twil.MusiqueDataEntry;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 3.0;
+				TARGETED_DEVICE_FAMILY = 2;
 			};
 			name = Debug;
 		};
@@ -434,6 +423,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = twil.MusiqueDataEntry;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 3.0;
+				TARGETED_DEVICE_FAMILY = 2;
 			};
 			name = Release;
 		};

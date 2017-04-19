@@ -7,6 +7,12 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		4ACC41542968E06052AD52EB /* Pods_MusiqueDataEntry.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 35930150045AE778BC0282D1 /* Pods_MusiqueDataEntry.framework */; };
+		DB1C80731EA7EBC6008A9B6C /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DB1C80721EA7EBC6008A9B6C /* Main.storyboard */; };
+		DB1C80751EA7EC00008A9B6C /* Bolts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DB1C80741EA7EC00008A9B6C /* Bolts.framework */; };
+		DB1C80771EA7EC0F008A9B6C /* FBSDKCoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DB1C80761EA7EC0F008A9B6C /* FBSDKCoreKit.framework */; };
+		DB1C80791EA7EC20008A9B6C /* FBSDKShareKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DB1C80781EA7EC20008A9B6C /* FBSDKShareKit.framework */; };
+		DB1C807B1EA7EC29008A9B6C /* FBSDKLoginKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DB1C807A1EA7EC29008A9B6C /* FBSDKLoginKit.framework */; };
 		DB7176F81EA7E713008666AC /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB7176F71EA7E712008666AC /* AppDelegate.swift */; };
 		DB7176FA1EA7E713008666AC /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB7176F91EA7E713008666AC /* ViewController.swift */; };
 		DB7176FF1EA7E713008666AC /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DB7176FE1EA7E713008666AC /* Assets.xcassets */; };
@@ -33,6 +39,14 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		35930150045AE778BC0282D1 /* Pods_MusiqueDataEntry.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MusiqueDataEntry.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		3F282016DCA9D71E8F449973 /* Pods-MusiqueDataEntry.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MusiqueDataEntry.release.xcconfig"; path = "Pods/Target Support Files/Pods-MusiqueDataEntry/Pods-MusiqueDataEntry.release.xcconfig"; sourceTree = "<group>"; };
+		AAF82A41F63859A724020D2B /* Pods-MusiqueDataEntry.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MusiqueDataEntry.debug.xcconfig"; path = "Pods/Target Support Files/Pods-MusiqueDataEntry/Pods-MusiqueDataEntry.debug.xcconfig"; sourceTree = "<group>"; };
+		DB1C80721EA7EBC6008A9B6C /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
+		DB1C80741EA7EC00008A9B6C /* Bolts.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Bolts.framework; sourceTree = "<group>"; };
+		DB1C80761EA7EC0F008A9B6C /* FBSDKCoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FBSDKCoreKit.framework; sourceTree = "<group>"; };
+		DB1C80781EA7EC20008A9B6C /* FBSDKShareKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FBSDKShareKit.framework; sourceTree = "<group>"; };
+		DB1C807A1EA7EC29008A9B6C /* FBSDKLoginKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FBSDKLoginKit.framework; sourceTree = "<group>"; };
 		DB7176F41EA7E712008666AC /* MusiqueDataEntry.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MusiqueDataEntry.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		DB7176F71EA7E712008666AC /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		DB7176F91EA7E713008666AC /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -52,6 +66,11 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DB1C80751EA7EC00008A9B6C /* Bolts.framework in Frameworks */,
+				DB1C80771EA7EC0F008A9B6C /* FBSDKCoreKit.framework in Frameworks */,
+				DB1C807B1EA7EC29008A9B6C /* FBSDKLoginKit.framework in Frameworks */,
+				DB1C80791EA7EC20008A9B6C /* FBSDKShareKit.framework in Frameworks */,
+				4ACC41542968E06052AD52EB /* Pods_MusiqueDataEntry.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -72,6 +91,34 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		D7D74D51A02AF0AE542CB59E /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				AAF82A41F63859A724020D2B /* Pods-MusiqueDataEntry.debug.xcconfig */,
+				3F282016DCA9D71E8F449973 /* Pods-MusiqueDataEntry.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
+		DB1C807C1EA7EC2F008A9B6C /* FBSDK */ = {
+			isa = PBXGroup;
+			children = (
+				DB1C80741EA7EC00008A9B6C /* Bolts.framework */,
+				DB1C80761EA7EC0F008A9B6C /* FBSDKCoreKit.framework */,
+				DB1C807A1EA7EC29008A9B6C /* FBSDKLoginKit.framework */,
+				DB1C80781EA7EC20008A9B6C /* FBSDKShareKit.framework */,
+			);
+			name = FBSDK;
+			sourceTree = "<group>";
+		};
+		DB1C807D1EA7EC3B008A9B6C /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				DB1C807C1EA7EC2F008A9B6C /* FBSDK */,
+			);
+			name = Resources;
+			sourceTree = "<group>";
+		};
 		DB7176EB1EA7E712008666AC = {
 			isa = PBXGroup;
 			children = (
@@ -79,6 +126,8 @@
 				DB71770B1EA7E713008666AC /* MusiqueDataEntryTests */,
 				DB7177161EA7E713008666AC /* MusiqueDataEntryUITests */,
 				DB7176F51EA7E712008666AC /* Products */,
+				D7D74D51A02AF0AE542CB59E /* Pods */,
+				FC8BA63FF1E58FA6586353D6 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -97,6 +146,8 @@
 			children = (
 				DB7176F71EA7E712008666AC /* AppDelegate.swift */,
 				DB7176F91EA7E713008666AC /* ViewController.swift */,
+				DB1C807D1EA7EC3B008A9B6C /* Resources */,
+				DB1C80721EA7EBC6008A9B6C /* Main.storyboard */,
 				DB7176FE1EA7E713008666AC /* Assets.xcassets */,
 				DB7177001EA7E713008666AC /* LaunchScreen.storyboard */,
 				DB7177031EA7E713008666AC /* Info.plist */,
@@ -122,6 +173,14 @@
 			path = MusiqueDataEntryUITests;
 			sourceTree = "<group>";
 		};
+		FC8BA63FF1E58FA6586353D6 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				35930150045AE778BC0282D1 /* Pods_MusiqueDataEntry.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -129,9 +188,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = DB71771C1EA7E713008666AC /* Build configuration list for PBXNativeTarget "MusiqueDataEntry" */;
 			buildPhases = (
+				4E53FE7D4221AE08EE2DA052 /* [CP] Check Pods Manifest.lock */,
 				DB7176F01EA7E712008666AC /* Sources */,
 				DB7176F11EA7E712008666AC /* Frameworks */,
 				DB7176F21EA7E712008666AC /* Resources */,
+				D5DE17836BE29A948A4283CD /* [CP] Embed Pods Frameworks */,
+				FE30E29146B852474758F882 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -191,17 +253,20 @@
 					DB7176F31EA7E712008666AC = {
 						CreatedOnToolsVersion = 8.2.1;
 						DevelopmentTeam = T8F23BFN6Q;
+						LastSwiftMigration = 0820;
 						ProvisioningStyle = Automatic;
 					};
 					DB7177071EA7E713008666AC = {
 						CreatedOnToolsVersion = 8.2.1;
 						DevelopmentTeam = T8F23BFN6Q;
+						LastSwiftMigration = 0820;
 						ProvisioningStyle = Automatic;
 						TestTargetID = DB7176F31EA7E712008666AC;
 					};
 					DB7177121EA7E713008666AC = {
 						CreatedOnToolsVersion = 8.2.1;
 						DevelopmentTeam = T8F23BFN6Q;
+						LastSwiftMigration = 0820;
 						ProvisioningStyle = Automatic;
 						TestTargetID = DB7176F31EA7E712008666AC;
 					};
@@ -232,6 +297,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DB1C80731EA7EBC6008A9B6C /* Main.storyboard in Resources */,
 				DB7177021EA7E713008666AC /* LaunchScreen.storyboard in Resources */,
 				DB7176FF1EA7E713008666AC /* Assets.xcassets in Resources */,
 			);
@@ -252,6 +318,54 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		4E53FE7D4221AE08EE2DA052 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		D5DE17836BE29A948A4283CD /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-MusiqueDataEntry/Pods-MusiqueDataEntry-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		FE30E29146B852474758F882 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-MusiqueDataEntry/Pods-MusiqueDataEntry-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		DB7176F01EA7E712008666AC /* Sources */ = {
@@ -401,9 +515,14 @@
 		};
 		DB71771D1EA7E713008666AC /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = AAF82A41F63859A724020D2B /* Pods-MusiqueDataEntry.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				DEVELOPMENT_TEAM = T8F23BFN6Q;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/MusiqueDataEntry",
+				);
 				INFOPLIST_FILE = MusiqueDataEntry/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = twil.MusiqueDataEntry;
@@ -415,9 +534,14 @@
 		};
 		DB71771E1EA7E713008666AC /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 3F282016DCA9D71E8F449973 /* Pods-MusiqueDataEntry.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				DEVELOPMENT_TEAM = T8F23BFN6Q;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/MusiqueDataEntry",
+				);
 				INFOPLIST_FILE = MusiqueDataEntry/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = twil.MusiqueDataEntry;
@@ -504,6 +628,7 @@
 				DB71771E1EA7E713008666AC /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		DB71771F1EA7E713008666AC /* Build configuration list for PBXNativeTarget "MusiqueDataEntryTests" */ = {
 			isa = XCConfigurationList;
@@ -512,6 +637,7 @@
 				DB7177211EA7E713008666AC /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		DB7177221EA7E713008666AC /* Build configuration list for PBXNativeTarget "MusiqueDataEntryUITests" */ = {
 			isa = XCConfigurationList;
@@ -520,6 +646,7 @@
 				DB7177241EA7E713008666AC /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

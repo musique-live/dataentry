@@ -13,16 +13,16 @@ import SDWebImage
 
 let otheraccess = "EAASevzKy9ZA4BAL6bxNcuQiedXgoizw0clJZBTSkdwOOLV8qICQQGaFhvWxhpyQE1ZA6vsVrFqEWWYMzEGQTx9c8r40rUMwpEluXK7AzQXJxh5VGsciWpSGLmKE7LMntvSJATWXJlEsIQdE9t3ZA3fC0iERRb4YZD"
 
-class ViewController: FormViewController {
+class BandEntryVC: FormViewController {
     
     var enteredValue: String?
-    var newBand: BandObject?
+    var newBandObject: BandObject?
     var imageView: UIImageView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        form +++ Section("Enter Band Facebook Username:")
+        form +++ Section("Enter BandObject Facebook Username:")
             <<< TextRow("username"){ row in
                 row.title = "Username"
                 row.placeholder = ""
@@ -34,7 +34,7 @@ class ViewController: FormViewController {
                     self.doFacebookCollect()
                 })
             +++ Section("Collected Data")
-            <<< EmailRow("bandemail"){
+            <<< EmailRow("BandObjectemail"){
                 $0.title = "Email"
                 $0.placeholder = ""
             }
@@ -43,7 +43,7 @@ class ViewController: FormViewController {
                 $0.placeholder = ""
             }
             <<< TextRow("image"){
-                $0.title = "Band Image:"
+                $0.title = "BandObject Image:"
                 $0.placeholder = ""
             }
             <<< TextRow("website"){
@@ -79,20 +79,9 @@ class ViewController: FormViewController {
         imageView.backgroundColor = UIColor.gray
         view.addSubview(imageView)
         
-        output.frame = CGRect(x: 20, y: view.frame.height - 250, width: view.frame.width - 40, height: 40)
-        output.isEditable = false
-        view.addSubview(output)
 
     }
     
-    override func viewDidAppear(_ animated: Bool) {
-        if let authorizer = service.authorizer,
-            let canAuth = authorizer.canAuthorize, canAuth {
-            listMajors()
-        } else {
-
-        }
-    }
     
     func doFacebookCollect() {
         let row: TextRow? = form.rowBy(tag: "username")
@@ -102,8 +91,8 @@ class ViewController: FormViewController {
             let _ = request?.start(completionHandler: {
                 requesthandler in
                 if let _ = requesthandler.1 {
-                    if let band = self.createBand((requesthandler.1 as? NSDictionary)!) {
-                        self.newBand = band
+                    if let BandObject = self.createBandObject((requesthandler.1 as? NSDictionary)!) {
+                        self.newBandObject = BandObject
                         self.displayCollected()
                     }
                 }
@@ -112,77 +101,77 @@ class ViewController: FormViewController {
     }
     
     func displayCollected() {
-        guard let newBand = newBand else { return }
+        guard let newBandObject = newBandObject else { return }
         
-        let emailRow: EmailRow? = form.rowBy(tag: "bandemail")
-        emailRow?.value = newBand.email
+        let emailRow: EmailRow? = form.rowBy(tag: "BandObjectemail")
+        emailRow?.value = newBandObject.email
         emailRow?.updateCell()
         
         let fbrow: TextRow? = form.rowBy(tag: "facebook")
-        fbrow?.value = newBand.facebook
+        fbrow?.value = newBandObject.facebook
         fbrow?.updateCell()
         
         let imageRow: TextRow? = form.rowBy(tag: "image")
-        imageRow?.value = newBand.image
+        imageRow?.value = newBandObject.image
         imageRow?.updateCell()
         
-        if let image = newBand.image {
+        if let image = newBandObject.image {
             let url = URL(string: image)
             imageView.sd_setImage(with: url)
         }
         
         let genreRow: TextAreaRow? = form.rowBy(tag: "genre")
-        genreRow?.value = newBand.genre
+        genreRow?.value = newBandObject.genre
         genreRow?.updateCell()
         
         let webRow: TextRow? = form.rowBy(tag: "website")
-        webRow?.value = newBand.website
+        webRow?.value = newBandObject.website
         webRow?.updateCell()
         
         let regionRow: TextRow? = form.rowBy(tag: "region")
-        regionRow?.value = newBand.region
+        regionRow?.value = newBandObject.region
         regionRow?.updateCell()
         
         let descriptionRow: TextAreaRow? = form.rowBy(tag: "description")
-        descriptionRow?.value = newBand.bandDescription
+        descriptionRow?.value = newBandObject.bandDescription
         descriptionRow?.updateCell()
     }
     
-    func createBand(_ dict: NSDictionary) -> Band? {
+    func createBandObject(_ dict: NSDictionary) -> BandObject? {
         if let name = dict["name"] as? String {
-            let band = Band(name: name)
+            let bandObj = BandObject(name: name)
             
             if let email = dict["press_contact"] as? String {
-                band.email = email
+                bandObj.email = email
             }
             
             if let enteredValue = enteredValue {
-                band.facebook = "http://www.facebook.com/\(enteredValue)"
+                bandObj.facebook = "http://www.facebook.com/\(enteredValue)"
             }
             
             if let cover = dict["cover"] as? NSDictionary {
                 if let image = cover["source"] as? String {
-                    band.image = image
+                    bandObj.image = image
                 }
             }
             
             if let genre = dict["genre"] as? String {
-                band.genre = genre
+                bandObj.genre = genre
             }
             
             if let website = dict["website"] as? String {
-                band.website = website
+                bandObj.website = website
             }
             
             if let region = dict["current_location"] as? String {
-                band.region = region
+                bandObj.region = region
             }
             
-            if let bandDescription = dict["description"] as? String {
-                band.bandDescription = bandDescription
+            if let BandObjectDescription = dict["description"] as? String {
+                bandObj.bandDescription = BandObjectDescription
             }
             
-            return band
+            return bandObj
         }
         return nil
     }

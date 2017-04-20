@@ -32,7 +32,7 @@ class EventObject: NSObject {
         self.timestamp = time
         self.title = title
         self.id = id
-        self.band = BandObject(band: bandName, dancing: nil, descriptionString: nil, facebook: nil, image: nil, genre: nil, website: nil, youtube: nil)
+        self.band = BandObject(band: bandName, descriptionString: nil, facebook: nil, image: nil, genre: nil, website: nil, youtube: nil)
         self.venue = VenueObject(address: nil, dancing: nil, facebook: nil, image: nil, venue: venueName, yelp: nil, website: nil)
     }
     

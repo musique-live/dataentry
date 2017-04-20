@@ -54,17 +54,10 @@ class NetworkController: NSObject {
             }
         }
         
-        if let key = startkey {
-            if events.count == numberOfItemsPerPage {
-                startkey = events.count + key
-            } else {
-                startkey = nil
-            }
-        }
         
         self.updateEvents(events: events, completion: {
             doneevents in
-            completion(self.doFilter(events: doneevents))
+            completion(doneevents)
         })
         
     }
@@ -81,7 +74,7 @@ class NetworkController: NSObject {
             time: dateFormatter.date(from: newObject["date"] as? String ?? "") as NSDate?,
             title: newObject["eventname"] as? String,
             id: key,
-            bandName: newObject["bandname"] as? String,
+            bandName: newObject["BandObjectname"] as? String,
             venueName: newObject["venuename"] as? String)
         
         if let time = newObject["eventTime"] as? String, time.startIndex != time.endIndex, time.characters.count > 10 {
@@ -112,21 +105,14 @@ class NetworkController: NSObject {
             event.time = (event.time ?? "") + " and \(hour):\(minute)"
         }
         
-        event.band?.dancing = newObject["banddancing"] as? String
-        event.band?.descriptionString = newObject["banddescription"] as? String
-        event.band?.facebook = newObject["bandfacebook"] as? String
-        event.band?.image = newObject["bandimage"] as? String
-        let tags = (newObject["bandtags"] as? String)?.capitalized
-        let genres = (newObject["bandgenre"] as? String)?.capitalized
-        if genres == nil {
-            event.band?.genre = (tags ?? "")
-        } else if tags == nil {
-            event.band?.genre = (genres ?? "")
-        } else {
-            event.band?.genre = (genres ?? "") + ", " + (tags ?? "")
-        }
-        event.band?.website = newObject["bandwebsite"] as? String
-        event.band?.youtube = newObject["bandyoutube"] as? String
+        event.band?.bandDescription = newObject["BandObjectdescription"] as? String
+        event.band?.facebook = newObject["BandObjectfacebook"] as? String
+        event.band?.image = newObject["BandObjectimage"] as? String
+        let tags = (newObject["BandObjecttags"] as? String)?.capitalized
+        let genres = (newObject["BandObjectgenre"] as? String)?.capitalized
+        event.band?.genre = (genres ?? "")
+        event.band?.website = newObject["BandObjectwebsite"] as? String
+        event.band?.youtube = newObject["BandObjectyoutube"] as? String
         
         event.venue?.address = newObject["venueaddress"] as? String
         event.venue?.dancing = newObject["venuedescription"] as? String
@@ -143,7 +129,7 @@ class NetworkController: NSObject {
             event.updated = true
         } else {
             event.updated = false
-            updateEventForBandsAndVenues(event: event, newObject: newObject)
+            updateEventForBandObjectsAndVenues(event: event, newObject: newObject)
         }
         
         return event
@@ -151,7 +137,7 @@ class NetworkController: NSObject {
 
     
     func updateEvents(events: [EventObject], completion: @escaping (([EventObject]) -> Void)) {
-        let loc = self.filter?.currentLocation ?? CLLocation(latitude: 38.9780, longitude: -76.8087)
+        let loc = CLLocation(latitude: 38.9780, longitude: -76.8087)
         for event in events {
             if let venue = event.venue, let address = venue.address {
                 if venue.coordinates == nil {
@@ -224,8 +210,8 @@ class NetworkController: NSObject {
         })
     }
     
-    func getBandsList(completion: @escaping (([String]) -> Void)) {
-        let query = FIRDatabase.database().reference().child("Bands").queryOrderedByKey()
+    func getBandObjectsList(completion: @escaping (([String]) -> Void)) {
+        let query = FIRDatabase.database().reference().child("BandObjects").queryOrderedByKey()
         query.observeSingleEvent(of: .value, with: {
             snapshot in
             if let val = snapshot.value as? NSDictionary {
@@ -254,29 +240,29 @@ class NetworkController: NSObject {
         })
     }
 
-    func updateEventForBandsAndVenues(event: EventObject, newObject: NSDictionary) {
-        if let id = event.id, let bandname = event.band?.band, bandname != "", !bandname.contains("."), !bandname.contains("$"), !bandname.contains("#") {
-            FIRDatabase.database().reference().child("Bands/\(bandname)/Events/\(id)").setValue(newObject)
+    func updateEventForBandObjectsAndVenues(event: EventObject, newObject: NSDictionary) {
+        if let id = event.id, let BandObjectname = event.band?.name, BandObjectname != "", !BandObjectname.contains("."), !BandObjectname.contains("$"), !BandObjectname.contains("#") {
+            FIRDatabase.database().reference().child("BandObjects/\(BandObjectname)/Events/\(id)").setValue(newObject)
             if let youtube = event.band?.youtube {
-                FIRDatabase.database().reference().child("Bands/\(bandname)/youtube").setValue(youtube)
+                FIRDatabase.database().reference().child("BandObjects/\(BandObjectname)/youtube").setValue(youtube)
             }
             if let youtube = event.band?.youtube {
-                FIRDatabase.database().reference().child("Bands/\(bandname)/youtube").setValue(youtube)
+                FIRDatabase.database().reference().child("BandObjects/\(BandObjectname)/youtube").setValue(youtube)
             }
-            if let descriptionString = event.band?.descriptionString {
-                FIRDatabase.database().reference().child("Bands/\(bandname)/descriptionString").setValue(descriptionString)
+            if let descriptionString = event.band?.bandDescription {
+                FIRDatabase.database().reference().child("BandObjects/\(BandObjectname)/descriptionString").setValue(descriptionString)
             }
             if let facebook = event.band?.facebook {
-                FIRDatabase.database().reference().child("Bands/\(bandname)/facebook").setValue(facebook)
+                FIRDatabase.database().reference().child("BandObjects/\(BandObjectname)/facebook").setValue(facebook)
             }
             if let image = event.band?.image {
-                FIRDatabase.database().reference().child("Bands/\(bandname)/image").setValue(image)
+                FIRDatabase.database().reference().child("BandObjects/\(BandObjectname)/image").setValue(image)
             }
             if let genre = event.band?.genre {
-                FIRDatabase.database().reference().child("Bands/\(bandname)/genre").setValue(genre)
+                FIRDatabase.database().reference().child("BandObjects/\(BandObjectname)/genre").setValue(genre)
             }
             if let website = event.band?.website {
-                FIRDatabase.database().reference().child("Bands/\(bandname)/website").setValue(website)
+                FIRDatabase.database().reference().child("BandObjects/\(BandObjectname)/website").setValue(website)
             }
         }
         if let id = event.id, let venuename = event.venue?.venue, venuename != "", !venuename.contains("."), !venuename.contains("$"), !venuename.contains("#") {

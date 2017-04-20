@@ -1,5 +1,5 @@
 //
-//  Band.swift
+//  BandObject.swift
 //  
 //
 //  Created by Tara Wilson on 4/20/17.
@@ -21,5 +21,15 @@ class BandObject: NSObject {
     
     init(name: String) {
         self.name = name
+    }
+    
+    init(band: String?, descriptionString: String?, facebook: String?, image: String?, genre: String?, website: String?, youtube: String?) {
+        self.name = band
+        self.bandDescription = descriptionString
+        self.facebook = facebook
+        self.image = image
+        self.genre = genre
+        self.website = website
+        self.youtube = youtube
     }
 }

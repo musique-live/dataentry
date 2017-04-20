@@ -9,13 +9,27 @@
 import UIKit
 import FBSDKCoreKit
 import Eureka
+import SDWebImage
+import GoogleAPIClientForREST
+import GTMAppAuth
 
 let otheraccess = "EAASevzKy9ZA4BAL6bxNcuQiedXgoizw0clJZBTSkdwOOLV8qICQQGaFhvWxhpyQE1ZA6vsVrFqEWWYMzEGQTx9c8r40rUMwpEluXK7AzQXJxh5VGsciWpSGLmKE7LMntvSJATWXJlEsIQdE9t3ZA3fC0iERRb4YZD"
 
+let googleID = "403612539176-tjtd4pdd5m15dvgdngu9nnbluscme52l.apps.googleusercontent.com"
+
 class ViewController: FormViewController {
+    
+    
+    private let service = GTLRSheetsService()
+    private let kKeychainItemName = "Google Sheets API"
+    private let kClientID = googleID
+    private let scopes = [kGTLRAuthScopeSheetsSpreadsheets]
+    
     
     var enteredValue: String?
     var newBand: Band?
+    var imageView: UIImageView!
+     let output = UITextView()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -72,7 +86,24 @@ class ViewController: FormViewController {
         animateScroll = true
         rowKeyboardSpacing = 20
         
+     
+        imageView = UIImageView(frame: CGRect(x: 20, y: view.frame.height - 200, width: 180, height: 180))
+        imageView.backgroundColor = UIColor.gray
+        view.addSubview(imageView)
         
+        output.frame = CGRect(x: 20, y: view.frame.height - 250, width: view.frame.width - 40, height: 40)
+        output.isEditable = false
+        view.addSubview(output)
+
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        if let authorizer = service.authorizer,
+            let canAuth = authorizer.canAuthorize, canAuth {
+            listMajors()
+        } else {
+
+        }
     }
     
     func doFacebookCollect() {
@@ -82,9 +113,11 @@ class ViewController: FormViewController {
             let request = FBSDKGraphRequest(graphPath: "/\(value)", parameters: nil, tokenString: "EAACEdEose0cBABEN8XVOmINBkBTKlheMHmOONewXoABPOQ9U4MCecB6McdSoD38uiUgUNe5YSm7RvcGPAhvRpBfEXBNx8VpZALtJWZCGbzaz3O7ZBoiTHkxcn7LnqevVycdIVTQILsCCdxzMZCe4ZCvhyetTIYniy6UJgNBubhZAZBG7sBflybialrSDcWuGX4ZD", version: "", httpMethod: "GET")
             let _ = request?.start(completionHandler: {
                 requesthandler in
-                if let band = self.createBand((requesthandler.1 as? NSDictionary)!) {
-                    self.newBand = band
-                    self.displayCollected()
+                if let _ = requesthandler.1 {
+                    if let band = self.createBand((requesthandler.1 as? NSDictionary)!) {
+                        self.newBand = band
+                        self.displayCollected()
+                    }
                 }
             })
         }
@@ -94,31 +127,36 @@ class ViewController: FormViewController {
         guard let newBand = newBand else { return }
         
         let emailRow: EmailRow? = form.rowBy(tag: "bandemail")
-        emailRow?.placeholder = newBand.email
+        emailRow?.value = newBand.email
         emailRow?.updateCell()
         
         let fbrow: TextRow? = form.rowBy(tag: "facebook")
-        fbrow?.placeholder = newBand.facebook
+        fbrow?.value = newBand.facebook
         fbrow?.updateCell()
         
         let imageRow: TextRow? = form.rowBy(tag: "image")
-        imageRow?.placeholder = newBand.image
+        imageRow?.value = newBand.image
         imageRow?.updateCell()
         
+        if let image = newBand.image {
+            let url = URL(string: image)
+            imageView.sd_setImage(with: url)
+        }
+        
         let genreRow: TextAreaRow? = form.rowBy(tag: "genre")
-        genreRow?.placeholder = newBand.genre
+        genreRow?.value = newBand.genre
         genreRow?.updateCell()
         
         let webRow: TextRow? = form.rowBy(tag: "website")
-        webRow?.placeholder = newBand.website
+        webRow?.value = newBand.website
         webRow?.updateCell()
         
         let regionRow: TextRow? = form.rowBy(tag: "region")
-        regionRow?.placeholder = newBand.region
+        regionRow?.value = newBand.region
         regionRow?.updateCell()
         
         let descriptionRow: TextAreaRow? = form.rowBy(tag: "description")
-        descriptionRow?.placeholder = newBand.bandDescription
+        descriptionRow?.value = newBand.bandDescription
         descriptionRow?.updateCell()
     }
     
@@ -159,21 +197,5 @@ class ViewController: FormViewController {
             return band
         }
         return nil
-    }
-}
-
-class Band: NSObject {
-    var name: String?
-    var email: String?
-    var facebook: String?
-    var image: String?
-    var genre: String?
-    var website: String?
-    var youtube: String?
-    var region: String?
-    var bandDescription: String?
-    
-    init(name: String) {
-        self.name = name
     }
 }

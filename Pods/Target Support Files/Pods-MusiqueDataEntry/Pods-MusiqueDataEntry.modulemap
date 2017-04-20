@@ -1,0 +1,6 @@
+framework module Pods_MusiqueDataEntry {
+  umbrella header "Pods-MusiqueDataEntry-umbrella.h"
+
+  export *
+  module * { export * }
+}

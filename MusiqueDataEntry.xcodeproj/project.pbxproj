@@ -15,6 +15,8 @@
 		DB1C807B1EA7EC29008A9B6C /* FBSDKLoginKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DB1C807A1EA7EC29008A9B6C /* FBSDKLoginKit.framework */; };
 		DB1DEA8D1EA9291600FD27BD /* Band.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB1DEA8C1EA9291600FD27BD /* Band.swift */; };
 		DB1DEA8F1EA9293E00FD27BD /* NetworkController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB1DEA8E1EA9293E00FD27BD /* NetworkController.swift */; };
+		DB1DEA911EA92A6900FD27BD /* Event.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB1DEA901EA92A6900FD27BD /* Event.swift */; };
+		DB1DEA931EA92A7800FD27BD /* Venue.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB1DEA921EA92A7800FD27BD /* Venue.swift */; };
 		DB7176F81EA7E713008666AC /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB7176F71EA7E712008666AC /* AppDelegate.swift */; };
 		DB7176FA1EA7E713008666AC /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB7176F91EA7E713008666AC /* ViewController.swift */; };
 		DB7176FF1EA7E713008666AC /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DB7176FE1EA7E713008666AC /* Assets.xcassets */; };
@@ -51,6 +53,8 @@
 		DB1C807A1EA7EC29008A9B6C /* FBSDKLoginKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FBSDKLoginKit.framework; sourceTree = "<group>"; };
 		DB1DEA8C1EA9291600FD27BD /* Band.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Band.swift; sourceTree = "<group>"; };
 		DB1DEA8E1EA9293E00FD27BD /* NetworkController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetworkController.swift; sourceTree = "<group>"; };
+		DB1DEA901EA92A6900FD27BD /* Event.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Event.swift; sourceTree = "<group>"; };
+		DB1DEA921EA92A7800FD27BD /* Venue.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Venue.swift; sourceTree = "<group>"; };
 		DB7176F41EA7E712008666AC /* MusiqueDataEntry.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MusiqueDataEntry.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		DB7176F71EA7E712008666AC /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		DB7176F91EA7E713008666AC /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -156,6 +160,8 @@
 				DB1DEA8C1EA9291600FD27BD /* Band.swift */,
 				DB7176F91EA7E713008666AC /* ViewController.swift */,
 				DB1DEA8E1EA9293E00FD27BD /* NetworkController.swift */,
+				DB1DEA901EA92A6900FD27BD /* Event.swift */,
+				DB1DEA921EA92A7800FD27BD /* Venue.swift */,
 				DB1C807D1EA7EC3B008A9B6C /* Resources */,
 			);
 			path = MusiqueDataEntry;
@@ -379,9 +385,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				DB1DEA8F1EA9293E00FD27BD /* NetworkController.swift in Sources */,
+				DB1DEA931EA92A7800FD27BD /* Venue.swift in Sources */,
 				DB1DEA8D1EA9291600FD27BD /* Band.swift in Sources */,
 				DB7176FA1EA7E713008666AC /* ViewController.swift in Sources */,
 				DB7176F81EA7E713008666AC /* AppDelegate.swift in Sources */,
+				DB1DEA911EA92A6900FD27BD /* Event.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

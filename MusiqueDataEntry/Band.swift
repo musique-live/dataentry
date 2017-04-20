@@ -8,7 +8,7 @@
 
 import Foundation
 
-class Band: NSObject {
+class BandObject: NSObject {
     var name: String?
     var email: String?
     var facebook: String?

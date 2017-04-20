@@ -10,26 +10,14 @@ import UIKit
 import FBSDKCoreKit
 import Eureka
 import SDWebImage
-import GoogleAPIClientForREST
-import GTMAppAuth
 
 let otheraccess = "EAASevzKy9ZA4BAL6bxNcuQiedXgoizw0clJZBTSkdwOOLV8qICQQGaFhvWxhpyQE1ZA6vsVrFqEWWYMzEGQTx9c8r40rUMwpEluXK7AzQXJxh5VGsciWpSGLmKE7LMntvSJATWXJlEsIQdE9t3ZA3fC0iERRb4YZD"
 
-let googleID = "403612539176-tjtd4pdd5m15dvgdngu9nnbluscme52l.apps.googleusercontent.com"
-
 class ViewController: FormViewController {
     
-    
-    private let service = GTLRSheetsService()
-    private let kKeychainItemName = "Google Sheets API"
-    private let kClientID = googleID
-    private let scopes = [kGTLRAuthScopeSheetsSpreadsheets]
-    
-    
     var enteredValue: String?
-    var newBand: Band?
+    var newBand: BandObject?
     var imageView: UIImageView!
-     let output = UITextView()
     
     override func viewDidLoad() {
         super.viewDidLoad()

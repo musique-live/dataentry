@@ -7,8 +7,8 @@
 //
 
 import Foundation
-import Firebase
 import CoreLocation
+import Firebase
 
 let database = "https://musiquelive-2167e.firebaseio.com/"
 
@@ -16,55 +16,23 @@ class NetworkController: NSObject {
     
     var ref: FIRDatabaseReference!
     let geocoder = CLGeocoder()
-    var filter: FilterObject?
     var myGroup = DispatchGroup()
-    let numberOfItemsPerPage = 100
-    let numberOfItemsPerDate = 100
     var startkey: Int?
-    var onedelete = false
     
-    func getAllEventsWithFilter(filter: FilterObject, _ completion: @escaping (([EventObject], Int?) -> Void)) {
-        self.filter = filter
+    func getEventWithID(id: String, _ completion: @escaping (([EventObject]) -> Void)) {
         ref = FIRDatabase.database().reference()
-        
-        if let _ = filter.venue {
-            venueSearch({
-                events in
-                completion(events, self.startkey)
-            })
-        } else if let _ = filter.band {
-            bandSearch({
-                events in
-                completion(events, self.startkey)
-            })
-        } else if let _ = filter.date {
-            dateSearch({
-                events in
-                completion(events, self.startkey)
-            })
-        } else {
-            regularSearch({
-                events in
-                completion(events, self.startkey)
-            })
-        }
-        
-    }
-    
-    func venueSearch(_ completion: @escaping (([EventObject]) -> Void)) {
-        guard let venueSearch = filter?.venue else {
-            return
-        }
-        let query = ref.child("Venues/\(venueSearch)/Events").queryOrderedByKey()
-        
+        let string = "Events/\(id)"
+        let query = ref.child(string)
         query.observeSingleEvent(of: .value, with: {
             snapshot in
-            if snapshot.hasChildren() {
-                self.processEventSnapshot(snapArray: snapshot, completion: {
-                    newevents in
-                    completion(newevents)
+            if let dict = snapshot.value as? NSDictionary {
+                let event = self.processEvent(newObject: dict, key: id)
+                self.updateEvents(events: [event], completion: {
+                    events in
+                    completion(events)
                 })
-            } else {
+            }
+            else {
                 completion([EventObject]())
             }
         }, withCancel: {
@@ -73,105 +41,7 @@ class NetworkController: NSObject {
         })
         
     }
-    
-    func bandSearch(_ completion: @escaping (([EventObject]) -> Void)) {
-        guard let bandSearch = filter?.band else {
-            return
-        }
-        let query = ref.child("Bands/\(bandSearch)/Events").queryOrderedByKey()
-        
-        query.observeSingleEvent(of: .value, with: {
-            snapshot in
-            if snapshot.hasChildren() {
-                self.processEventSnapshot(snapArray: snapshot, completion: {
-                    newevents in
-                    completion(newevents)
-                })
-            } else {
-                completion([EventObject]())
-            }
-        }, withCancel: {
-            (error) in
-            completion([EventObject]())
-        })
-        
-    }
-    
-    func dateSearch(_ completion: @escaping (([EventObject]) -> Void)) {
-        guard let dateSearch = filter?.date else {
-            return
-        }
-        let calendar = NSCalendar.current
-        let year =  calendar.component(.year, from: dateSearch as Date)
-        let month = calendar.component(.month, from: dateSearch as Date)
-        let day = calendar.component(.day, from: dateSearch as Date)
-        
-        var stringMonth = "\(month)"
-        var stringDay = "\(day)"
-        if stringMonth.characters.count == 1 {
-            stringMonth = "0" + stringMonth
-        }
-        if stringDay.characters.count == 1 {
-            stringDay = "0" + stringDay
-        }
-        
-        let query = ref.child("Events").queryOrdered(byChild: "date").queryEqual(toValue: "\(year)-\(stringMonth)-\(stringDay)T04:00:00.000Z")
-        
-        let limit = filter?.date == nil ? numberOfItemsPerPage : numberOfItemsPerDate
-        query.queryLimited(toFirst: UInt(limit)).observeSingleEvent(of: .value, with: {
-            snapshot in
-            if snapshot.hasChildren() {
-                self.processEventSnapshot(snapArray: snapshot, completion: {
-                    newevents in
-                    completion(newevents)
-                })
-            } else {
-                completion([EventObject]())
-            }
-        }, withCancel: {
-            (error) in
-            completion([EventObject]())
-        })
-    }
-    
-    func regularSearch(_ completion: @escaping (([EventObject]) -> Void)) {
-        var query = ref.child("Events").queryOrderedByKey()
-        
-        getStartKey(completion: {
-            key in
-            
-            if self.startkey == nil {
-                self.startkey = key
-            }
-            
-            if let k = self.startkey {
-                query = query.queryStarting(atValue: "\(k)")
-            } else {
-                self.startkey = 0
-                query = query.queryStarting(atValue: "0")
-            }
-            
-            let limit = self.filter?.date == nil ? self.numberOfItemsPerPage : self.numberOfItemsPerDate
-            query.queryLimited(toFirst: UInt(limit)).observeSingleEvent(of: .value, with: {
-                snapshot in
-                if snapshot.hasChildren() {
-                    self.processEventSnapshot(snapArray: snapshot, completion: {
-                        newevents in
-                        completion(newevents)
-                    })
-                } else {
-                    completion([EventObject]())
-                }
-            }, withCancel: {
-                (error) in
-                completion([EventObject]())
-            })
-        })
-        
-        
-    }
-    
-    /////// first
+
     
     func processEventSnapshot(snapArray: FIRDataSnapshot, completion: @escaping (([EventObject]) -> Void)) {
         var events = [EventObject]()
@@ -198,8 +68,7 @@ class NetworkController: NSObject {
         })
         
     }
-    
-    //////// second
+
     
     func processEvent(newObject: NSDictionary, key: String) -> EventObject {
         let dateFormatter = DateFormatter()
@@ -279,9 +148,7 @@ class NetworkController: NSObject {
         
         return event
     }
-    
-    
-    /////////third
+
     
     func updateEvents(events: [EventObject], completion: @escaping (([EventObject]) -> Void)) {
         let loc = self.filter?.currentLocation ?? CLLocation(latitude: 38.9780, longitude: -76.8087)
@@ -322,42 +189,6 @@ class NetworkController: NSObject {
         
     }
     
-    //////////// fourth
-    
-    func doFilter(events: [EventObject]) -> [EventObject] {
-        let newevents = events.sorted(by: { $0.distance ?? Double(mindist) < $1.distance ?? Double(mindist) })
-        let genreevents = filterByGenre(events: newevents)
-        let priceevents = filterByPrice(events: genreevents)
-        let dateevents = filterByDate(events: priceevents)
-        let distanceeventes = filterByDistance(events: dateevents)
-        return distanceeventes
-    }
-    
-    /////////////// other
-    
-    
-    func getEventWithID(id: String, _ completion: @escaping (([EventObject]) -> Void)) {
-        ref = FIRDatabase.database().reference()
-        let string = "Events/\(id)"
-        let query = ref.child(string)
-        query.observeSingleEvent(of: .value, with: {
-            snapshot in
-            if let dict = snapshot.value as? NSDictionary {
-                let event = self.processEvent(newObject: dict, key: id)
-                self.updateEvents(events: [event], completion: {
-                    events in
-                    completion(events)
-                })
-            }
-            else {
-                completion([EventObject]())
-            }
-        }, withCancel: {
-            (error) in
-            completion([EventObject]())
-        })
-        
-    }
     
     func sendFeedback(feedback: NSDictionary, completion: @escaping ((Bool) -> Void)) {
         ref = FIRDatabase.database().reference()
@@ -422,70 +253,7 @@ class NetworkController: NSObject {
             completion(0)
         })
     }
-    
-    func filterByGenre(events: [EventObject]) -> [EventObject] {
-        var newEvents = events
-        if let filter = filter, filter.genre.count > 0 {
-            for (i,event) in newEvents.enumerated().reversed() {
-                var contains = false
-                for genre in (filter.genre) {
-                    if event.band?.genre?.contains(genre) == true {
-                        contains = true
-                    }
-                }
-                if contains == false {
-                    newEvents.remove(at: i)
-                }
-            }
-        }
-        return newEvents
-    }
-    
-    func filterByPrice(events: [EventObject]) -> [EventObject] {
-        if let price = filter?.price {
-            let newEvents = events.filter() {($0.price ?? 0) < price + 1}
-            return newEvents
-        }
-        return events
-    }
-    
-    func filterByOutdoors(events: [EventObject]) -> [EventObject] {
-        return events
-    }
-    
-    func filterByDate(events: [EventObject]) -> [EventObject] {
-        var newEvents = events
-        var currentDate = NSDate()
-        currentDate = currentDate.addingTimeInterval(-100000)
-        
-        for (i,event) in newEvents.enumerated().reversed() {
-            if event.timestamp?.compare(currentDate as Date) == .orderedAscending {
-                newEvents.remove(at: i)
-            }
-        }
-        
-        return newEvents.sorted(by: { $0.timestamp?.compare(($1.timestamp as? Date) ?? Date()) == ComparisonResult.orderedAscending })
-        
-        
-    }
-    
-    func filterByDistance(events: [EventObject]) -> [EventObject] {
-        let amount = Double(filter?.distance ?? mindist)
-        let newEvents = events.filter() {$0.distance ?? 0 < amount}
-        return newEvents
-    }
-    
-    
-    func deleteEvent(event: EventObject) {
-        if let id = event.id {
-            FIRDatabase.database().reference().child("Events/\(id)").removeValue(completionBlock: {
-                completion in
-                
-            })
-        }
-        
-    }
-    
+
     func updateEventForBandsAndVenues(event: EventObject, newObject: NSDictionary) {
         if let id = event.id, let bandname = event.band?.band, bandname != "", !bandname.contains("."), !bandname.contains("$"), !bandname.contains("#") {
             FIRDatabase.database().reference().child("Bands/\(bandname)/Events/\(id)").setValue(newObject)

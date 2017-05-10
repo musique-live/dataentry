@@ -34,7 +34,11 @@ class BandEntryVC: FormViewController {
                     self.doFacebookCollect()
                 })
             +++ Section("Collected Data")
-            <<< EmailRow("BandObjectemail"){
+            <<< TextRow("name"){
+                $0.title = "Name:"
+                $0.placeholder = ""
+            }
+            <<< EmailRow("Email"){
                 $0.title = "Email"
                 $0.placeholder = ""
             }
@@ -43,22 +47,26 @@ class BandEntryVC: FormViewController {
                 $0.placeholder = ""
             }
             <<< TextRow("image"){
-                $0.title = "BandObject Image:"
+                $0.title = "Image:"
                 $0.placeholder = ""
             }
             <<< TextRow("website"){
                 $0.title = "Website:"
                 $0.placeholder = ""
             }
+            <<< TextRow("youtube"){
+                $0.title = "Youtube:"
+                $0.placeholder = ""
+            }
             <<< TextRow("region"){
                 $0.title = "Region:"
                 $0.placeholder = ""
             }
-            +++ Section("")
-            <<< TextAreaRow("genre"){
+            <<< TextRow("genre"){
                 $0.title = "Genre:"
                 $0.placeholder = "Genre"
             }
+            +++ Section("")
             <<< TextAreaRow("description"){
                 $0.title = "Description:"
                 $0.placeholder = "Description"
@@ -67,7 +75,7 @@ class BandEntryVC: FormViewController {
                 $0.title = "Looks Good!"
                 }.onCellSelection({
                     selected in
-                    
+                    self.sendBand()
                 })
         
         navigationOptions = RowNavigationOptions.Enabled.union(.StopDisabledRow)
@@ -75,11 +83,68 @@ class BandEntryVC: FormViewController {
         rowKeyboardSpacing = 20
         
      
-        imageView = UIImageView(frame: CGRect(x: 20, y: view.frame.height - 200, width: 180, height: 180))
+        imageView = UIImageView(frame: CGRect(x: 20, y: view.frame.height - 250, width: 180, height: 180))
         imageView.backgroundColor = UIColor.gray
         view.addSubview(imageView)
         
 
+    }
+    
+    func sendBand() {
+        guard let newBandObject = newBandObject else { return }
+        
+        let emailRow: EmailRow? = form.rowBy(tag: "BandObjectemail")
+        newBandObject.email = emailRow?.value
+        
+        let fbrow: TextRow? = form.rowBy(tag: "facebook")
+        newBandObject.facebook = fbrow?.value
+        
+        let ytrow: TextRow? = form.rowBy(tag: "youtube")
+        newBandObject.youtube = ytrow?.value
+        
+        let nameRow: TextRow? = form.rowBy(tag: "name")
+        newBandObject.name = nameRow?.value
+        
+        let imageRow: TextRow? = form.rowBy(tag: "image")
+        newBandObject.image = imageRow?.value
+        
+        let genreRow: TextRow? = form.rowBy(tag: "genre")
+        newBandObject.genre = genreRow?.value
+        
+        let webRow: TextRow? = form.rowBy(tag: "website")
+        newBandObject.website = webRow?.value
+        
+        let regionRow: TextRow? = form.rowBy(tag: "region")
+        newBandObject.region = regionRow?.value
+        
+        let descriptionRow: TextAreaRow? = form.rowBy(tag: "description")
+        newBandObject.bandDescription = descriptionRow?.value
+        
+        NetworkController().sendBandData(band: newBandObject, completion: {
+            done in
+            
+            emailRow?.value = ""
+            emailRow?.updateCell()
+            fbrow?.value = ""
+            fbrow?.updateCell()
+            ytrow?.value = ""
+            ytrow?.updateCell()
+            nameRow?.value = ""
+            nameRow?.updateCell()
+            imageRow?.value = ""
+            imageRow?.updateCell()
+            genreRow?.value = ""
+            genreRow?.updateCell()
+            webRow?.value = ""
+            webRow?.updateCell()
+            regionRow?.value = ""
+            regionRow?.updateCell()
+            descriptionRow?.value = ""
+            descriptionRow?.updateCell()
+            let row: TextRow? = self.form.rowBy(tag: "username")
+            row?.value = ""
+            row?.updateCell()
+        })
     }
     
     
@@ -87,16 +152,24 @@ class BandEntryVC: FormViewController {
         let row: TextRow? = form.rowBy(tag: "username")
         if let value = row?.value {
             self.enteredValue = value
-            let request = FBSDKGraphRequest(graphPath: "/\(value)", parameters: nil, tokenString: "EAACEdEose0cBABEN8XVOmINBkBTKlheMHmOONewXoABPOQ9U4MCecB6McdSoD38uiUgUNe5YSm7RvcGPAhvRpBfEXBNx8VpZALtJWZCGbzaz3O7ZBoiTHkxcn7LnqevVycdIVTQILsCCdxzMZCe4ZCvhyetTIYniy6UJgNBubhZAZBG7sBflybialrSDcWuGX4ZD", version: "", httpMethod: "GET")
-            let _ = request?.start(completionHandler: {
-                requesthandler in
-                if let _ = requesthandler.1 {
-                    if let BandObject = self.createBandObject((requesthandler.1 as? NSDictionary)!) {
-                        self.newBandObject = BandObject
-                        self.displayCollected()
+            
+            NetworkController().getFBToken(completion: {
+                token in
+                
+                let request = FBSDKGraphRequest(graphPath: "/\(value)", parameters: nil, tokenString: token, version: "", httpMethod: "GET")
+                let _ = request?.start(completionHandler: {
+                    requesthandler in
+                    if let _ = requesthandler.1 {
+                        if let BandObject = self.createBandObject((requesthandler.1 as? NSDictionary)!) {
+                            self.newBandObject = BandObject
+                            self.displayCollected()
+                        }
                     }
-                }
+                })
+                
             })
+            
+            
         }
     }
     
@@ -111,6 +184,10 @@ class BandEntryVC: FormViewController {
         fbrow?.value = newBandObject.facebook
         fbrow?.updateCell()
         
+        let nameRow: TextRow? = form.rowBy(tag: "name")
+        nameRow?.value = newBandObject.name
+        nameRow?.updateCell()
+        
         let imageRow: TextRow? = form.rowBy(tag: "image")
         imageRow?.value = newBandObject.image
         imageRow?.updateCell()
@@ -120,7 +197,7 @@ class BandEntryVC: FormViewController {
             imageView.sd_setImage(with: url)
         }
         
-        let genreRow: TextAreaRow? = form.rowBy(tag: "genre")
+        let genreRow: TextRow? = form.rowBy(tag: "genre")
         genreRow?.value = newBandObject.genre
         genreRow?.updateCell()
         
@@ -174,5 +251,9 @@ class BandEntryVC: FormViewController {
             return bandObj
         }
         return nil
+    }
+    
+    func clear() {
+        
     }
 }

@@ -19,6 +19,10 @@
 		DB1DEA931EA92A7800FD27BD /* Venue.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB1DEA921EA92A7800FD27BD /* Venue.swift */; };
 		DB1DEA951EA92E0000FD27BD /* TabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB1DEA941EA92E0000FD27BD /* TabBarController.swift */; };
 		DB1DEA971EA92EBF00FD27BD /* EventEntryVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB1DEA961EA92EBF00FD27BD /* EventEntryVC.swift */; };
+		DB6598661EAAEC680085BD05 /* AutoCompleteTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB6598651EAAEC680085BD05 /* AutoCompleteTextField.swift */; };
+		DB6598681EAAEFB50085BD05 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = DB6598671EAAEFB50085BD05 /* GoogleService-Info.plist */; };
+		DB65986A1EAAF2920085BD05 /* VenueEntryVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB6598691EAAF2920085BD05 /* VenueEntryVC.swift */; };
+		DB65986C1EAE8D560085BD05 /* ToDoList.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB65986B1EAE8D560085BD05 /* ToDoList.swift */; };
 		DB7176F81EA7E713008666AC /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB7176F71EA7E712008666AC /* AppDelegate.swift */; };
 		DB7176FA1EA7E713008666AC /* BandEntryVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB7176F91EA7E713008666AC /* BandEntryVC.swift */; };
 		DB7176FF1EA7E713008666AC /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DB7176FE1EA7E713008666AC /* Assets.xcassets */; };
@@ -59,6 +63,10 @@
 		DB1DEA921EA92A7800FD27BD /* Venue.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Venue.swift; sourceTree = "<group>"; };
 		DB1DEA941EA92E0000FD27BD /* TabBarController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TabBarController.swift; path = ../TabBarController.swift; sourceTree = "<group>"; };
 		DB1DEA961EA92EBF00FD27BD /* EventEntryVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EventEntryVC.swift; sourceTree = "<group>"; };
+		DB6598651EAAEC680085BD05 /* AutoCompleteTextField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AutoCompleteTextField.swift; sourceTree = "<group>"; };
+		DB6598671EAAEFB50085BD05 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		DB6598691EAAF2920085BD05 /* VenueEntryVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VenueEntryVC.swift; sourceTree = "<group>"; };
+		DB65986B1EAE8D560085BD05 /* ToDoList.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ToDoList.swift; sourceTree = "<group>"; };
 		DB7176F41EA7E712008666AC /* MusiqueDataEntry.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MusiqueDataEntry.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		DB7176F71EA7E712008666AC /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		DB7176F91EA7E713008666AC /* BandEntryVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BandEntryVC.swift; sourceTree = "<group>"; };
@@ -160,14 +168,18 @@
 		DB7176F61EA7E712008666AC /* MusiqueDataEntry */ = {
 			isa = PBXGroup;
 			children = (
+				DB6598651EAAEC680085BD05 /* AutoCompleteTextField.swift */,
 				DB1DEA941EA92E0000FD27BD /* TabBarController.swift */,
+				DB65986B1EAE8D560085BD05 /* ToDoList.swift */,
 				DB7176F71EA7E712008666AC /* AppDelegate.swift */,
 				DB1DEA8C1EA9291600FD27BD /* Band.swift */,
 				DB7176F91EA7E713008666AC /* BandEntryVC.swift */,
 				DB1DEA961EA92EBF00FD27BD /* EventEntryVC.swift */,
+				DB6598691EAAF2920085BD05 /* VenueEntryVC.swift */,
 				DB1DEA8E1EA9293E00FD27BD /* NetworkController.swift */,
 				DB1DEA901EA92A6900FD27BD /* Event.swift */,
 				DB1DEA921EA92A7800FD27BD /* Venue.swift */,
+				DB6598671EAAEFB50085BD05 /* GoogleService-Info.plist */,
 				DB1C807D1EA7EC3B008A9B6C /* Resources */,
 			);
 			path = MusiqueDataEntry;
@@ -316,6 +328,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				DB1C80731EA7EBC6008A9B6C /* Main.storyboard in Resources */,
+				DB6598681EAAEFB50085BD05 /* GoogleService-Info.plist in Resources */,
 				DB7177021EA7E713008666AC /* LaunchScreen.storyboard in Resources */,
 				DB7176FF1EA7E713008666AC /* Assets.xcassets in Resources */,
 			);
@@ -393,11 +406,14 @@
 				DB1DEA8F1EA9293E00FD27BD /* NetworkController.swift in Sources */,
 				DB1DEA931EA92A7800FD27BD /* Venue.swift in Sources */,
 				DB1DEA971EA92EBF00FD27BD /* EventEntryVC.swift in Sources */,
+				DB65986C1EAE8D560085BD05 /* ToDoList.swift in Sources */,
+				DB6598661EAAEC680085BD05 /* AutoCompleteTextField.swift in Sources */,
 				DB1DEA8D1EA9291600FD27BD /* Band.swift in Sources */,
 				DB7176FA1EA7E713008666AC /* BandEntryVC.swift in Sources */,
 				DB1DEA951EA92E0000FD27BD /* TabBarController.swift in Sources */,
 				DB7176F81EA7E713008666AC /* AppDelegate.swift in Sources */,
 				DB1DEA911EA92A6900FD27BD /* Event.swift in Sources */,
+				DB65986A1EAAF2920085BD05 /* VenueEntryVC.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

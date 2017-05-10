@@ -12,22 +12,24 @@ import CoreLocation
 
 class VenueObject: NSObject {
     var address: String?
-    var dancing: String?
     var facebook: String?
-    var image: String?
     var venue: String?
     var website: String?
     var yelp: String?
     var coordinates: CLLocation?
+    var email: String?
+    var region: String?
     
-    init(address: String?, dancing: String?, facebook: String?, image: String?, venue: String?, yelp: String?, website: String?) {
+    init(address: String?, facebook: String?, venue: String?, yelp: String?, website: String?) {
         self.address = address
-        self.dancing = dancing
         self.facebook = facebook
-        self.image = image
         self.venue = venue
         self.yelp = yelp
         self.website = website
+    }
+    
+    init(name: String) {
+        self.venue = name
     }
     
 }

@@ -24,6 +24,11 @@ class EventObject: NSObject {
     var updated: Bool?
     var time: String?
     
+    //for entry
+    var timeString: String?
+    var venueString: String?
+    var bandString: String?
+    
     init(body: String?, eventimage: String?, eventlink: String?, price: Int?, time: NSDate?, title: String?, id: String?, bandName: String?, venueName: String?) {
         self.body = body
         self.eventimage = eventimage
@@ -33,7 +38,11 @@ class EventObject: NSObject {
         self.title = title
         self.id = id
         self.band = BandObject(band: bandName, descriptionString: nil, facebook: nil, image: nil, genre: nil, website: nil, youtube: nil)
-        self.venue = VenueObject(address: nil, dancing: nil, facebook: nil, image: nil, venue: venueName, yelp: nil, website: nil)
+        self.venue = VenueObject(address: nil, facebook: nil, venue: venueName, yelp: nil, website: nil)
+    }
+    
+    override init() {
+        super.init()
     }
     
 }

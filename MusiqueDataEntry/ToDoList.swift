@@ -12,15 +12,18 @@ import UIKit
 class ToDoList: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
     var tableView: UITableView!
-    var eventlist: [String]?
+    var eventlist: [EventObject]?
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        NetworkController().getVenuesList(completion: {
-            venues in
-            self.eventlist = venues
+        view.backgroundColor = UIColor.white
+        
+        NetworkController().getVenuesListWithDates(completion: {
+            events in
+            self.eventlist = events?.sorted(by: { $0.timestamp?.compare(($1.timestamp as? Date) ?? Date()) == ComparisonResult.orderedAscending })
             self.tableView.reloadData()
+            
         })
         
         view.backgroundColor = .white
@@ -37,47 +40,25 @@ class ToDoList: UIViewController, UITableViewDelegate, UITableViewDataSource {
     }
     
     func numberOfSections(in tableView: UITableView) -> Int {
-        return 4
+        return 1
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return eventlist?.count ?? 0
     }
     
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let alert = UIAlertController(title: "SELECTED", message: "Do you want claim or complete this item?", preferredStyle: UIAlertControllerStyle.alert)
-        alert.addAction(UIAlertAction(title: "Claim", style: UIAlertActionStyle.default, handler: {
-            action in
-
-        }))
-        alert.addAction(UIAlertAction(title: "Complete", style: UIAlertActionStyle.default, handler: {
-            action in
-
-        }))
-        alert.addAction(UIAlertAction(title: "Cancel", style: UIAlertActionStyle.default, handler: nil))
-        self.present(alert, animated: true, completion: nil)
-    }
-    
-    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        switch section {
-        case 0:
-            return "May"
-        case 1:
-            return "June"
-        case 2:
-            return "July"
-        case 3:
-            return "August"
-        case 4:
-            return "September"
-        default:
-            return "Error"
-        }
-    }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
-        cell.textLabel?.text = eventlist?[indexPath.row]
+        if let venue = eventlist?[indexPath.row].venue?.venue {
+            if let date = eventlist?[indexPath.row].timestamp {
+                let formatter = DateFormatter()
+                formatter.dateStyle = .medium
+                cell.textLabel?.text = venue + " " + formatter.string(from: date as Date)
+            } else {
+                cell.textLabel?.text = venue + " NONE"
+            }
+        }
         return cell
     }
     

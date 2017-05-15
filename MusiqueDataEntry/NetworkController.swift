@@ -20,7 +20,7 @@ class NetworkController: NSObject {
     
     
     func getVenuesList(completion: @escaping (([String]) -> Void)) {
-        let query = FIRDatabase.database().reference().child("Venues").queryOrderedByKey()
+        let query = FIRDatabase.database().reference().child("DC/Venues").queryOrderedByKey()
         query.observeSingleEvent(of: .value, with: {
             snapshot in
             if let val = snapshot.value as? NSDictionary {
@@ -34,8 +34,42 @@ class NetworkController: NSObject {
         })
     }
     
+    func getVenuesListWithDates(completion: @escaping (([EventObject]?) -> Void)) {
+        let query = FIRDatabase.database().reference().child("DC/Venues").queryOrderedByKey()
+        query.observeSingleEvent(of: .value, with: {
+            snapshot in
+            if let val = snapshot.value as? NSDictionary {
+                let venues = val.allKeys as! [String]
+                var dict = [EventObject]()
+                for venue in venues {
+                    var newvenue = venue.replacingOccurrences(of: ".", with: "")
+                    newvenue = newvenue.replacingOccurrences(of: "#", with: "")
+                    newvenue = newvenue.replacingOccurrences(of: "$", with: "")
+                    newvenue = newvenue.replacingOccurrences(of: "[", with: "")
+                    newvenue = newvenue.replacingOccurrences(of: "]", with: "")
+                    newvenue = newvenue.replacingOccurrences(of: " ", with: "")
+                    self.myGroup.enter()
+                    self.getLastDate(venue: newvenue, completion: {
+                        event in
+                        if let event = event {
+                           dict.append(event)
+                        }
+                        
+                        self.myGroup.leave()
+                    })
+                }
+                self.myGroup.notify(queue: DispatchQueue.main, execute: {
+                    completion(dict)
+                })
+            }
+        }, withCancel: {
+            (error) in
+            completion(nil)
+        })
+    }
+    
     func getBandObjectsList(completion: @escaping (([String]) -> Void)) {
-        let query = FIRDatabase.database().reference().child("Bands").queryOrderedByKey()
+        let query = FIRDatabase.database().reference().child("DC/Bands").queryOrderedByKey()
         query.observeSingleEvent(of: .value, with: {
             snapshot in
             if let val = snapshot.value as? NSDictionary {
@@ -52,28 +86,28 @@ class NetworkController: NSObject {
     func sendBandData(band: BandObject, completion: @escaping (Bool) -> Void) {
         guard let bandname = band.name else { return }
         if let youtube = band.youtube {
-            FIRDatabase.database().reference().child("Bands/\(bandname)/youtube").setValue(youtube)
+            FIRDatabase.database().reference().child("DC/Bands/\(bandname)/info/youtube").setValue(youtube)
         }
-        if let youtube = band.youtube {
-            FIRDatabase.database().reference().child("Bands/\(bandname)/youtube").setValue(youtube)
+        if let region = band.region {
+            FIRDatabase.database().reference().child("DC/Bands/\(bandname)/info/region").setValue(region)
         }
         if let descriptionString = band.bandDescription {
-            FIRDatabase.database().reference().child("Bands/\(bandname)/descriptionString").setValue(descriptionString)
+            FIRDatabase.database().reference().child("DC/Bands/\(bandname)/info/descriptionString").setValue(descriptionString)
         }
         if let facebook = band.facebook {
-            FIRDatabase.database().reference().child("Bands/\(bandname)/facebook").setValue(facebook)
+            FIRDatabase.database().reference().child("DC/Bands/\(bandname)/info/facebook").setValue(facebook)
         }
         if let image = band.image {
-            FIRDatabase.database().reference().child("Bands/\(bandname)/image").setValue(image)
+            FIRDatabase.database().reference().child("DC/Bands/\(bandname)/info/image").setValue(image)
         }
         if let genre = band.genre {
-            FIRDatabase.database().reference().child("Bands/\(bandname)/genre").setValue(genre)
+            FIRDatabase.database().reference().child("DC/Bands/\(bandname)/info/genre").setValue(genre)
         }
         if let website = band.website {
-            FIRDatabase.database().reference().child("Bands/\(bandname)/website").setValue(website)
+            FIRDatabase.database().reference().child("DC/Bands/\(bandname)/info/website").setValue(website)
         }
         if let email = band.email {
-            FIRDatabase.database().reference().child("Bands/\(bandname)/email").setValue(email)
+            FIRDatabase.database().reference().child("DC/Bands/\(bandname)/email").setValue(email)
         }
         completion(true)
     }
@@ -81,34 +115,34 @@ class NetworkController: NSObject {
     func sendVenueData(venue: VenueObject, completion: @escaping (Bool) -> Void) {
         guard let venuename = venue.venue else { return }
         if let address = venue.address {
-            FIRDatabase.database().reference().child("Venues/\(venuename)/address").setValue(address)
+            FIRDatabase.database().reference().child("DC/Venues/\(venuename)/info/address").setValue(address)
         }
         if let fb = venue.facebook {
-            FIRDatabase.database().reference().child("Venues/\(venuename)/facebook").setValue(fb)
+            FIRDatabase.database().reference().child("DC/Venues/\(venuename)/info/facebook").setValue(fb)
         }
         if let web = venue.website {
-            FIRDatabase.database().reference().child("Venues/\(venuename)/website").setValue(web)
+            FIRDatabase.database().reference().child("DC/Venues/\(venuename)/info/website").setValue(web)
         }
         if let yelp = venue.yelp {
-            FIRDatabase.database().reference().child("Venues/\(venuename)/yelp").setValue(yelp)
+            FIRDatabase.database().reference().child("DC/Venues/\(venuename)/info/yelp").setValue(yelp)
         }
         if let region = venue.region {
-            FIRDatabase.database().reference().child("Venues/\(venuename)/region").setValue(region)
+            FIRDatabase.database().reference().child("DC/Venues/\(venuename)/info/region").setValue(region)
         }
         if let email = venue.email {
-            FIRDatabase.database().reference().child("Venues/\(venuename)/email").setValue(email)
+            FIRDatabase.database().reference().child("DC/Venues/\(venuename)/info/email").setValue(email)
         }
         
 
         let _ = updateLocation(venue: venue, completion: {
             location in
             guard let location = location else { return }
-            let ref = FIRDatabase.database().reference().child("Venues/\(venuename)")
+            let ref = FIRDatabase.database().reference().child("DC/Venues/\(venuename)/info/")
             
             ref.updateChildValues([
                 "coordinates":
                     [location.coordinate.latitude,
-                     location.coordinate.latitude]
+                     location.coordinate.longitude]
                 ])
         })
         
@@ -117,39 +151,215 @@ class NetworkController: NSObject {
     }
     
     func sendEventData(event: EventObject, completion: @escaping (Bool) -> Void) {
-    
-        //get id
-        //get band info from band
-        //get venue info from venue
-        
-        //send to events
+        if let band = event.bandString, let venue = event.venueString {
+            let newevent = EventObject()
+            newevent.venueString = venue
+            newevent.bandString = band
+            newevent.timeString = event.timeString
+            newevent.timestamp = event.timestamp
+            newevent.price = event.price
+            let query = FIRDatabase.database().reference().child("DC/Bands/\(band)")
+            query.observeSingleEvent(of: .value, with: {
+                snapshot in
+                print(snapshot)
+                if let dict = snapshot.value as? NSDictionary {
+                    let band = BandObject(name: band)
+                    newevent.band = band
+                    if let infodict = dict["info"] as? NSDictionary {
+                        newevent.band?.bandDescription = infodict["descriptionString"] as? String
+                        newevent.band?.facebook = infodict["facebook"] as? String
+                        newevent.band?.image = infodict["image"] as? String
+                        let genres = (infodict["genre"] as? String)?.capitalized
+                        newevent.band?.genre = (genres ?? "")
+                        newevent.band?.website = infodict["website"] as? String
+                        newevent.band?.youtube = infodict["youtube"] as? String
+                    }
+                    
+                    
+                    let newquery = FIRDatabase.database().reference().child("DC/Venues/\(venue)")
+                    newquery.observeSingleEvent(of: .value, with: {
+                        snapshot in
+                        print(snapshot)
+                        if let newObject = snapshot.value as? NSDictionary {
+                            let venue = VenueObject(name: venue)
+                            newevent.venue = venue
+                            if let infodict = newObject["info"] as? NSDictionary {
+                                newevent.venue?.address = infodict["address"] as? String
+                                newevent.venue?.yelp = infodict["yelp"] as? String
+                                newevent.venue?.website = infodict["website"] as? String
+                                if let coord = infodict["coordinates"] as? [Double] {
+                                    newevent.venue?.coordinates = CLLocation(latitude: coord[0], longitude: coord[1])
+                                }
+                                
+                                self.sendBuiltEvent(event: newevent, completion: {_ in
+                                    completion(true)
+                                })
+                            }
+                
+                        }
+                    }, withCancel: {
+                        error in
+                        completion(false)
+                    })
+                    
+                }
+            }, withCancel: {
+                error in
+                completion(false)
+            })
+        }
+
     
     }
     
-    func updateAllEvents() {
-        //get all events
-        //sort by date
-        //send them all back in order
+    func getLastDate(venue: String, completion: @escaping(EventObject?) -> Void) {
+        var newvenue = venue.replacingOccurrences(of: ".", with: "")
+        newvenue = newvenue.replacingOccurrences(of: "#", with: "")
+        newvenue = newvenue.replacingOccurrences(of: "$", with: "")
+        newvenue = newvenue.replacingOccurrences(of: "[", with: "")
+        newvenue = newvenue.replacingOccurrences(of: "]", with: "")
+        let newquery = FIRDatabase.database().reference().child("DC/Venues/\(newvenue)/Events").queryOrdered(byChild: "date")
+        newquery.observeSingleEvent(of: .value, with: {
+            
+            snapshot in
+            if snapshot.hasChildren() {
+                self.processEventSnapshot(snapArray: snapshot, completion: {
+                    newevents in
+                    completion(newevents.last)
+                    
+                })
+            } else {
+                completion(EventObject(body: nil, eventimage: nil, eventlink: nil, price: nil, time: nil, title: nil, id: nil, bandName: nil, venueName: venue))
+            }
+            
+        }, withCancel: {
+            error in
+            completion(nil)
+        })
+
+    }
+    
+    func processEventSnapshot(snapArray: FIRDataSnapshot, completion: @escaping (([EventObject]) -> Void)) {
+        var events = [EventObject]()
+        for child in snapArray.children {
+            if let child = child as? FIRDataSnapshot {
+                if let value = child.value as? NSDictionary {
+                    let newEv = processEvent(newObject: value, key: child.key)
+                    events.append(newEv)
+                    completion(events)
+                }
+            }
+        }
+        
+    }
+    
+    func processEvent(newObject: NSDictionary, key: String) -> EventObject {
+        let date = (newObject["date"] as? String ?? "")
+        let event = EventObject(
+            body: "",
+            eventimage: "",
+            eventlink: "",
+            price: 0,
+            time: NSDate(jsonDate: date),
+            title: "",
+            id: newObject["id"] as? String,
+            bandName: newObject["bandname"] as? String,
+            venueName: newObject["venuename"] as? String)
+        
+        return event
     }
 
     
-    func getFBToken(completion: @escaping ((String) -> Void)) {
-        let query = FIRDatabase.database().reference().child("Fbkey")
-        query.observeSingleEvent(of: .value, with: {
-            snapshot in
-            if let val = snapshot.value as? String {
-                completion(val)
-            } else {
-                completion("")
-            }
-        }, withCancel: {
-            error in
-            completion("")
-        })
+    func sendBuiltEvent(event: EventObject, completion: @escaping ((Bool) -> Void)) {
+        let newEventRef = FIRDatabase.database().reference()
+            .child("/DC/Events")
+            .childByAutoId()
+        
+        let newEventID = newEventRef.key
+        
+        guard let bandstring = event.bandString, let venuestring = event.venueString else {
+            completion(false)
+            return
+        }
+        
+        var newData = [
+            "id": newEventID,
+            "bandname": bandstring,
+            "date": String(event.timestamp!.timeIntervalSince1970),
+            "timeString": event.timeString ?? "",
+            "updated": "true",
+            "venuename": venuestring
+        ]
+         as [String : Any]
+        
+        if let genre = event.band?.genre {
+            newData["bandgenre"] = genre
+        }
+        if let image = event.band?.image {
+            newData["bandimage"] = image
+        }
+        if let address = event.venue?.address {
+            newData["venueaddress"] = address
+        }
+        if let price = event.price {
+            newData["eventprice"] = price
+        } else {
+            newData["eventprice"] = "Unknown"
+        }
+        if let fb = event.band?.facebook {
+            newData["bandfacebook"] = fb
+        }
+        if let site = event.venue?.website {
+            newData["venuewebsite"] = site
+        }
+        if let yelp = event.venue?.yelp {
+            newData["venueyelp"] = yelp
+        }
+        if let bandsite = event.band?.website {
+            newData["bandwebsite"] = bandsite
+        }
+        if let yt = event.band?.youtube {
+            newData["bandyoutube"] = yt
+        }
+        if let location = event.venue?.coordinates {
+            newData["coordinates"] =
+            [location.coordinate.latitude,
+            location.coordinate.longitude]
+        }
+        
+        newEventRef.setValue(newData)
+        
+        
+        if let region = event.venue?.region {
+            let regionRef = FIRDatabase.database().reference()
+                .child("DC/Region/\(region)/Events/\(newEventID)")
+            regionRef.setValue(newData)
+        }
+        
+        if let band = event.bandString {
+            var newband = band.replacingOccurrences(of: ".", with: "")
+            newband = newband.replacingOccurrences(of: "#", with: "")
+            newband = newband.replacingOccurrences(of: "$", with: "")
+            newband = newband.replacingOccurrences(of: "[", with: "")
+            newband = newband.replacingOccurrences(of: "]", with: "")
+            let bandRef = FIRDatabase.database().reference()
+                .child("DC/Bands/\(newband)/Events/\(newEventID)")
+            bandRef.setValue(newData)
+        }
+        
+        if let venue = event.venueString {
+            var newvenue = venue.replacingOccurrences(of: ".", with: "")
+            newvenue = newvenue.replacingOccurrences(of: "#", with: "")
+            newvenue = newvenue.replacingOccurrences(of: "$", with: "")
+            newvenue = newvenue.replacingOccurrences(of: "[", with: "")
+            newvenue = newvenue.replacingOccurrences(of: "]", with: "")
+            let venueref = FIRDatabase.database().reference()
+                .child("DC/Venues/\(newvenue)/Events/\(newEventID)")
+            venueref.setValue(newData)
+        }
+
     }
-    
-    
-    
+
 
     func updateLocation(venue: VenueObject, completion: @escaping ((CLLocation?) -> Void)) {
             if let address = venue.address {
@@ -171,144 +381,24 @@ class NetworkController: NSObject {
             }
     }
 
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-
-    ////////////// reference
-
-    //    func getStartKey(completion: @escaping ((Int) -> Void)) {
-    //        let query = FIRDatabase.database().reference().child("Startkey")
-    //        query.observeSingleEvent(of: .value, with: {
-    //            snapshot in
-    //            if let val = snapshot.value as? Int {
-    //                completion(val)
-    //            } else {
-    //                completion(0)
-    //            }
-    //        }, withCancel: {
-    //            error in
-    //            completion(0)
-    //        })
-    //    }
-    
-//    func processEvent(newObject: NSDictionary, key: String) -> EventObject {
-//        let dateFormatter = DateFormatter()
-//        dateFormatter.dateFormat = "yyyy-MM-dd'T'hh:mm:ss.SSS'Z'"
-//        let event = EventObject(
-//            body: newObject["eventdescription"] as? String,
-//            eventimage: newObject["eventpicture"] as? String,
-//            eventlink: newObject["eventlink"] as? String,
-//            price: newObject["eventprice"] as? Int,
-//            time: dateFormatter.date(from: newObject["date"] as? String ?? "") as NSDate?,
-//            title: newObject["eventname"] as? String,
-//            id: key,
-//            bandName: newObject["BandObjectname"] as? String,
-//            venueName: newObject["venuename"] as? String)
-//        
-//        if let time = newObject["eventTime"] as? String, time.startIndex != time.endIndex, time.characters.count > 10 {
-//            let start = time.index((time.startIndex), offsetBy: 11)
-//            let end = time.index((time.startIndex), offsetBy: 13)
-//            let range = start..<end
-//            let hour = "\(Int(time.substring(with: range))! - 5)"
-//            
-//            let minstart = time.index((time.startIndex), offsetBy: 14)
-//            let minend = time.index((time.startIndex), offsetBy: 16)
-//            let minrange = minstart..<minend
-//            let minute = time.substring(with: minrange)
-//            
-//            event.time = "\(hour):\(minute)"
-//        }
-//        
-//        if let time = newObject["eventadditionaltime"] as? String, time.startIndex != time.endIndex, time.characters.count > 10 {
-//            let start = time.index((time.startIndex), offsetBy: 11)
-//            let end = time.index((time.startIndex), offsetBy: 13)
-//            let range = start..<end
-//            let hour = "\(Int(time.substring(with: range))! - 5)"
-//            
-//            let minstart = time.index((time.startIndex), offsetBy: 14)
-//            let minend = time.index((time.startIndex), offsetBy: 16)
-//            let minrange = minstart..<minend
-//            let minute = time.substring(with: minrange)
-//            
-//            event.time = (event.time ?? "") + " and \(hour):\(minute)"
-//        }
-//        
-//        event.band?.bandDescription = newObject["BandObjectdescription"] as? String
-//        event.band?.facebook = newObject["BandObjectfacebook"] as? String
-//        event.band?.image = newObject["BandObjectimage"] as? String
-//        let genres = (newObject["BandObjectgenre"] as? String)?.capitalized
-//        event.band?.genre = (genres ?? "")
-//        event.band?.website = newObject["BandObjectwebsite"] as? String
-//        event.band?.youtube = newObject["BandObjectyoutube"] as? String
-//        
-//        event.venue?.address = newObject["venueaddress"] as? String
-//        event.venue?.dancing = newObject["venuedescription"] as? String
-//        event.venue?.facebook = newObject["venuewebsite"] as? String
-//        event.venue?.image = newObject["venueimage"] as? String
-//        event.venue?.yelp = newObject["venueyelp"] as? String
-//        event.venue?.website = newObject["venuewebsite"] as? String
-//        
-//        if let coord = newObject["coordinates"] as? [Double] {
-//            event.venue?.coordinates = CLLocation(latitude: coord[0], longitude: coord[1])
-//        }
-//        
-//        return event
-//    }
-    
-    
-//    func getEventWithID(id: String, _ completion: @escaping (([EventObject]) -> Void)) {
-//        ref = FIRDatabase.database().reference()
-//        let string = "Events/\(id)"
-//        let query = ref.child(string)
-//        query.observeSingleEvent(of: .value, with: {
-//            snapshot in
-//            if let dict = snapshot.value as? NSDictionary {
-//                let event = self.processEvent(newObject: dict, key: id)
-//                self.updateEvents(events: [event], completion: {
-//                    events in
-//                    completion(events)
-//                })
-//            }
-//            else {
-//                completion([EventObject]())
-//            }
-//        }, withCancel: {
-//            (error) in
-//            completion([EventObject]())
-//        })
-//        
-//    }
-//    
-//    
-//    func processEventSnapshot(snapArray: FIRDataSnapshot, completion: @escaping (([EventObject]) -> Void)) {
-//        var events = [EventObject]()
-//        for child in snapArray.children {
-//            if let child = child as? FIRDataSnapshot {
-//                if let value = child.value as? NSDictionary {
-//                    let newEv = processEvent(newObject: value, key: child.key)
-//                    events.append(newEv)
-//                }
-//            }
-//        }
-//        
-//        
-//        self.updateEvents(events: events, completion: {
-//            doneevents in
-//            completion(doneevents)
-//        })
-//        
-//    }
-//
 }
 
+    
+extension NSDate {
+    convenience init?(jsonDate: String) {
+        let scanner = Scanner(string: jsonDate)
+        
+        
+        // Read milliseconds part:
+        var seconds : Int64 = 0
+        guard scanner.scanInt64(&seconds) else { return nil }
+        let timeStamp = TimeInterval(seconds)
+        
+        // Success! Create NSDate and return.
+        self.init(timeIntervalSince1970: timeStamp)
+    }
+}
 
-
-
+    
+    
+  

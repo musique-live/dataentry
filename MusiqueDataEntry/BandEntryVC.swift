@@ -10,14 +10,14 @@ import UIKit
 import FBSDKCoreKit
 import Eureka
 import SDWebImage
-
-let otheraccess = "EAASevzKy9ZA4BAL6bxNcuQiedXgoizw0clJZBTSkdwOOLV8qICQQGaFhvWxhpyQE1ZA6vsVrFqEWWYMzEGQTx9c8r40rUMwpEluXK7AzQXJxh5VGsciWpSGLmKE7LMntvSJATWXJlEsIQdE9t3ZA3fC0iERRb4YZD"
+import FBSDKLoginKit
 
 class BandEntryVC: FormViewController {
     
     var enteredValue: String?
     var newBandObject: BandObject?
     var imageView: UIImageView!
+    let loginManager = FBSDKLoginManager()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -93,7 +93,7 @@ class BandEntryVC: FormViewController {
     func sendBand() {
         guard let newBandObject = newBandObject else { return }
         
-        let emailRow: EmailRow? = form.rowBy(tag: "BandObjectemail")
+        let emailRow: EmailRow? = form.rowBy(tag: "Email")
         newBandObject.email = emailRow?.value
         
         let fbrow: TextRow? = form.rowBy(tag: "facebook")
@@ -152,23 +152,46 @@ class BandEntryVC: FormViewController {
         let row: TextRow? = form.rowBy(tag: "username")
         if let value = row?.value {
             self.enteredValue = value
-            
-            NetworkController().getFBToken(completion: {
-                token in
-                
-                let request = FBSDKGraphRequest(graphPath: "/\(value)", parameters: nil, tokenString: token, version: "", httpMethod: "GET")
-                let _ = request?.start(completionHandler: {
-                    requesthandler in
-                    if let _ = requesthandler.1 {
-                        if let BandObject = self.createBandObject((requesthandler.1 as? NSDictionary)!) {
-                            self.newBandObject = BandObject
-                            self.displayCollected()
-                        }
+        
+        
+        if let accesstoken = UserDefaults.standard.string(forKey: "fbkey") {
+            let request = FBSDKGraphRequest(graphPath: "/\(value)", parameters: ["fields": "name, press_contact, cover, genre, website, current_location, description"], tokenString: accesstoken, version: "", httpMethod: "GET")
+            let _ = request?.start(completionHandler: {
+                requesthandler in
+                print(requesthandler.0)
+                print(requesthandler.2)
+                if let _ = requesthandler.1 {
+                    if let BandObject = self.createBandObject((requesthandler.1 as? NSDictionary)!) {
+                        self.newBandObject = BandObject
+                        self.displayCollected()
                     }
-                })
+                }
+            })
+        } else {
+            loginManager.logIn(withReadPermissions: [], from: self, handler: {
+                loginResult in
+                let result = loginResult.0
+                if let token = result?.token.tokenString {
+                    UserDefaults.standard.set(token, forKey: "fbkey")
+                
+
+                
+                
+                        let request = FBSDKGraphRequest(graphPath: "/\(value)", parameters: nil, tokenString: token, version: "", httpMethod: "GET")
+                        let _ = request?.start(completionHandler: {
+                            requesthandler in
+                            if let _ = requesthandler.1 {
+                                if let BandObject = self.createBandObject((requesthandler.1 as? NSDictionary)!) {
+                                    self.newBandObject = BandObject
+                                    self.displayCollected()
+                                }
+                            }
+                        })
+                    }
                 
             })
-            
+        }
+        
             
         }
     }

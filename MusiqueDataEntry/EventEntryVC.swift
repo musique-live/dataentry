@@ -62,7 +62,7 @@ class EventEntryVC: UIViewController, UITextFieldDelegate {
         venueField.hidesWhenEmpty = true
         venueField.enableAttributedText = true
         venueField.placeholder = "Venue"
-        venueField.frame = CGRect(x: 20, y: 150, width: halfwidth, height: 50)
+        venueField.frame = CGRect(x: 20, y: 250, width: halfwidth, height: 50)
         view.addSubview(venueField)
         
         venueField.onSelect = {text, indexpath in
@@ -79,17 +79,26 @@ class EventEntryVC: UIViewController, UITextFieldDelegate {
         venueField.leftView = paddingView
         venueField.leftViewMode = .always
         
-        datepicker = UIDatePicker(frame: CGRect(x: 20, y: 250, width: halfwidth, height: 250))
+        datepicker = UIDatePicker(frame: CGRect(x: 20, y: 450, width: halfwidth, height: 250))
         datepicker?.datePickerMode = .date
         datepicker?.addTarget(self, action: #selector(EventEntryVC.handleDatePicker), for: .valueChanged)
         view.addSubview(datepicker!)
         
-        let timeEntry = UITextField(frame: CGRect(x: 20, y: 550, width: halfwidth, height: 50))
+        let timeEntry = UITextField(frame: CGRect(x: 20, y: 750, width: halfwidth, height: 50))
         timeEntry.delegate = self
+        timeEntry.placeholder = "Time"
+        timeEntry.tag = 0
         timeEntry.backgroundColor = UIColor.lightGray.withAlphaComponent(0.5)
         view.addSubview(timeEntry)
         
-        let goButton = UIButton(frame: CGRect(x: view.frame.width - 100, y: view.frame.height - 100, width: 80, height: 50))
+        let priceEntry = UITextField(frame: CGRect(x: 20, y: 850, width: halfwidth, height: 50))
+        priceEntry.delegate = self
+        priceEntry.tag = 1
+        priceEntry.placeholder = "Price"
+        priceEntry.backgroundColor = UIColor.lightGray.withAlphaComponent(0.5)
+        view.addSubview(priceEntry)
+        
+        let goButton = UIButton(frame: CGRect(x: view.frame.width - 100, y: 100, width: 80, height: 50))
         goButton.setTitle("Send", for: .normal)
         goButton.setTitleColor(.blue, for: .normal)
         goButton.addTarget(self, action: "sendData", for: .touchUpInside)
@@ -97,11 +106,21 @@ class EventEntryVC: UIViewController, UITextFieldDelegate {
     }
     
     func sendData() {
-        //send to /v2/events
+        NetworkController().sendEventData(event: event, completion: {
+            success in
+            
+            
+        })
     }
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        event.timeString = textField.text
+        if textField.tag == 0 {
+            event.timeString = textField.text
+        } else {
+            if let pricenum = Int(textField.text!) {
+                event.price = pricenum
+            }
+        }
         return true
     }
     

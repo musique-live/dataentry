@@ -358,6 +358,7 @@ class NetworkController: NSObject {
             venueref.setValue(newData)
         }
 
+        completion(true)
     }
 
 

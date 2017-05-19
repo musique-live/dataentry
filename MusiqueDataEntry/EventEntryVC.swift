@@ -19,6 +19,9 @@ class EventEntryVC: UIViewController, UITextFieldDelegate {
     var actInd: UIActivityIndicatorView?
     let event = EventObject()
     
+    var timeEntry = UITextField()
+    var priceEntry = UITextField()
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -84,7 +87,7 @@ class EventEntryVC: UIViewController, UITextFieldDelegate {
         datepicker?.addTarget(self, action: #selector(EventEntryVC.handleDatePicker), for: .valueChanged)
         view.addSubview(datepicker!)
         
-        let timeEntry = UITextField(frame: CGRect(x: 20, y: 750, width: halfwidth, height: 50))
+        timeEntry = UITextField(frame: CGRect(x: 20, y: 750, width: halfwidth, height: 50))
         timeEntry.delegate = self
         timeEntry.placeholder = "Time"
         timeEntry.tag = 0
@@ -108,8 +111,10 @@ class EventEntryVC: UIViewController, UITextFieldDelegate {
     func sendData() {
         NetworkController().sendEventData(event: event, completion: {
             success in
-            
-            
+            self.bandField.text = ""
+            self.venueField.text = ""
+            self.timeEntry.text = ""
+            self.priceEntry.text = ""
         })
     }
     

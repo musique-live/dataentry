@@ -24,10 +24,6 @@ class VenueEntryVC: FormViewController {
                 $0.title = "Name:"
                 $0.placeholder = ""
             }
-            <<< TextRow("venuefacebook"){
-                $0.title = "Facebook URL:"
-                $0.placeholder = ""
-            }
             <<< TextRow("venuewebsite"){
                 $0.title = "Website:"
                 $0.placeholder = ""

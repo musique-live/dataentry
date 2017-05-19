@@ -28,7 +28,7 @@ class BandEntryVC: FormViewController {
                 row.placeholder = ""
             }
             <<< ButtonRow(){
-                $0.title = "GO"
+                $0.title = "SEARCH FACEBOOK"
                 }.onCellSelection({
                     selected in
                     self.doFacebookCollect()

@@ -84,7 +84,8 @@ class NetworkController: NSObject {
     }
     
     func sendBandData(band: BandObject, completion: @escaping (Bool) -> Void) {
-        guard let bandname = band.name else { return }
+        guard let newband = band.name else { return }
+        let bandname = cleanFBString(string: newband)
         if let youtube = band.youtube {
             FIRDatabase.database().reference().child("DC/Bands/\(bandname)/info/youtube").setValue(youtube)
         }
@@ -112,8 +113,18 @@ class NetworkController: NSObject {
         completion(true)
     }
 
+    func cleanFBString(string: String) -> String {
+        var newstring = string.replacingOccurrences(of: ".", with: "")
+        newstring = newstring.replacingOccurrences(of: "#", with: "")
+        newstring = newstring.replacingOccurrences(of: "$", with: "")
+        newstring = newstring.replacingOccurrences(of: "[", with: "")
+        newstring = newstring.replacingOccurrences(of: "]", with: "")
+        return newstring
+    }
+    
     func sendVenueData(venue: VenueObject, completion: @escaping (Bool) -> Void) {
-        guard let venuename = venue.venue else { return }
+        guard let newvenue = venue.venue else { return }
+        let venuename = cleanFBString(string: newvenue)
         if let address = venue.address {
             FIRDatabase.database().reference().child("DC/Venues/\(venuename)/info/address").setValue(address)
         }

@@ -4,6 +4,11 @@
 <dict>
 	<key>SchemeUserState</key>
 	<dict>
+		<key>AFNetworking.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
 		<key>Eureka.xcscheme</key>
 		<dict>
 			<key>isShown</key>
@@ -32,17 +37,22 @@
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>0A9D9C6D146793B9EEB0D205B608C554</key>
+		<key>14776F1FD4AAD2B2704967B7D3EE827B</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>0CB6139B2FCE65F01914DBF65610F4D9</key>
+		<key>42E66EBC4A34810E132A6581EFC93157</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
 		<key>675A114988AE198732ED4AD726408964</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>CF671F7E57B92905F1CC91D036D6B4A7</key>
 		<dict>
 			<key>primary</key>
 			<true/>

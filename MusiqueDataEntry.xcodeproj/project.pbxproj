@@ -22,13 +22,17 @@
 		DB6598661EAAEC680085BD05 /* AutoCompleteTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB6598651EAAEC680085BD05 /* AutoCompleteTextField.swift */; };
 		DB6598681EAAEFB50085BD05 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = DB6598671EAAEFB50085BD05 /* GoogleService-Info.plist */; };
 		DB65986A1EAAF2920085BD05 /* VenueEntryVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB6598691EAAF2920085BD05 /* VenueEntryVC.swift */; };
-		DB65986C1EAE8D560085BD05 /* ToDoList.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB65986B1EAE8D560085BD05 /* ToDoList.swift */; };
+		DB65986C1EAE8D560085BD05 /* ToDoVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB65986B1EAE8D560085BD05 /* ToDoVC.swift */; };
 		DB7176F81EA7E713008666AC /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB7176F71EA7E712008666AC /* AppDelegate.swift */; };
 		DB7176FA1EA7E713008666AC /* BandEntryVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB7176F91EA7E713008666AC /* BandEntryVC.swift */; };
 		DB7176FF1EA7E713008666AC /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DB7176FE1EA7E713008666AC /* Assets.xcassets */; };
 		DB7177021EA7E713008666AC /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DB7177001EA7E713008666AC /* LaunchScreen.storyboard */; };
 		DB71770D1EA7E713008666AC /* MusiqueDataEntryTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB71770C1EA7E713008666AC /* MusiqueDataEntryTests.swift */; };
 		DB7177181EA7E713008666AC /* MusiqueDataEntryUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB7177171EA7E713008666AC /* MusiqueDataEntryUITests.swift */; };
+		DBAC9C251EF0333400CDDA72 /* NetworkController+ToDo.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBAC9C241EF0333400CDDA72 /* NetworkController+ToDo.swift */; };
+		DBAC9C271EF033B900CDDA72 /* NetworkController+Send.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBAC9C261EF033B900CDDA72 /* NetworkController+Send.swift */; };
+		DBAC9C291EF03C7000CDDA72 /* ToDoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBAC9C281EF03C7000CDDA72 /* ToDoCell.swift */; };
+		DBAC9C2B1EF04FB700CDDA72 /* SeatGeekController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBAC9C2A1EF04FB700CDDA72 /* SeatGeekController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -66,7 +70,7 @@
 		DB6598651EAAEC680085BD05 /* AutoCompleteTextField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AutoCompleteTextField.swift; sourceTree = "<group>"; };
 		DB6598671EAAEFB50085BD05 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		DB6598691EAAF2920085BD05 /* VenueEntryVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VenueEntryVC.swift; sourceTree = "<group>"; };
-		DB65986B1EAE8D560085BD05 /* ToDoList.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ToDoList.swift; sourceTree = "<group>"; };
+		DB65986B1EAE8D560085BD05 /* ToDoVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ToDoVC.swift; sourceTree = "<group>"; };
 		DB7176F41EA7E712008666AC /* MusiqueDataEntry.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MusiqueDataEntry.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		DB7176F71EA7E712008666AC /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		DB7176F91EA7E713008666AC /* BandEntryVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BandEntryVC.swift; sourceTree = "<group>"; };
@@ -79,6 +83,10 @@
 		DB7177131EA7E713008666AC /* MusiqueDataEntryUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MusiqueDataEntryUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		DB7177171EA7E713008666AC /* MusiqueDataEntryUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MusiqueDataEntryUITests.swift; sourceTree = "<group>"; };
 		DB7177191EA7E713008666AC /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		DBAC9C241EF0333400CDDA72 /* NetworkController+ToDo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NetworkController+ToDo.swift"; sourceTree = "<group>"; };
+		DBAC9C261EF033B900CDDA72 /* NetworkController+Send.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NetworkController+Send.swift"; sourceTree = "<group>"; };
+		DBAC9C281EF03C7000CDDA72 /* ToDoCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ToDoCell.swift; sourceTree = "<group>"; };
+		DBAC9C2A1EF04FB700CDDA72 /* SeatGeekController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SeatGeekController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -168,17 +176,10 @@
 		DB7176F61EA7E712008666AC /* MusiqueDataEntry */ = {
 			isa = PBXGroup;
 			children = (
-				DB6598651EAAEC680085BD05 /* AutoCompleteTextField.swift */,
-				DB1DEA941EA92E0000FD27BD /* TabBarController.swift */,
-				DB65986B1EAE8D560085BD05 /* ToDoList.swift */,
-				DB7176F71EA7E712008666AC /* AppDelegate.swift */,
-				DB1DEA8C1EA9291600FD27BD /* Band.swift */,
-				DB7176F91EA7E713008666AC /* BandEntryVC.swift */,
-				DB1DEA961EA92EBF00FD27BD /* EventEntryVC.swift */,
-				DB6598691EAAF2920085BD05 /* VenueEntryVC.swift */,
-				DB1DEA8E1EA9293E00FD27BD /* NetworkController.swift */,
-				DB1DEA901EA92A6900FD27BD /* Event.swift */,
-				DB1DEA921EA92A7800FD27BD /* Venue.swift */,
+				DBAC9C221EF0321800CDDA72 /* Resources */,
+				DBAC9C211EF0320500CDDA72 /* Views */,
+				DBAC9C231EF0322300CDDA72 /* Network */,
+				DBAC9C201EF031F400CDDA72 /* Models */,
 				DB6598671EAAEFB50085BD05 /* GoogleService-Info.plist */,
 				DB1C807D1EA7EC3B008A9B6C /* Resources */,
 			);
@@ -201,6 +202,49 @@
 				DB7177191EA7E713008666AC /* Info.plist */,
 			);
 			path = MusiqueDataEntryUITests;
+			sourceTree = "<group>";
+		};
+		DBAC9C201EF031F400CDDA72 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				DB1DEA8C1EA9291600FD27BD /* Band.swift */,
+				DB1DEA901EA92A6900FD27BD /* Event.swift */,
+				DB1DEA921EA92A7800FD27BD /* Venue.swift */,
+			);
+			name = Models;
+			sourceTree = "<group>";
+		};
+		DBAC9C211EF0320500CDDA72 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				DB65986B1EAE8D560085BD05 /* ToDoVC.swift */,
+				DBAC9C281EF03C7000CDDA72 /* ToDoCell.swift */,
+				DB7176F91EA7E713008666AC /* BandEntryVC.swift */,
+				DB1DEA961EA92EBF00FD27BD /* EventEntryVC.swift */,
+				DB6598691EAAF2920085BD05 /* VenueEntryVC.swift */,
+			);
+			name = Views;
+			sourceTree = "<group>";
+		};
+		DBAC9C221EF0321800CDDA72 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				DB6598651EAAEC680085BD05 /* AutoCompleteTextField.swift */,
+				DB1DEA941EA92E0000FD27BD /* TabBarController.swift */,
+				DB7176F71EA7E712008666AC /* AppDelegate.swift */,
+			);
+			name = Resources;
+			sourceTree = "<group>";
+		};
+		DBAC9C231EF0322300CDDA72 /* Network */ = {
+			isa = PBXGroup;
+			children = (
+				DB1DEA8E1EA9293E00FD27BD /* NetworkController.swift */,
+				DBAC9C241EF0333400CDDA72 /* NetworkController+ToDo.swift */,
+				DBAC9C261EF033B900CDDA72 /* NetworkController+Send.swift */,
+				DBAC9C2A1EF04FB700CDDA72 /* SeatGeekController.swift */,
+			);
+			name = Network;
 			sourceTree = "<group>";
 		};
 		FC8BA63FF1E58FA6586353D6 /* Frameworks */ = {
@@ -403,16 +447,20 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DBAC9C271EF033B900CDDA72 /* NetworkController+Send.swift in Sources */,
 				DB1DEA8F1EA9293E00FD27BD /* NetworkController.swift in Sources */,
 				DB1DEA931EA92A7800FD27BD /* Venue.swift in Sources */,
 				DB1DEA971EA92EBF00FD27BD /* EventEntryVC.swift in Sources */,
-				DB65986C1EAE8D560085BD05 /* ToDoList.swift in Sources */,
+				DB65986C1EAE8D560085BD05 /* ToDoVC.swift in Sources */,
 				DB6598661EAAEC680085BD05 /* AutoCompleteTextField.swift in Sources */,
 				DB1DEA8D1EA9291600FD27BD /* Band.swift in Sources */,
 				DB7176FA1EA7E713008666AC /* BandEntryVC.swift in Sources */,
 				DB1DEA951EA92E0000FD27BD /* TabBarController.swift in Sources */,
+				DBAC9C291EF03C7000CDDA72 /* ToDoCell.swift in Sources */,
+				DBAC9C2B1EF04FB700CDDA72 /* SeatGeekController.swift in Sources */,
 				DB7176F81EA7E713008666AC /* AppDelegate.swift in Sources */,
 				DB1DEA911EA92A6900FD27BD /* Event.swift in Sources */,
+				DBAC9C251EF0333400CDDA72 /* NetworkController+ToDo.swift in Sources */,
 				DB65986A1EAAF2920085BD05 /* VenueEntryVC.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

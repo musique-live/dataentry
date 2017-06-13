@@ -35,7 +35,11 @@ class TabBarController: UITabBarController, UITabBarControllerDelegate {
         let icon4 = UITabBarItem(title: "To Do List", image: nil, selectedImage: nil)
         item4.tabBarItem = icon4
         
-        let controllers = [item1, item3, item2, item4]
+        let item5 = SeatGeekVC()
+        let icon5 = UITabBarItem(title: "Scraping", image: nil, selectedImage: nil)
+        item5.tabBarItem = icon5
+        
+        let controllers = [item5, item1, item3, item2, item4]
         self.viewControllers = controllers
     }
 }

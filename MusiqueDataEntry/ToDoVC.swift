@@ -18,8 +18,6 @@ class ToDoList: UIViewController, UITableViewDelegate, UITableViewDataSource {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        view.backgroundColor = UIColor.white
-        
         NetworkController().getVenuesList(completion:  {
             venues in
             self.venues = venues

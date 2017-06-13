@@ -33,6 +33,8 @@
 		DBAC9C271EF033B900CDDA72 /* NetworkController+Send.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBAC9C261EF033B900CDDA72 /* NetworkController+Send.swift */; };
 		DBAC9C291EF03C7000CDDA72 /* ToDoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBAC9C281EF03C7000CDDA72 /* ToDoCell.swift */; };
 		DBAC9C2B1EF04FB700CDDA72 /* SeatGeekController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBAC9C2A1EF04FB700CDDA72 /* SeatGeekController.swift */; };
+		DBAC9C2D1EF0535700CDDA72 /* SeatGeekVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBAC9C2C1EF0535700CDDA72 /* SeatGeekVC.swift */; };
+		DBAC9C2F1EF0560300CDDA72 /* SeatGeekEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBAC9C2E1EF0560300CDDA72 /* SeatGeekEvent.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -87,6 +89,8 @@
 		DBAC9C261EF033B900CDDA72 /* NetworkController+Send.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NetworkController+Send.swift"; sourceTree = "<group>"; };
 		DBAC9C281EF03C7000CDDA72 /* ToDoCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ToDoCell.swift; sourceTree = "<group>"; };
 		DBAC9C2A1EF04FB700CDDA72 /* SeatGeekController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SeatGeekController.swift; sourceTree = "<group>"; };
+		DBAC9C2C1EF0535700CDDA72 /* SeatGeekVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SeatGeekVC.swift; sourceTree = "<group>"; };
+		DBAC9C2E1EF0560300CDDA72 /* SeatGeekEvent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SeatGeekEvent.swift; path = ../SeatGeekEvent.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -207,6 +211,7 @@
 		DBAC9C201EF031F400CDDA72 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				DBAC9C2E1EF0560300CDDA72 /* SeatGeekEvent.swift */,
 				DB1DEA8C1EA9291600FD27BD /* Band.swift */,
 				DB1DEA901EA92A6900FD27BD /* Event.swift */,
 				DB1DEA921EA92A7800FD27BD /* Venue.swift */,
@@ -218,6 +223,7 @@
 			isa = PBXGroup;
 			children = (
 				DB65986B1EAE8D560085BD05 /* ToDoVC.swift */,
+				DBAC9C2C1EF0535700CDDA72 /* SeatGeekVC.swift */,
 				DBAC9C281EF03C7000CDDA72 /* ToDoCell.swift */,
 				DB7176F91EA7E713008666AC /* BandEntryVC.swift */,
 				DB1DEA961EA92EBF00FD27BD /* EventEntryVC.swift */,
@@ -458,8 +464,10 @@
 				DB1DEA951EA92E0000FD27BD /* TabBarController.swift in Sources */,
 				DBAC9C291EF03C7000CDDA72 /* ToDoCell.swift in Sources */,
 				DBAC9C2B1EF04FB700CDDA72 /* SeatGeekController.swift in Sources */,
+				DBAC9C2F1EF0560300CDDA72 /* SeatGeekEvent.swift in Sources */,
 				DB7176F81EA7E713008666AC /* AppDelegate.swift in Sources */,
 				DB1DEA911EA92A6900FD27BD /* Event.swift in Sources */,
+				DBAC9C2D1EF0535700CDDA72 /* SeatGeekVC.swift in Sources */,
 				DBAC9C251EF0333400CDDA72 /* NetworkController+ToDo.swift in Sources */,
 				DB65986A1EAAF2920085BD05 /* VenueEntryVC.swift in Sources */,
 			);

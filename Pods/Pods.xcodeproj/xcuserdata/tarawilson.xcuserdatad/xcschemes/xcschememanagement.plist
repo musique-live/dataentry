@@ -4,7 +4,7 @@
 <dict>
 	<key>SchemeUserState</key>
 	<dict>
-		<key>AFNetworking.xcscheme</key>
+		<key>Alamofire.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
@@ -15,6 +15,11 @@
 			<false/>
 		</dict>
 		<key>GoogleToolboxForMac.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
+		<key>ObjectMapper.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
@@ -37,12 +42,7 @@
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>14776F1FD4AAD2B2704967B7D3EE827B</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>42E66EBC4A34810E132A6581EFC93157</key>
+		<key>597472546AE0AF624DD769380E58A152</key>
 		<dict>
 			<key>primary</key>
 			<true/>
@@ -52,7 +52,17 @@
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>CF671F7E57B92905F1CC91D036D6B4A7</key>
+		<key>88E9EC28B8B46C3631E6B242B50F4442</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>95A3F2139623847F7C3012949ACB52E2</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>B43918AB915242B851ABEFB5D70BE0AD</key>
 		<dict>
 			<key>primary</key>
 			<true/>

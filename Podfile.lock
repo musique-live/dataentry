@@ -1,19 +1,5 @@
 PODS:
-  - AFNetworking (3.1.0):
-    - AFNetworking/NSURLSession (= 3.1.0)
-    - AFNetworking/Reachability (= 3.1.0)
-    - AFNetworking/Security (= 3.1.0)
-    - AFNetworking/Serialization (= 3.1.0)
-    - AFNetworking/UIKit (= 3.1.0)
-  - AFNetworking/NSURLSession (3.1.0):
-    - AFNetworking/Reachability
-    - AFNetworking/Security
-    - AFNetworking/Serialization
-  - AFNetworking/Reachability (3.1.0)
-  - AFNetworking/Security (3.1.0)
-  - AFNetworking/Serialization (3.1.0)
-  - AFNetworking/UIKit (3.1.0):
-    - AFNetworking/NSURLSession
+  - Alamofire (4.3.0)
   - Eureka (2.0.1)
   - Firebase (3.13.0):
     - Firebase/Core (= 3.13.0)
@@ -35,20 +21,22 @@ PODS:
   - GoogleToolboxForMac/Defines (2.1.1)
   - GoogleToolboxForMac/NSData+zlib (2.1.1):
     - GoogleToolboxForMac/Defines (= 2.1.1)
+  - ObjectMapper (2.2.3)
   - SDWebImage (4.0.0):
     - SDWebImage/Core (= 4.0.0)
   - SDWebImage/Core (4.0.0)
 
 DEPENDENCIES:
-  - AFNetworking (~> 3.0)
+  - Alamofire
   - Eureka
   - Firebase (>= 2.5.1)
   - Firebase/Core
   - Firebase/Database
+  - ObjectMapper
   - SDWebImage
 
 SPEC CHECKSUMS:
-  AFNetworking: 5e0e199f73d8626b11e79750991f5d173d1f8b67
+  Alamofire: 856a113053a7bc9cbe5d6367a555d773fc5cfef7
   Eureka: ae837bb1dfae0c07bc1bda7aeef87876eeb537c2
   Firebase: 5bc34d7b5ff5792e3386c8b28dc6265deeab0da4
   FirebaseAnalytics: 0d1b7d81d5021155be37702a94ba1ec16d45365d
@@ -56,8 +44,9 @@ SPEC CHECKSUMS:
   FirebaseDatabase: 05c96d7b43a7368dc91c07791adb49683e1738d1
   FirebaseInstanceID: 2d0518b1378fe9d685ef40cbdd63d2fdc1125339
   GoogleToolboxForMac: 8e329f1b599f2512c6b10676d45736bcc2cbbeb0
+  ObjectMapper: d3b3de11267f5d971f390eb8d63dd509116a4329
   SDWebImage: 76a6348bdc74eb5a55dd08a091ef298e56b55e41
 
-PODFILE CHECKSUM: 104c6559c92228c01565ca9a3169af850ffcd8a1
+PODFILE CHECKSUM: 230e4427ff32ac0fd9e84648df90ccbf82648f1a
 
 COCOAPODS: 1.0.1

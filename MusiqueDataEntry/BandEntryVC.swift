@@ -51,6 +51,12 @@ class BandEntryVC: FormViewController {
                 $0.title = "Image:"
                 $0.placeholder = ""
             }
+            <<< ButtonRow(){
+                $0.title = "Find Other Images"
+                }.onCellSelection({
+                    selected in
+                    self.searchImages()
+                })
             <<< TextRow("website"){
                 $0.title = "Website:"
                 $0.placeholder = ""
@@ -59,6 +65,18 @@ class BandEntryVC: FormViewController {
                 $0.title = "Youtube:"
                 $0.placeholder = ""
             }
+            <<< ButtonRow(){
+                $0.title = "Search Youtube"
+                }.onCellSelection({
+                    selected in
+                    self.searchYoutube()
+                })
+            <<< ButtonRow(){
+                $0.title = "Open Youtube"
+                }.onCellSelection({
+                    selected in
+                    self.openYoutube()
+                })
             <<< TextRow("region"){
                 $0.title = "Region:"
                 $0.placeholder = ""
@@ -215,36 +233,28 @@ class BandEntryVC: FormViewController {
     }
     
     
-    func doFacebookCollect() {
-        let row: TextRow? = form.rowBy(tag: "username")
-        if let value = row?.value {
-            self.enteredValue = value
-            tryFacebook(value: value, completion: {
-                success in
-            })
-        }
-        
-        if let sgobj = seatGeekObject {
-            row?.placeholder = "Testing..."
-            row?.updateCell()
-            if let newband = sgobj.name {
-                let band = newband.replacingOccurrences(of: " ", with: "")
-                
-                
-                self.tryFacebook(value: band, completion: {
-                    result in
-                    if result == false {
-                        self.tryFacebook(value: band + "music", completion: {
+    func tryAll(value: String) {
+        let band = value.replacingOccurrences(of: " ", with: "")
+        self.enteredValue = band
+        self.tryFacebook(value: band, completion: {
+            result in
+            if result == false {
+                self.enteredValue = band + "music"
+                self.tryFacebook(value: band + "music", completion: {
+                    bool in
+                    if bool == false {
+                        self.enteredValue = band + "band"
+                        self.tryFacebook(value: band + "band", completion: {
                             bool in
                             if bool == false {
-                                self.tryFacebook(value: band + "band", completion: {
+                                self.enteredValue = band + "official"
+                                self.tryFacebook(value: band + "official", completion: {
                                     bool in
                                     if bool == false {
-                                        self.tryFacebook(value: band + "official", completion: {
+                                        self.enteredValue = "official" + band
+                                        self.tryFacebook(value: "official" + band, completion: {
                                             bool in
                                             if bool == false {
-                                                row?.placeholder = "Enter Facebook"
-                                                row?.updateCell()
                                             }
                                         })
                                     }
@@ -253,6 +263,30 @@ class BandEntryVC: FormViewController {
                         })
                     }
                 })
+            }
+        })
+
+    }
+    
+    func doFacebookCollect() {
+        let row: TextRow? = form.rowBy(tag: "username")
+        if let value = row?.value, !(value.isEmpty) {
+            self.enteredValue = value
+            tryFacebook(value: value, completion: {
+                result in
+            })
+        } else {
+            let bandrow: TextRow? = self.form.rowBy(tag: "name")
+            if let band = bandrow?.value {
+                self.tryAll(value: band)
+            }
+        }
+        
+        if let sgobj = seatGeekObject {
+            row?.placeholder = "Testing..."
+            row?.updateCell()
+            if let newband = sgobj.name {
+                tryAll(value: newband)
             }
         }
     }
@@ -314,14 +348,12 @@ class BandEntryVC: FormViewController {
         fbrow?.updateCell()
         
         let nameRow: TextRow? = form.rowBy(tag: "name")
-        if nameRow?.value == nil {
-            nameRow?.value = newBandObject.name
-            nameRow?.updateCell()
-        }
+        nameRow?.value = newBandObject.name
+        nameRow?.updateCell()
         
         
         let imageRow: TextRow? = form.rowBy(tag: "image")
-        if imageRow?.value == nil {
+
             imageRow?.value = newBandObject.image
             imageRow?.updateCell()
             
@@ -329,14 +361,14 @@ class BandEntryVC: FormViewController {
                 let url = URL(string: image)
                 imageView.sd_setImage(with: url)
             }
-        }
+
         
         
         let genreRow: TextRow? = form.rowBy(tag: "genre")
-        if genreRow?.value == nil {
+
             genreRow?.value = newBandObject.genre
             genreRow?.updateCell()
-        }
+
         
         let webRow: TextRow? = form.rowBy(tag: "website")
         webRow?.value = newBandObject.website
@@ -349,6 +381,40 @@ class BandEntryVC: FormViewController {
         let descriptionRow: TextAreaRow? = form.rowBy(tag: "description")
         descriptionRow?.value = newBandObject.bandDescription
         descriptionRow?.updateCell()
+    }
+    
+    func searchYoutube() {
+        let nameRow: TextRow? = form.rowBy(tag: "name")
+        if let name = nameRow?.value {
+            SeatGeekController().getYoutubeForBand(band: name, completion: {
+                youtubelink in
+                self.updateYoutube(url: youtubelink)
+            })
+        }
+    }
+    
+    func updateYoutube(url: String) {
+            let ytrow: TextRow? = form.rowBy(tag: "youtube")
+            ytrow?.value = url
+            ytrow?.updateCell()
+    }
+    
+    func openYoutube() {
+        let ytrow: TextRow? = form.rowBy(tag: "youtube")
+        if let yt = ytrow?.value {
+            let url = URL(string: yt)
+            UIApplication.shared.openURL(url!)
+        }
+    }
+    
+    func searchImages() {
+        let googleLink = "https://www.google.com/search?site=&tbm=isch&source=hp&biw=1187&bih=612&q="
+        let nameRow: TextRow? = form.rowBy(tag: "name")
+        if let name = nameRow?.value {
+            let urlstring = googleLink + name.replacingOccurrences(of: " ", with: "+") + "+music+band"
+            let url = URL(string: urlstring)
+            UIApplication.shared.openURL(url!)
+        }
     }
     
     func createBandObject(_ dict: NSDictionary) -> BandObject? {

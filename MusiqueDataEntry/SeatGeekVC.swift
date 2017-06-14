@@ -16,6 +16,7 @@ class SeatGeekVC: UIViewController, UITableViewDelegate, UITableViewDataSource, 
     let sgcontroller = SeatGeekController()
     var subview: UIView?
     var close = UIButton()
+    var morebutton = UIButton()
     
     override func viewDidLoad() {
         view.backgroundColor = UIColor.white
@@ -26,37 +27,29 @@ class SeatGeekVC: UIViewController, UITableViewDelegate, UITableViewDataSource, 
         })
         
         view.backgroundColor = .white
-        tableView = UITableView(frame: CGRect(x: 0, y: 10, width: view.frame.width, height: view.frame.height - 60))
+        tableView = UITableView(frame: CGRect(x: 0, y: 50, width: view.frame.width, height: view.frame.height - 60))
         tableView.delegate = self
         tableView.dataSource = self
         view.addSubview(tableView)
         
         tableView.register(SeatGeekCell.self, forCellReuseIdentifier: "cell")
-    }
-    
-    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        return 50
-    }
-    
-    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        let newview = UIView(frame: CGRect(x: 0, y: 0, width: tableView.frame.width, height: 50))
-        newview.backgroundColor = UIColor.white
         
-        let morebutton = UIButton(frame: CGRect(x: view.frame.width - 200, y: 10, width: 200, height: 30))
+        morebutton = UIButton(frame: CGRect(x: view.frame.width - 200, y: 10, width: 200, height: 30))
         morebutton.setTitle("LOAD MORE", for: .normal)
         morebutton.addTarget(self, action: "loadMore", for: .touchUpInside)
-        morebutton.setTitleColor(UIColor.black, for: .normal)
-        newview.addSubview(morebutton)
-        
-        return newview
+        morebutton.backgroundColor = UIColor.blue
+        morebutton.setTitleColor(UIColor.white, for: .normal)
+        view.addSubview(morebutton)
     }
     
     func loadMore() {
+        morebutton.backgroundColor = UIColor.gray
         self.events = nil
         tableView.reloadData()
         sgcontroller.loadNextEvents(completion: {
             events in
             self.events = events
+            self.morebutton.backgroundColor = UIColor.blue
             self.tableView.reloadData()
         })
     }

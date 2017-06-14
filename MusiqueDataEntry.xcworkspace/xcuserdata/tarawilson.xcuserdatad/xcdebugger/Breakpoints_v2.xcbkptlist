@@ -26,11 +26,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "MusiqueDataEntry/SeatGeekVC.swift"
-            timestampString = "519085862.240816"
+            timestampString = "519103081.284178"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "85"
-            endingLineNumber = "85"
+            startingLineNumber = "78"
+            endingLineNumber = "78"
             landmarkName = "tableView(_:cellForRowAt:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -58,12 +58,12 @@
                   moduleName = "MusiqueDataEntry"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/tarawilson/Desktop/MusiqueDataEntry/MusiqueDataEntry/EventEntryVC.swift"
-                  timestampString = "519097592.740842"
+                  timestampString = "519113536.365262"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "150"
                   endingLineNumber = "150"
-                  offsetFromSymbolStart = "76">
+                  offsetFromSymbolStart = "87">
                </Location>
                <Location
                   shouldBeEnabled = "Yes"
@@ -73,12 +73,12 @@
                   moduleName = "MusiqueDataEntry"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/tarawilson/Desktop/MusiqueDataEntry/MusiqueDataEntry/EventEntryVC.swift"
-                  timestampString = "519097592.742395"
+                  timestampString = "519113536.368334"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "150"
                   endingLineNumber = "150"
-                  offsetFromSymbolStart = "168">
+                  offsetFromSymbolStart = "194">
                </Location>
             </Locations>
          </BreakpointContent>
@@ -106,12 +106,12 @@
                   moduleName = "MusiqueDataEntry"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/tarawilson/Desktop/MusiqueDataEntry/MusiqueDataEntry/EventEntryVC.swift"
-                  timestampString = "519097592.745837"
+                  timestampString = "519113536.372822"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "118"
                   endingLineNumber = "118"
-                  offsetFromSymbolStart = "256">
+                  offsetFromSymbolStart = "218">
                </Location>
                <Location
                   shouldBeEnabled = "Yes"
@@ -121,12 +121,12 @@
                   moduleName = "MusiqueDataEntry"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/tarawilson/Desktop/MusiqueDataEntry/MusiqueDataEntry/EventEntryVC.swift"
-                  timestampString = "519097592.747334"
+                  timestampString = "519113536.374293"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "120"
                   endingLineNumber = "120"
-                  offsetFromSymbolStart = "36">
+                  offsetFromSymbolStart = "23">
                </Location>
             </Locations>
          </BreakpointContent>
@@ -138,11 +138,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "MusiqueDataEntry/NetworkController+Send.swift"
-            timestampString = "519082835.401223"
+            timestampString = "519114165.826973"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "94"
-            endingLineNumber = "94"
+            startingLineNumber = "141"
+            endingLineNumber = "141"
             landmarkName = "sendEventData(event:completion:)"
             landmarkType = "7">
             <Locations>
@@ -154,12 +154,12 @@
                   moduleName = "MusiqueDataEntry"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/tarawilson/Desktop/MusiqueDataEntry/MusiqueDataEntry/NetworkController+Send.swift"
-                  timestampString = "519097592.750943"
+                  timestampString = "519113536.378821"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "94"
-                  endingLineNumber = "94"
-                  offsetFromSymbolStart = "40">
+                  startingLineNumber = "138"
+                  endingLineNumber = "138"
+                  offsetFromSymbolStart = "47">
                </Location>
                <Location
                   shouldBeEnabled = "Yes"
@@ -169,30 +169,14 @@
                   moduleName = "MusiqueDataEntry"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/tarawilson/Desktop/MusiqueDataEntry/MusiqueDataEntry/NetworkController+Send.swift"
-                  timestampString = "519097592.752398"
+                  timestampString = "519113536.381284"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "94"
-                  endingLineNumber = "94"
-                  offsetFromSymbolStart = "156">
+                  startingLineNumber = "138"
+                  endingLineNumber = "138"
+                  offsetFromSymbolStart = "191">
                </Location>
             </Locations>
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "MusiqueDataEntry/SeatGeekVC.swift"
-            timestampString = "519083031.325904"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "25"
-            endingLineNumber = "25"
-            landmarkName = "viewDidLoad()"
-            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -202,11 +186,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "MusiqueDataEntry/NetworkController+Send.swift"
-            timestampString = "519086297.373008"
+            timestampString = "519114165.826973"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "252"
-            endingLineNumber = "252"
+            startingLineNumber = "299"
+            endingLineNumber = "299"
             landmarkName = "denySeatGeek(sgid:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -234,11 +218,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "MusiqueDataEntry/BandEntryVC.swift"
-            timestampString = "519086113.422233"
+            timestampString = "519108611.160653"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "183"
-            endingLineNumber = "183"
+            startingLineNumber = "201"
+            endingLineNumber = "201"
             landmarkName = "sendBand()"
             landmarkType = "7">
             <Locations>
@@ -250,12 +234,12 @@
                   moduleName = "MusiqueDataEntry"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/tarawilson/Desktop/MusiqueDataEntry/MusiqueDataEntry/BandEntryVC.swift"
-                  timestampString = "519097592.76174"
+                  timestampString = "519113536.398229"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "183"
-                  endingLineNumber = "183"
-                  offsetFromSymbolStart = "3532">
+                  startingLineNumber = "201"
+                  endingLineNumber = "201"
+                  offsetFromSymbolStart = "5082">
                </Location>
                <Location
                   shouldBeEnabled = "Yes"
@@ -265,12 +249,12 @@
                   moduleName = "MusiqueDataEntry"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/tarawilson/Desktop/MusiqueDataEntry/MusiqueDataEntry/BandEntryVC.swift"
-                  timestampString = "519097592.763172"
+                  timestampString = "519113536.400914"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "186"
-                  endingLineNumber = "186"
-                  offsetFromSymbolStart = "76">
+                  startingLineNumber = "204"
+                  endingLineNumber = "204"
+                  offsetFromSymbolStart = "84">
                </Location>
             </Locations>
          </BreakpointContent>
@@ -282,43 +266,91 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "MusiqueDataEntry/BandEntryVC.swift"
-            timestampString = "519097590.499968"
+            timestampString = "519108611.160653"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "234"
-            endingLineNumber = "234"
-            landmarkName = "doFacebookCollect()"
+            startingLineNumber = "172"
+            endingLineNumber = "172"
+            landmarkName = "sendBand()"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "MusiqueDataEntry/BandEntryVC.swift"
+            timestampString = "519108611.160653"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "204"
+            endingLineNumber = "204"
+            landmarkName = "sendBand()"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "MusiqueDataEntry/BandEntryVC.swift"
+            timestampString = "519109594.369721"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "295"
+            endingLineNumber = "295"
+            landmarkName = "tryFacebook(value:completion:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "MusiqueDataEntry/NetworkController.swift"
+            timestampString = "519112153.428724"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "63"
+            endingLineNumber = "63"
+            landmarkName = "getBand(band:completion:)"
             landmarkType = "7">
             <Locations>
                <Location
                   shouldBeEnabled = "Yes"
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
-                  symbolName = "MusiqueDataEntry.BandEntryVC.doFacebookCollect () -&gt; ()"
+                  symbolName = "MusiqueDataEntry.NetworkController.(getBand (band : Swift.String, completion : (MusiqueDataEntry.BandObject) -&gt; ()) -&gt; ()).(closure #1)"
                   moduleName = "MusiqueDataEntry"
                   usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/tarawilson/Desktop/MusiqueDataEntry/MusiqueDataEntry/BandEntryVC.swift"
-                  timestampString = "519097591.477222"
+                  urlString = "file:///Users/tarawilson/Desktop/MusiqueDataEntry/MusiqueDataEntry/NetworkController.swift"
+                  timestampString = "519113536.421617"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "234"
-                  endingLineNumber = "234"
-                  offsetFromSymbolStart = "1028">
+                  startingLineNumber = "63"
+                  endingLineNumber = "63"
+                  offsetFromSymbolStart = "657">
                </Location>
                <Location
                   shouldBeEnabled = "Yes"
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
-                  symbolName = "MusiqueDataEntry.BandEntryVC.(doFacebookCollect () -&gt; ()).(closure #2)"
+                  symbolName = "MusiqueDataEntry.NetworkController.(getBand (band : Swift.String, completion : (MusiqueDataEntry.BandObject) -&gt; ()) -&gt; ()).(closure #1)"
                   moduleName = "MusiqueDataEntry"
                   usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/tarawilson/Desktop/MusiqueDataEntry/MusiqueDataEntry/BandEntryVC.swift"
-                  timestampString = "519097591.478785"
+                  urlString = "file:///Users/tarawilson/Desktop/MusiqueDataEntry/MusiqueDataEntry/NetworkController.swift"
+                  timestampString = "519113536.424166"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "236"
-                  endingLineNumber = "236"
-                  offsetFromSymbolStart = "40">
+                  startingLineNumber = "63"
+                  endingLineNumber = "63"
+                  offsetFromSymbolStart = "1650">
                </Location>
             </Locations>
          </BreakpointContent>
@@ -329,14 +361,46 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "MusiqueDataEntry/BandEntryVC.swift"
-            timestampString = "519097592.703788"
+            filePath = "MusiqueDataEntry/NetworkController+Send.swift"
+            timestampString = "519113470.189885"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "236"
-            endingLineNumber = "236"
-            landmarkName = "doFacebookCollect()"
+            startingLineNumber = "47"
+            endingLineNumber = "47"
+            landmarkName = "updateBandData(band:completion:)"
             landmarkType = "7">
+            <Locations>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "MusiqueDataEntry.NetworkController.updateBandData (band : MusiqueDataEntry.BandObject, completion : (Swift.Bool) -&gt; ()) -&gt; ()"
+                  moduleName = "MusiqueDataEntry"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/tarawilson/Desktop/MusiqueDataEntry/MusiqueDataEntry/NetworkController+Send.swift"
+                  timestampString = "519113536.438246"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "47"
+                  endingLineNumber = "47"
+                  offsetFromSymbolStart = "31">
+               </Location>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "MusiqueDataEntry.NetworkController.(updateBandData (band : MusiqueDataEntry.BandObject, completion : (Swift.Bool) -&gt; ()) -&gt; ()).(closure #1)"
+                  moduleName = "MusiqueDataEntry"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/tarawilson/Desktop/MusiqueDataEntry/MusiqueDataEntry/NetworkController+Send.swift"
+                  timestampString = "519113536.440635"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "50"
+                  endingLineNumber = "50"
+                  offsetFromSymbolStart = "31">
+               </Location>
+            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -345,14 +409,46 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "MusiqueDataEntry/BandEntryVC.swift"
-            timestampString = "519097597.976424"
+            filePath = "MusiqueDataEntry/NetworkController+Send.swift"
+            timestampString = "519113606.556934"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "239"
-            endingLineNumber = "239"
-            landmarkName = "doFacebookCollect()"
+            startingLineNumber = "50"
+            endingLineNumber = "50"
+            landmarkName = "updateBandData(band:completion:)"
             landmarkType = "7">
+            <Locations>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "MusiqueDataEntry.NetworkController.(updateBandData (band : MusiqueDataEntry.BandObject, completion : (Swift.Bool) -&gt; ()) -&gt; ()).(closure #1)"
+                  moduleName = "MusiqueDataEntry"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/tarawilson/Desktop/MusiqueDataEntry/MusiqueDataEntry/NetworkController+Send.swift"
+                  timestampString = "519113606.563105"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "50"
+                  endingLineNumber = "50"
+                  offsetFromSymbolStart = "31">
+               </Location>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "MusiqueDataEntry.NetworkController.(updateBandData (band : MusiqueDataEntry.BandObject, completion : (Swift.Bool) -&gt; ()) -&gt; ()).(closure #1).(closure #1)"
+                  moduleName = "MusiqueDataEntry"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/tarawilson/Desktop/MusiqueDataEntry/MusiqueDataEntry/NetworkController+Send.swift"
+                  timestampString = "519113606.566985"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "53"
+                  endingLineNumber = "53"
+                  offsetFromSymbolStart = "34">
+               </Location>
+            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -361,29 +457,13 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "MusiqueDataEntry/BandEntryVC.swift"
-            timestampString = "519097600.488376"
+            filePath = "MusiqueDataEntry/NetworkController+Send.swift"
+            timestampString = "519113650.598416"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "242"
-            endingLineNumber = "242"
-            landmarkName = "doFacebookCollect()"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "MusiqueDataEntry/BandEntryVC.swift"
-            timestampString = "519097602.688344"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "244"
-            endingLineNumber = "244"
-            landmarkName = "doFacebookCollect()"
+            startingLineNumber = "53"
+            endingLineNumber = "53"
+            landmarkName = "updateBandData(band:completion:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

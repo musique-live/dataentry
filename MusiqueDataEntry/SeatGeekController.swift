@@ -12,6 +12,8 @@ import Alamofire
 let seatgeeksecret = "5fc8456ed09d9f40c32adbff67b1fd5a9e44671338cb65a7ea4a20bae9ba24bc"
 let seatgeekclient = "Nzc4NjQxMnwxNDk2OTc2NTE3LjEz"
 
+let yelpclientid = "xNWMinRpWtYPu1c1SA28xA"
+let yelpsecret = "joxqtrACR9pH9BE3ACp3gEZ1tSNgf41iJlmdfZJnQbsoKigNCWJsdGZSU73L8xFS"
 
 class SeatGeekController: NSObject {
     
@@ -84,10 +86,16 @@ class SeatGeekController: NSObject {
                         updatedevents.remove(at: item)
                     }
                     
-                    self.getAllYoutube(events: updatedevents, completion: {
-                        finalevents in
-                        completion(finalevents)
-                    })
+                    
+                    if updatedevents.count > 0 {
+                        self.getAllYoutube(events: updatedevents, completion: {
+                            finalevents in
+                            completion(finalevents)
+                        })
+                    } else {
+                        completion([SeatGeekObject]())
+                    }
+                    
                     
                 })
                 
@@ -152,5 +160,22 @@ class SeatGeekController: NSObject {
             }
         }
     }
+    
+    func getYoutubeForBand(band: String, completion: @escaping(String) -> Void) {
+        let searchband = band.replacingOccurrences(of: " ", with: "+")
+        let url = youtubeURL + "&q=\(searchband)+music+band"
+        Alamofire.request(url).responseJSON { response in
+            if let result = response.result.value as? NSDictionary {
+                if let answers = result["items"] as? [NSDictionary] {
+                    if let itemsid = answers.first?["id"] as? NSDictionary {
+                        if let youtubeid = itemsid["videoId"] as? String {
+                            completion("https://www.youtube.com/watch?v=" + youtubeid)
+                        }
+                    }
+                }
+            }
+        }
+    }
+
     
 }

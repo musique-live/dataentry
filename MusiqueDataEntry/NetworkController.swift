@@ -54,6 +54,34 @@ class NetworkController: NSObject {
         })
     }
     
+    func getBand(band: String, completion: @escaping (BandObject) -> Void) {
+        let query = FIRDatabase.database().reference().child("DC/Bands/\(cleanFBString(string: band))/info")
+        query.observeSingleEvent(of: .value, with: {
+            snapshot in
+            if let val = snapshot.value as? NSDictionary {
+                let band = BandObject(name: band)
+                if let fb = val["facebook"] as? String {
+                    band.facebook = fb
+                }
+                if let genre = val["genre"] as? String {
+                    band.genre = genre
+                }
+                if let image = val["image"] as? String {
+                    band.image = image
+                }
+                if let youtube = val["youtube"] as? String {
+                    band.youtube = youtube
+                }
+                if let website = val["website"] as? String {
+                    band.website = website
+                }
+                if let descript = val["descriptionString"] as? String {
+                    band.bandDescription = descript
+                }
+                completion(band)
+            }
+        })
+    }
     
     func getBandObjectsList(completion: @escaping (([String]) -> Void)) {
         let query = FIRDatabase.database().reference().child("DC/Bands").queryOrderedByKey()

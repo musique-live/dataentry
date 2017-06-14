@@ -38,11 +38,58 @@ extension NetworkController {
             FIRDatabase.database().reference().child("DC/Bands/\(bandname)/info/website").setValue(website)
         }
         if let email = band.email {
-            FIRDatabase.database().reference().child("DC/Bands/\(bandname)/email").setValue(email)
+            FIRDatabase.database().reference().child("DC/Bands/\(bandname)/info/email").setValue(email)
         }
         completion(true)
     }
+    
+    func updateBandData(band: BandObject, completion: @escaping (Bool) -> Void) {
+        sendBandData(band: band, completion: {
+            success in
+            
+            self.getAllBandEvents(band: band, completion: {
+                eventIDS in
+                
+                let cleanband = self.cleanFBString(string: band.name!)
+                
+                for event in eventIDS {
+                    if let image = band.image {
+                        FIRDatabase.database().reference().child("DC/Bands/\(cleanband)/Events/\(event)/bandimage").setValue(image)
+                        FIRDatabase.database().reference().child("DC/Events/\(event)/bandimage").setValue(image)
+                    }
+                    if let genre = band.genre {
+                        FIRDatabase.database().reference().child("DC/Bands/\(cleanband)/Events/\(event)/bandgenre").setValue(genre)
+                        FIRDatabase.database().reference().child("DC/Events/\(event)/bandgenre").setValue(genre)
+                    }
+                    if let des = band.bandDescription {
+                        FIRDatabase.database().reference().child("DC/Bands/\(cleanband)/Events/\(event)/banddescription").setValue(des)
+                        FIRDatabase.database().reference().child("DC/Events/\(event)/banddescription").setValue(des)
+                    }
+                    if let yt = band.youtube {
+                        FIRDatabase.database().reference().child("DC/Bands/\(cleanband)/Events/\(event)/bandyoutube").setValue(yt)
+                        FIRDatabase.database().reference().child("DC/Events/\(event)/bandyoutube").setValue(yt)
+                    }
+                    
+                }
+                completion(true)
+                
+            })
+            
+            
+        })
+    }
 
+    func getAllBandEvents(band: BandObject, completion: @escaping ([String]) -> Void) {
+        let query = FIRDatabase.database().reference().child("DC/Bands/\(cleanFBString(string: band.name!))/Events").queryOrderedByKey()
+        query.observeSingleEvent(of: .value, with: {
+            snapshot in
+            if let val = snapshot.value as? NSDictionary {
+                completion(val.allKeys as! [String])
+            } else {
+                completion([])
+            }
+        })
+    }
     
     func sendVenueData(venue: VenueObject, completion: @escaping (Bool) -> Void) {
         guard let newvenue = venue.venue else { return }

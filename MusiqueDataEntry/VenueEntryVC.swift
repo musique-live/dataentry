@@ -11,9 +11,11 @@ import FBSDKCoreKit
 import Eureka
 import SDWebImage
 import CoreLocation
+import YelpAPI
 
 class VenueEntryVC: FormViewController {
     
+    var client: YLPClient?
     var enteredValue: String?
     var newVenueObject: VenueObject?
     var seatGeekObject: SeatGeekObject?
@@ -21,11 +23,23 @@ class VenueEntryVC: FormViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        YLPClient.authorize(withAppId: yelpclientid, secret: yelpsecret, completionHandler: {
+            client, error in
+            self.client = client
+        })
+        
+        
         form +++ Section("Venue")
             <<< TextRow("venuename"){
                 $0.title = "Name:"
                 $0.placeholder = ""
             }
+            <<< ButtonRow(){
+                $0.title = "Check Yelp"
+                }.onCellSelection({
+                    selected in
+                    self.checkYelp()
+                })
             <<< TextRow("venuewebsite"){
                 $0.title = "Website:"
                 $0.placeholder = ""
@@ -67,6 +81,38 @@ class VenueEntryVC: FormViewController {
         rowKeyboardSpacing = 20
         
         
+    }
+    
+    func checkYelp() {
+        let nameRow: TextRow? = form.rowBy(tag: "venuename")
+        if let venue = nameRow?.value {
+            client?.search(withLocation: "DC", term: venue, limit: 10, offset: 0, sort: .bestMatched, completionHandler: {
+                completion in
+                let answer = completion.0?.businesses.first
+                if let url = answer?.url {
+                    self.updateYelp(url: url.absoluteString)
+                }
+                if let address = answer?.location.address.first, let city = answer?.location.city, let state = answer?.location.stateCode, let zip = answer?.location.postalCode {
+                    self.updateAddress(address: "\(address), \(city), \(state) \(zip)")
+                }
+            })
+        }
+    }
+    
+    func updateYelp(url: String) {
+        DispatchQueue.main.sync {
+            let yelprow: TextRow? = self.form.rowBy(tag: "venueyelp")
+            yelprow?.value = url
+            yelprow?.updateCell()
+        }
+    }
+    
+    func updateAddress(address: String) {
+        DispatchQueue.main.sync {
+            let addressrow: TextRow? = self.form.rowBy(tag: "venueAddress")
+            addressrow?.value = address
+            addressrow?.updateCell()
+        }
     }
     
     func skip() {

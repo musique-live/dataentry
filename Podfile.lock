@@ -26,6 +26,7 @@ PODS:
     - SDWebImage/Core (= 4.0.0)
   - SDWebImage/Core (4.0.0)
   - XCDYouTubeKit (2.5.5)
+  - YelpAPI (2.0.0)
 
 DEPENDENCIES:
   - Alamofire
@@ -36,6 +37,7 @@ DEPENDENCIES:
   - ObjectMapper
   - SDWebImage
   - XCDYouTubeKit (from `https://github.com/ML-Works/XCDYouTubeKit.git`, branch `feature/referer`)
+  - YelpAPI
 
 EXTERNAL SOURCES:
   XCDYouTubeKit:
@@ -59,7 +61,8 @@ SPEC CHECKSUMS:
   ObjectMapper: d3b3de11267f5d971f390eb8d63dd509116a4329
   SDWebImage: 76a6348bdc74eb5a55dd08a091ef298e56b55e41
   XCDYouTubeKit: 86f4e7a9c2baa7b7adf6abfc28ac3ab34927be2d
+  YelpAPI: a0475cf4a7b6f9fe81f1bb7b8a8492770f21e3c7
 
-PODFILE CHECKSUM: 8160204e5f744e11038ad6923b23282098377122
+PODFILE CHECKSUM: b62aeccc174e2a5ccd22bcb6abfd090321ccaa4b
 
 COCOAPODS: 1.0.1

@@ -13,6 +13,8 @@
 		DB1C80771EA7EC0F008A9B6C /* FBSDKCoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DB1C80761EA7EC0F008A9B6C /* FBSDKCoreKit.framework */; };
 		DB1C80791EA7EC20008A9B6C /* FBSDKShareKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DB1C80781EA7EC20008A9B6C /* FBSDKShareKit.framework */; };
 		DB1C807B1EA7EC29008A9B6C /* FBSDKLoginKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DB1C807A1EA7EC29008A9B6C /* FBSDKLoginKit.framework */; };
+		DB1D55091EF06C4E005A1099 /* SeatGeekCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB1D55081EF06C4E005A1099 /* SeatGeekCell.swift */; };
+		DB1D550B1EF07EC4005A1099 /* VideoVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB1D550A1EF07EC4005A1099 /* VideoVC.swift */; };
 		DB1DEA8D1EA9291600FD27BD /* Band.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB1DEA8C1EA9291600FD27BD /* Band.swift */; };
 		DB1DEA8F1EA9293E00FD27BD /* NetworkController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB1DEA8E1EA9293E00FD27BD /* NetworkController.swift */; };
 		DB1DEA911EA92A6900FD27BD /* Event.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB1DEA901EA92A6900FD27BD /* Event.swift */; };
@@ -63,6 +65,8 @@
 		DB1C80761EA7EC0F008A9B6C /* FBSDKCoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FBSDKCoreKit.framework; sourceTree = "<group>"; };
 		DB1C80781EA7EC20008A9B6C /* FBSDKShareKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FBSDKShareKit.framework; sourceTree = "<group>"; };
 		DB1C807A1EA7EC29008A9B6C /* FBSDKLoginKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FBSDKLoginKit.framework; sourceTree = "<group>"; };
+		DB1D55081EF06C4E005A1099 /* SeatGeekCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SeatGeekCell.swift; sourceTree = "<group>"; };
+		DB1D550A1EF07EC4005A1099 /* VideoVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VideoVC.swift; sourceTree = "<group>"; };
 		DB1DEA8C1EA9291600FD27BD /* Band.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Band.swift; sourceTree = "<group>"; };
 		DB1DEA8E1EA9293E00FD27BD /* NetworkController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetworkController.swift; sourceTree = "<group>"; };
 		DB1DEA901EA92A6900FD27BD /* Event.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Event.swift; sourceTree = "<group>"; };
@@ -222,8 +226,10 @@
 		DBAC9C211EF0320500CDDA72 /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				DB65986B1EAE8D560085BD05 /* ToDoVC.swift */,
 				DBAC9C2C1EF0535700CDDA72 /* SeatGeekVC.swift */,
+				DB1D55081EF06C4E005A1099 /* SeatGeekCell.swift */,
+				DB1D550A1EF07EC4005A1099 /* VideoVC.swift */,
+				DB65986B1EAE8D560085BD05 /* ToDoVC.swift */,
 				DBAC9C281EF03C7000CDDA72 /* ToDoCell.swift */,
 				DB7176F91EA7E713008666AC /* BandEntryVC.swift */,
 				DB1DEA961EA92EBF00FD27BD /* EventEntryVC.swift */,
@@ -245,10 +251,10 @@
 		DBAC9C231EF0322300CDDA72 /* Network */ = {
 			isa = PBXGroup;
 			children = (
+				DBAC9C2A1EF04FB700CDDA72 /* SeatGeekController.swift */,
 				DB1DEA8E1EA9293E00FD27BD /* NetworkController.swift */,
 				DBAC9C241EF0333400CDDA72 /* NetworkController+ToDo.swift */,
 				DBAC9C261EF033B900CDDA72 /* NetworkController+Send.swift */,
-				DBAC9C2A1EF04FB700CDDA72 /* SeatGeekController.swift */,
 			);
 			name = Network;
 			sourceTree = "<group>";
@@ -459,12 +465,14 @@
 				DB1DEA971EA92EBF00FD27BD /* EventEntryVC.swift in Sources */,
 				DB65986C1EAE8D560085BD05 /* ToDoVC.swift in Sources */,
 				DB6598661EAAEC680085BD05 /* AutoCompleteTextField.swift in Sources */,
+				DB1D55091EF06C4E005A1099 /* SeatGeekCell.swift in Sources */,
 				DB1DEA8D1EA9291600FD27BD /* Band.swift in Sources */,
 				DB7176FA1EA7E713008666AC /* BandEntryVC.swift in Sources */,
 				DB1DEA951EA92E0000FD27BD /* TabBarController.swift in Sources */,
 				DBAC9C291EF03C7000CDDA72 /* ToDoCell.swift in Sources */,
 				DBAC9C2B1EF04FB700CDDA72 /* SeatGeekController.swift in Sources */,
 				DBAC9C2F1EF0560300CDDA72 /* SeatGeekEvent.swift in Sources */,
+				DB1D550B1EF07EC4005A1099 /* VideoVC.swift in Sources */,
 				DB7176F81EA7E713008666AC /* AppDelegate.swift in Sources */,
 				DB1DEA911EA92A6900FD27BD /* Event.swift in Sources */,
 				DBAC9C2D1EF0535700CDDA72 /* SeatGeekVC.swift in Sources */,

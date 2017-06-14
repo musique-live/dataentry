@@ -28,7 +28,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         UIApplication.shared.statusBarStyle = .lightContent
         
         let vc = TabBarController()
-//        vc.tabBar.barStyle = .blackTranslucent
         self.window?.rootViewController = vc
         self.window?.makeKeyAndVisible()
         

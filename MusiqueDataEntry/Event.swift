@@ -23,6 +23,7 @@ class EventObject: NSObject {
     var coordinates: CLLocationCoordinate2D?
     var updated: Bool?
     var time: String?
+    var seatGeekID: Int?
     
     //for entry
     var timeString: String?

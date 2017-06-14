@@ -65,9 +65,15 @@ extension NetworkController {
         if let email = venue.email {
             FIRDatabase.database().reference().child("DC/Venues/\(venuename)/info/email").setValue(email)
         }
-        
-        
-        let _ = updateLocation(venue: venue, completion: {
+        if let coordinates = venue.coordinates {
+            let ref = FIRDatabase.database().reference().child("DC/Venues/\(venuename)/info/")
+            
+            ref.updateChildValues([
+                "coordinates":
+                    [coordinates.coordinate.latitude,
+                     coordinates.coordinate.longitude]
+                ])
+        } else { let _ = updateLocation(venue: venue, completion: {
             location in
             guard let location = location else { return }
             let ref = FIRDatabase.database().reference().child("DC/Venues/\(venuename)/info/")
@@ -77,8 +83,9 @@ extension NetworkController {
                     [location.coordinate.latitude,
                      location.coordinate.longitude]
                 ])
-        })
-        
+            })
+        }
+    
         completion(true)
         
     }
@@ -91,10 +98,10 @@ extension NetworkController {
             newevent.timeString = event.timeString
             newevent.timestamp = event.timestamp
             newevent.price = event.price
+            newevent.seatGeekID = event.seatGeekID
             let query = FIRDatabase.database().reference().child("DC/Bands/\(band)")
             query.observeSingleEvent(of: .value, with: {
                 snapshot in
-                print(snapshot)
                 if let dict = snapshot.value as? NSDictionary {
                     let band = BandObject(name: band)
                     newevent.band = band
@@ -112,7 +119,6 @@ extension NetworkController {
                     let newquery = FIRDatabase.database().reference().child("DC/Venues/\(venue)")
                     newquery.observeSingleEvent(of: .value, with: {
                         snapshot in
-                        print(snapshot)
                         if let newObject = snapshot.value as? NSDictionary {
                             let venue = VenueObject(name: venue)
                             newevent.venue = venue
@@ -163,12 +169,15 @@ extension NetworkController {
             "date": String(event.timestamp!.timeIntervalSince1970),
             "timeString": event.timeString ?? "",
             "updated": "true",
-            "venuename": venuestring
+            "venuename": venuestring,
             ]
             as [String : Any]
         
         if let genre = event.band?.genre {
             newData["bandgenre"] = genre
+        }
+        if let sgid = event.seatGeekID {
+            newData["seatGeekID"] = sgid
         }
         if let image = event.band?.image {
             newData["bandimage"] = image
@@ -228,7 +237,21 @@ extension NetworkController {
             venueref.setValue(newData)
         }
         
+        
+        
+        if let sgid = event.seatGeekID, let venue = event.venueString  {
+            let idsref = FIRDatabase.database().reference()
+                .child("DC/SeatGeek/\(sgid)")
+            idsref.setValue(cleanFBString(string: venue))
+        }
+        
         completion(true)
+    }
+    
+    func denySeatGeek(sgid:Int) {
+        let idsref = FIRDatabase.database().reference()
+            .child("DC/SeatGeek/\(sgid)")
+        idsref.setValue("denied")
     }
     
     

@@ -18,6 +18,7 @@ class BandEntryVC: FormViewController {
     var newBandObject: BandObject?
     var imageView: UIImageView!
     let loginManager = FBSDKLoginManager()
+    var seatGeekObject: SeatGeekObject?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -77,6 +78,14 @@ class BandEntryVC: FormViewController {
                     selected in
                     self.sendBand()
                 })
+            <<< ButtonRow(){
+                $0.title = "Skip."
+                }.onCellSelection({
+                    selected in
+                    if let seat = self.seatGeekObject {
+                        self.skip()
+                    }
+                })
         
         navigationOptions = RowNavigationOptions.Enabled.union(.StopDisabledRow)
         animateScroll = true
@@ -86,8 +95,59 @@ class BandEntryVC: FormViewController {
         imageView = UIImageView(frame: CGRect(x: 20, y: view.frame.height - 250, width: 180, height: 180))
         imageView.backgroundColor = UIColor.gray
         view.addSubview(imageView)
-        
 
+    }
+    
+    func skip() {
+        if let seatGeekObject = self.seatGeekObject {
+            if let nextvc = self.tabBarController?.viewControllers?[2] as? VenueEntryVC {
+                nextvc.seatGeekObject = seatGeekObject
+                self.tabBarController?.selectedIndex = 2
+            }
+        }
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        if self.seatGeekObject != nil {
+            populateWithSeatGeek()
+        }
+    }
+    
+    func populateWithSeatGeek() {
+        guard let seatGeekObject = seatGeekObject else { return }
+        
+        let nameRow: TextRow? = form.rowBy(tag: "name")
+        nameRow?.value = seatGeekObject.name
+        nameRow?.updateCell()
+        
+        let imageRow: TextRow? = form.rowBy(tag: "image")
+        imageRow?.value = seatGeekObject.imageURL
+        imageRow?.updateCell()
+        
+        if let image = seatGeekObject.imageURL {
+            let url = URL(string: image)
+            imageView.sd_setImage(with: url)
+        }
+        
+        var genrestring = ""
+        for genre in seatGeekObject.genres {
+            genrestring = genrestring + genre + " "
+        }
+        let genreRow: TextRow? = form.rowBy(tag: "genre")
+        genreRow?.value = genrestring
+        genreRow?.updateCell()
+        
+        
+        let ytrow: TextRow? = form.rowBy(tag: "youtube")
+        if let yt = seatGeekObject.youtube {
+            ytrow?.value = "https://www.youtube.com/watch?v=" + yt
+            ytrow?.updateCell()
+        }
+        
+    }
+    
+    override func viewDidDisappear(_ animated: Bool) {
+        self.seatGeekObject = nil
     }
     
     func sendBand() {
@@ -144,6 +204,13 @@ class BandEntryVC: FormViewController {
             let row: TextRow? = self.form.rowBy(tag: "username")
             row?.value = ""
             row?.updateCell()
+            
+            if let seatGeekObject = self.seatGeekObject {
+                if let nextvc = self.tabBarController?.viewControllers?[2] as? VenueEntryVC {
+                    nextvc.seatGeekObject = seatGeekObject
+                    self.tabBarController?.selectedIndex = 2
+                }
+            }
         })
     }
     
@@ -152,19 +219,57 @@ class BandEntryVC: FormViewController {
         let row: TextRow? = form.rowBy(tag: "username")
         if let value = row?.value {
             self.enteredValue = value
+            tryFacebook(value: value, completion: {
+                success in
+            })
+        }
         
-        
+        if let sgobj = seatGeekObject {
+            row?.placeholder = "Testing..."
+            row?.updateCell()
+            if let newband = sgobj.name {
+                let band = newband.replacingOccurrences(of: " ", with: "")
+                
+                
+                self.tryFacebook(value: band, completion: {
+                    result in
+                    if result == false {
+                        self.tryFacebook(value: band + "music", completion: {
+                            bool in
+                            if bool == false {
+                                self.tryFacebook(value: band + "band", completion: {
+                                    bool in
+                                    if bool == false {
+                                        self.tryFacebook(value: band + "official", completion: {
+                                            bool in
+                                            if bool == false {
+                                                row?.placeholder = "Enter Facebook"
+                                                row?.updateCell()
+                                            }
+                                        })
+                                    }
+                                })
+                            }
+                        })
+                    }
+                })
+            }
+        }
+    }
+    
+    func tryFacebook(value: String, completion: @escaping (Bool) -> Void) {
         if let accesstoken = UserDefaults.standard.string(forKey: "fbkey") {
             let request = FBSDKGraphRequest(graphPath: "/\(value)", parameters: ["fields": "name, press_contact, cover, genre, website, current_location, description"], tokenString: accesstoken, version: "", httpMethod: "GET")
             let _ = request?.start(completionHandler: {
                 requesthandler in
-                print(requesthandler.0)
-                print(requesthandler.2)
                 if let _ = requesthandler.1 {
                     if let BandObject = self.createBandObject((requesthandler.1 as? NSDictionary)!) {
                         self.newBandObject = BandObject
                         self.displayCollected()
+                        completion(true)
                     }
+                } else {
+                    completion(false)
                 }
             })
         } else {
@@ -173,27 +278,28 @@ class BandEntryVC: FormViewController {
                 let result = loginResult.0
                 if let token = result?.token.tokenString {
                     UserDefaults.standard.set(token, forKey: "fbkey")
-                
-
-                
-                
-                        let request = FBSDKGraphRequest(graphPath: "/\(value)", parameters: nil, tokenString: token, version: "", httpMethod: "GET")
-                        let _ = request?.start(completionHandler: {
-                            requesthandler in
-                            if let _ = requesthandler.1 {
-                                if let BandObject = self.createBandObject((requesthandler.1 as? NSDictionary)!) {
-                                    self.newBandObject = BandObject
-                                    self.displayCollected()
-                                }
+                    
+                    
+                    
+                    
+                    let request = FBSDKGraphRequest(graphPath: "/\(value)", parameters: nil, tokenString: token, version: "", httpMethod: "GET")
+                    let _ = request?.start(completionHandler: {
+                        requesthandler in
+                        if let _ = requesthandler.1 {
+                            if let BandObject = self.createBandObject((requesthandler.1 as? NSDictionary)!) {
+                                self.newBandObject = BandObject
+                                self.displayCollected()
+                                completion(true)
                             }
-                        })
-                    }
+                        } else {
+                            completion(false)
+                        }
+                    })
+                }
                 
             })
         }
-        
-            
-        }
+        completion(false)
     }
     
     func displayCollected() {
@@ -208,21 +314,29 @@ class BandEntryVC: FormViewController {
         fbrow?.updateCell()
         
         let nameRow: TextRow? = form.rowBy(tag: "name")
-        nameRow?.value = newBandObject.name
-        nameRow?.updateCell()
-        
-        let imageRow: TextRow? = form.rowBy(tag: "image")
-        imageRow?.value = newBandObject.image
-        imageRow?.updateCell()
-        
-        if let image = newBandObject.image {
-            let url = URL(string: image)
-            imageView.sd_setImage(with: url)
+        if nameRow?.value == nil {
+            nameRow?.value = newBandObject.name
+            nameRow?.updateCell()
         }
         
+        
+        let imageRow: TextRow? = form.rowBy(tag: "image")
+        if imageRow?.value == nil {
+            imageRow?.value = newBandObject.image
+            imageRow?.updateCell()
+            
+            if let image = newBandObject.image {
+                let url = URL(string: image)
+                imageView.sd_setImage(with: url)
+            }
+        }
+        
+        
         let genreRow: TextRow? = form.rowBy(tag: "genre")
-        genreRow?.value = newBandObject.genre
-        genreRow?.updateCell()
+        if genreRow?.value == nil {
+            genreRow?.value = newBandObject.genre
+            genreRow?.updateCell()
+        }
         
         let webRow: TextRow? = form.rowBy(tag: "website")
         webRow?.value = newBandObject.website

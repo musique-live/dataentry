@@ -34,6 +34,26 @@ class NetworkController: NSObject {
         })
     }
     
+    func getSeatGeekList(completion: @escaping (([Int]) -> Void)) {
+        let query = FIRDatabase.database().reference().child("DC/SeatGeek").queryOrderedByKey()
+        query.observeSingleEvent(of: .value, with: {
+            snapshot in
+            if let val = snapshot.value as? NSDictionary {
+                let keys = val.allKeys as! [String]
+                var ints = [Int]()
+                for key in keys {
+                    ints.append(Int(key)!)
+                }
+                completion(ints)
+            } else {
+                completion([])
+            }
+        }, withCancel: {
+            (error) in
+            completion([])
+        })
+    }
+    
     
     func getBandObjectsList(completion: @escaping (([String]) -> Void)) {
         let query = FIRDatabase.database().reference().child("DC/Bands").queryOrderedByKey()

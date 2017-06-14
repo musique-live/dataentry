@@ -10,11 +10,13 @@ import UIKit
 import FBSDKCoreKit
 import Eureka
 import SDWebImage
+import CoreLocation
 
 class VenueEntryVC: FormViewController {
     
     var enteredValue: String?
     var newVenueObject: VenueObject?
+    var seatGeekObject: SeatGeekObject?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -50,6 +52,15 @@ class VenueEntryVC: FormViewController {
                     selected in
                     self.sendVenue()
                 })
+            <<< ButtonRow(){
+                $0.title = "Skip."
+                }.onCellSelection({
+                    selected in
+                    if let seat = self.seatGeekObject {
+                        self.skip()
+                    }
+                })
+        
         
         navigationOptions = RowNavigationOptions.Enabled.union(.StopDisabledRow)
         animateScroll = true
@@ -57,6 +68,38 @@ class VenueEntryVC: FormViewController {
         
         
     }
+    
+    func skip() {
+        if let seatGeekObject = self.seatGeekObject {
+            if let nextvc = self.tabBarController?.viewControllers?[3] as? EventEntryVC {
+                nextvc.seatGeekObject = seatGeekObject
+                self.tabBarController?.selectedIndex = 3
+            }
+        }
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        if self.seatGeekObject != nil {
+            populateWithSeatGeek()
+        }
+    }
+    
+    func populateWithSeatGeek() {
+        guard let seatGeekObject = seatGeekObject else { return }
+        
+        let nameRow: TextRow? = form.rowBy(tag: "venuename")
+        nameRow?.value = seatGeekObject.venuename
+        nameRow?.updateCell()
+        
+        let addressRow: TextRow? = form.rowBy(tag: "venueAddress")
+        addressRow?.value = seatGeekObject.address
+        addressRow?.updateCell()
+    }
+    
+    override func viewDidDisappear(_ animated: Bool) {
+        self.seatGeekObject = nil
+    }
+
     
     func sendVenue() {
         guard let nameRow: TextRow? = form.rowBy(tag: "venuename") else { return }
@@ -80,6 +123,13 @@ class VenueEntryVC: FormViewController {
         let addrRow: TextRow? = form.rowBy(tag: "venueAddress")
         newVenueObject?.address = addrRow?.value
         
+        if let seatGeekObject = seatGeekObject {
+            if let lat = seatGeekObject.latitude, let lon = seatGeekObject.longitude {
+                let location = CLLocation(latitude: CLLocationDegrees(lat), longitude: CLLocationDegrees(lon))
+                newVenueObject?.coordinates = location
+            }
+        }
+        
         NetworkController().sendVenueData(venue: newVenueObject!, completion: {
             done in
             
@@ -97,6 +147,13 @@ class VenueEntryVC: FormViewController {
             addrRow?.updateCell()
             regionRow?.value = ""
             regionRow?.updateCell()
+            
+            if let seatGeekObject = self.seatGeekObject {
+                if let nextvc = self.tabBarController?.viewControllers?[3] as? EventEntryVC {
+                    nextvc.seatGeekObject = seatGeekObject
+                    self.tabBarController?.selectedIndex = 3
+                }
+            }
         })
     }
 

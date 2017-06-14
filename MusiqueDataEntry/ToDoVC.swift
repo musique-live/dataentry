@@ -20,10 +20,9 @@ class ToDoList: UIViewController, UITableViewDelegate, UITableViewDataSource {
         
         NetworkController().getVenuesList(completion:  {
             venues in
-            self.venues = venues
+            self.venues = venues.sorted()
             self.tableView.reloadData()
         })
-        
         
         view.backgroundColor = .white
         tableView = UITableView(frame: CGRect(x: 0, y: 10, width: view.frame.width, height: view.frame.height - 60))

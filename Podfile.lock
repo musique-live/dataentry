@@ -25,6 +25,7 @@ PODS:
   - SDWebImage (4.0.0):
     - SDWebImage/Core (= 4.0.0)
   - SDWebImage/Core (4.0.0)
+  - XCDYouTubeKit (2.5.5)
 
 DEPENDENCIES:
   - Alamofire
@@ -34,6 +35,17 @@ DEPENDENCIES:
   - Firebase/Database
   - ObjectMapper
   - SDWebImage
+  - XCDYouTubeKit (from `https://github.com/ML-Works/XCDYouTubeKit.git`, branch `feature/referer`)
+
+EXTERNAL SOURCES:
+  XCDYouTubeKit:
+    :branch: feature/referer
+    :git: https://github.com/ML-Works/XCDYouTubeKit.git
+
+CHECKOUT OPTIONS:
+  XCDYouTubeKit:
+    :commit: b78727aa4d4546d98c9e4105fbbb4f51033fe897
+    :git: https://github.com/ML-Works/XCDYouTubeKit.git
 
 SPEC CHECKSUMS:
   Alamofire: 856a113053a7bc9cbe5d6367a555d773fc5cfef7
@@ -46,7 +58,8 @@ SPEC CHECKSUMS:
   GoogleToolboxForMac: 8e329f1b599f2512c6b10676d45736bcc2cbbeb0
   ObjectMapper: d3b3de11267f5d971f390eb8d63dd509116a4329
   SDWebImage: 76a6348bdc74eb5a55dd08a091ef298e56b55e41
+  XCDYouTubeKit: 86f4e7a9c2baa7b7adf6abfc28ac3ab34927be2d
 
-PODFILE CHECKSUM: 230e4427ff32ac0fd9e84648df90ccbf82648f1a
+PODFILE CHECKSUM: 8160204e5f744e11038ad6923b23282098377122
 
 COCOAPODS: 1.0.1

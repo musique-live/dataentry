@@ -15,11 +15,9 @@ extension NetworkController {
     func getLastDate(fullvenue: String, completion: @escaping(EventObject?) -> Void) {
         let venue = cleanFBString(string: fullvenue)
         let newquery = FIRDatabase.database().reference().child("DC/Venues/\(venue)/Events").queryOrdered(byChild: "date").queryLimited(toLast: 1)
-        print(venue)
         newquery.observeSingleEvent(of: .value, with: {
             
             snapshot in
-            print(snapshot)
             if snapshot.hasChildren() {
                 self.processEventSnapshot(snapArray: snapshot, completion: {
                     newevents in
@@ -47,7 +45,6 @@ extension NetworkController {
         let query = FIRDatabase.database().reference().child("DC/Venues/\(venuename)/info/claimed").queryOrderedByKey()
         query.observeSingleEvent(of: .value, with: {
             snapshot in
-            print(snapshot)
             if let name = snapshot.value as? String {
                 completion(name)
             } else {

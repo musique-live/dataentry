@@ -9,14 +9,17 @@
 import Foundation
 import UIKit
 
-class SeatGeekVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
+class SeatGeekVC: UIViewController, UITableViewDelegate, UITableViewDataSource, SeatGeekObjectDecisionProtocol {
     
     var tableView: UITableView!
     var events: [SeatGeekObject]?
+    let sgcontroller = SeatGeekController()
+    var subview: UIView?
+    var close = UIButton()
     
     override func viewDidLoad() {
         view.backgroundColor = UIColor.white
-        SeatGeekController().loadNextEvents(completion: {
+        sgcontroller.loadNextEvents(completion: {
             events in
             self.events = events
             self.tableView.reloadData()
@@ -28,11 +31,34 @@ class SeatGeekVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
         tableView.dataSource = self
         view.addSubview(tableView)
         
-        tableView.register(UITableViewCell.self, forCellReuseIdentifier: "cell")
+        tableView.register(SeatGeekCell.self, forCellReuseIdentifier: "cell")
     }
     
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        return 80
+        return 50
+    }
+    
+    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        let newview = UIView(frame: CGRect(x: 0, y: 0, width: tableView.frame.width, height: 50))
+        newview.backgroundColor = UIColor.white
+        
+        let morebutton = UIButton(frame: CGRect(x: view.frame.width - 200, y: 10, width: 200, height: 30))
+        morebutton.setTitle("LOAD MORE", for: .normal)
+        morebutton.addTarget(self, action: "loadMore", for: .touchUpInside)
+        morebutton.setTitleColor(UIColor.black, for: .normal)
+        newview.addSubview(morebutton)
+        
+        return newview
+    }
+    
+    func loadMore() {
+        self.events = nil
+        tableView.reloadData()
+        sgcontroller.loadNextEvents(completion: {
+            events in
+            self.events = events
+            self.tableView.reloadData()
+        })
     }
     
     func numberOfSections(in tableView: UITableView) -> Int {
@@ -44,14 +70,62 @@ class SeatGeekVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 100
+        return 400
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
-        if let event = events?[indexPath.row], let name = event.name, let venue = event.venuename {
-            cell.textLabel?.text = "\(name) at \(venue)"
+        if let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as? SeatGeekCell {
+            if let event = events?[indexPath.row] {
+                cell.setInfo(event: event, index: indexPath.row)
+            }
+            cell.delegate = self
+            cell.selectionStyle = .none
+            return cell
         }
-        return cell
+        return UITableViewCell()
+    }
+    
+    func didDeny(event: SeatGeekObject, index: Int) {
+        events?.remove(at: index)
+        tableView.reloadData()
+        if let id = event.id {
+            NetworkController().denySeatGeek(sgid: id)
+        }
+    }
+    
+    func didProceed(event: SeatGeekObject, index: Int) {
+        
+    }
+    
+    func didEdit(event: SeatGeekObject, index: Int) {
+        events?.remove(at: index)
+        tableView.reloadData()
+        if let nextvc = self.tabBarController?.viewControllers?[1] as? BandEntryVC {
+            nextvc.seatGeekObject = event
+            self.tabBarController?.selectedIndex = 1
+        }
+    }
+    
+    func closeVid() {
+        if let subview = subview {
+            subview.removeFromSuperview()
+            close.removeFromSuperview()
+        }
+    }
+    
+    func seeYoutube(event: SeatGeekObject, index: Int) {
+        if let ytstring = event.youtube {
+            let videovc = VideoVC()
+            videovc.youtube = ytstring
+            videovc.view.frame = CGRect(x: 0, y: 50, width: videovc.view.frame.width, height: videovc.view.frame.height - 100)
+            view.addSubview(videovc.view)
+            subview = videovc.view
+        }
+        
+        close = UIButton(frame: CGRect(x: 10, y: 10, width: 50, height: 40))
+        close.setTitle("Close", for: .normal)
+        close.backgroundColor = UIColor.red
+        close.addTarget(self, action: "closeVid", for: .touchUpInside)
+        view.addSubview(close)
     }
 }

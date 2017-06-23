@@ -13,6 +13,7 @@ class EventObject: NSObject {
     var body: String?
     var eventimage: String?
     var eventlink: String?
+    var ticketURL: String?
     var price: Int?
     var timestamp: NSDate?
     var title: String?

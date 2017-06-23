@@ -180,8 +180,15 @@ class EventEntryVC: UIViewController, UITextFieldDelegate {
             event.timeString = "\(newhour):\(newminute)"
             
         }
+        if let price = seatGeekObject.lowestprice {
+            self.priceEntry.text = "\(price)"
+            event.price = Int(price)
+        }
         if let id = seatGeekObject.id {
             event.seatGeekID = id
+        }
+        if let url = seatGeekObject.URL {
+            event.ticketURL = url
         }
         
     }

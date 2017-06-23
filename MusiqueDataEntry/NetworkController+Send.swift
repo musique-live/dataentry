@@ -145,6 +145,7 @@ extension NetworkController {
             newevent.timeString = event.timeString
             newevent.timestamp = event.timestamp
             newevent.price = event.price
+            newevent.ticketURL = event.ticketURL
             newevent.seatGeekID = event.seatGeekID
             let query = FIRDatabase.database().reference().child("DC/Bands/\(band)")
             query.observeSingleEvent(of: .value, with: {
@@ -222,6 +223,9 @@ extension NetworkController {
         
         if let genre = event.band?.genre {
             newData["bandgenre"] = genre
+        }
+        if let ticket = event.ticketURL {
+            newData["ticketURL"] = ticket
         }
         if let sgid = event.seatGeekID {
             newData["seatGeekID"] = sgid

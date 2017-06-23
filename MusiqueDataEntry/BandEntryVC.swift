@@ -134,6 +134,11 @@ class BandEntryVC: FormViewController {
     func populateWithSeatGeek() {
         guard let seatGeekObject = seatGeekObject else { return }
         
+        SeatGeekController().getImagesForBand(band: seatGeekObject.name ?? "", completion: {
+            results in
+            
+        })
+        
         let nameRow: TextRow? = form.rowBy(tag: "name")
         nameRow?.value = seatGeekObject.name
         nameRow?.updateCell()
@@ -161,6 +166,8 @@ class BandEntryVC: FormViewController {
             ytrow?.value = "https://www.youtube.com/watch?v=" + yt
             ytrow?.updateCell()
         }
+        
+        self.newBandObject = BandObject(name: seatGeekObject.name ?? "")
         
     }
     

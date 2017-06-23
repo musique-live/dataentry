@@ -99,7 +99,7 @@ class SeatGeekObject: Mappable {
     // Mappable
     func mapping(map: Map) {
         stringDate <- map["datetime_local"]
-        URL <- map["url"]
+        URL <- map["performers.0.url"]
         id <- map["id"]
         image1 <- map["performers.0.image"]
         image2 <- map["performers.1.image"]

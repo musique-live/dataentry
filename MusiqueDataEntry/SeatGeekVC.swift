@@ -19,27 +19,31 @@ class SeatGeekVC: UIViewController, UITableViewDelegate, UITableViewDataSource, 
     var morebutton = UIButton()
     
     override func viewDidLoad() {
-        view.backgroundColor = UIColor.white
+        view.backgroundColor = UIColor.darkGray
         sgcontroller.loadNextEvents(completion: {
             events in
             self.events = events
             self.tableView.reloadData()
         })
         
-        view.backgroundColor = .white
-        tableView = UITableView(frame: CGRect(x: 0, y: 50, width: view.frame.width, height: view.frame.height - 60))
+        let menuButton = UIButton(frame: CGRect(x: 30, y: 20, width: 100, height: 50))
+        menuButton.setTitle("MENU", for: .normal)
+        menuButton.setTitleColor(.white, for: .normal)
+        menuButton.addTarget(self, action: "openMenu", for: .touchUpInside)
+        view.addSubview(menuButton)
+        
+        morebutton = UIButton(frame: CGRect(x: view.frame.width - 200, y: 20, width: 150, height: 50))
+        morebutton.setTitle("LOAD MORE", for: .normal)
+        morebutton.addTarget(self, action: "loadMore", for: .touchUpInside)
+        morebutton.setTitleColor(UIColor.white, for: .normal)
+        view.addSubview(morebutton)
+        
+        tableView = UITableView(frame: CGRect(x: 0, y: 90, width: view.frame.width, height: view.frame.height - 90))
         tableView.delegate = self
         tableView.dataSource = self
         view.addSubview(tableView)
         
         tableView.register(SeatGeekCell.self, forCellReuseIdentifier: "cell")
-        
-        morebutton = UIButton(frame: CGRect(x: view.frame.width - 200, y: 10, width: 200, height: 30))
-        morebutton.setTitle("LOAD MORE", for: .normal)
-        morebutton.addTarget(self, action: "loadMore", for: .touchUpInside)
-        morebutton.backgroundColor = UIColor.blue
-        morebutton.setTitleColor(UIColor.white, for: .normal)
-        view.addSubview(morebutton)
     }
     
     func loadMore() {
@@ -76,6 +80,10 @@ class SeatGeekVC: UIViewController, UITableViewDelegate, UITableViewDataSource, 
             return cell
         }
         return UITableViewCell()
+    }
+    
+    func openMenu() {
+        self.slideMenuController()?.openLeft()
     }
     
     func didDeny(event: SeatGeekObject, index: Int) {

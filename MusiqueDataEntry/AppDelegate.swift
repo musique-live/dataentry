@@ -10,6 +10,7 @@ import UIKit
 import Firebase
 import FBSDKCoreKit
 import FBSDKLoginKit
+import SlideMenuControllerSwift
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -27,8 +28,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         window = win
         UIApplication.shared.statusBarStyle = .lightContent
         
-        let vc = TabBarController()
-        self.window?.rootViewController = vc
+        let tabBar = TabBarController()
+        tabBar.tabBar.isHidden = true
+        
+        let container = ContainerViewController()
+        container.tab = tabBar
+        
+        let slideMenuController = SlideMenuController(mainViewController: tabBar, leftMenuViewController: container)
+        self.window?.rootViewController = slideMenuController
         self.window?.makeKeyAndVisible()
         
         return true

@@ -25,6 +25,7 @@ PODS:
   - SDWebImage (4.0.0):
     - SDWebImage/Core (= 4.0.0)
   - SDWebImage/Core (4.0.0)
+  - SlideMenuControllerSwift (3.0.1)
   - XCDYouTubeKit (2.5.5)
   - YelpAPI (2.0.0)
 
@@ -36,6 +37,7 @@ DEPENDENCIES:
   - Firebase/Database
   - ObjectMapper
   - SDWebImage
+  - SlideMenuControllerSwift
   - XCDYouTubeKit (from `https://github.com/ML-Works/XCDYouTubeKit.git`, branch `feature/referer`)
   - YelpAPI
 
@@ -60,9 +62,10 @@ SPEC CHECKSUMS:
   GoogleToolboxForMac: 8e329f1b599f2512c6b10676d45736bcc2cbbeb0
   ObjectMapper: d3b3de11267f5d971f390eb8d63dd509116a4329
   SDWebImage: 76a6348bdc74eb5a55dd08a091ef298e56b55e41
+  SlideMenuControllerSwift: 9a163b16d54afab734add42858cba7ef7c307755
   XCDYouTubeKit: 86f4e7a9c2baa7b7adf6abfc28ac3ab34927be2d
   YelpAPI: a0475cf4a7b6f9fe81f1bb7b8a8492770f21e3c7
 
-PODFILE CHECKSUM: b62aeccc174e2a5ccd22bcb6abfd090321ccaa4b
+PODFILE CHECKSUM: 6eacd689b08ebe80603cd6e63f92572a409ecb9a
 
 COCOAPODS: 1.0.1

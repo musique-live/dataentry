@@ -38,6 +38,7 @@
 		DBAC9C2B1EF04FB700CDDA72 /* SeatGeekController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBAC9C2A1EF04FB700CDDA72 /* SeatGeekController.swift */; };
 		DBAC9C2D1EF0535700CDDA72 /* SeatGeekVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBAC9C2C1EF0535700CDDA72 /* SeatGeekVC.swift */; };
 		DBAC9C2F1EF0560300CDDA72 /* SeatGeekEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBAC9C2E1EF0560300CDDA72 /* SeatGeekEvent.swift */; };
+		DBBD055F1F034C0000C6179E /* ContainerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBBD055E1F034C0000C6179E /* ContainerViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -97,6 +98,7 @@
 		DBAC9C2A1EF04FB700CDDA72 /* SeatGeekController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SeatGeekController.swift; sourceTree = "<group>"; };
 		DBAC9C2C1EF0535700CDDA72 /* SeatGeekVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SeatGeekVC.swift; sourceTree = "<group>"; };
 		DBAC9C2E1EF0560300CDDA72 /* SeatGeekEvent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SeatGeekEvent.swift; path = ../SeatGeekEvent.swift; sourceTree = "<group>"; };
+		DBBD055E1F034C0000C6179E /* ContainerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContainerViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -228,6 +230,7 @@
 		DBAC9C211EF0320500CDDA72 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				DBBD055E1F034C0000C6179E /* ContainerViewController.swift */,
 				DBAC9C2C1EF0535700CDDA72 /* SeatGeekVC.swift */,
 				DB1D55081EF06C4E005A1099 /* SeatGeekCell.swift */,
 				DB1D550A1EF07EC4005A1099 /* VideoVC.swift */,
@@ -478,6 +481,7 @@
 				DB1D550B1EF07EC4005A1099 /* VideoVC.swift in Sources */,
 				DB7176F81EA7E713008666AC /* AppDelegate.swift in Sources */,
 				DB5B1A911EF102E400C80D20 /* EditBandVC.swift in Sources */,
+				DBBD055F1F034C0000C6179E /* ContainerViewController.swift in Sources */,
 				DB1DEA911EA92A6900FD27BD /* Event.swift in Sources */,
 				DBAC9C2D1EF0535700CDDA72 /* SeatGeekVC.swift in Sources */,
 				DBAC9C251EF0333400CDDA72 /* NetworkController+ToDo.swift in Sources */,
@@ -632,7 +636,7 @@
 					"$(PROJECT_DIR)/MusiqueDataEntry",
 				);
 				INFOPLIST_FILE = MusiqueDataEntry/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = twil.MusiqueDataEntry;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -652,7 +656,7 @@
 					"$(PROJECT_DIR)/MusiqueDataEntry",
 				);
 				INFOPLIST_FILE = MusiqueDataEntry/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = twil.MusiqueDataEntry;
 				PRODUCT_NAME = "$(TARGET_NAME)";

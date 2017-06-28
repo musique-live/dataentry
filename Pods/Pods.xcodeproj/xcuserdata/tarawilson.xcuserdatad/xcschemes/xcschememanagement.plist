@@ -34,6 +34,11 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
+		<key>SlideMenuControllerSwift.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
 		<key>XCDYouTubeKit.xcscheme</key>
 		<dict>
 			<key>isShown</key>
@@ -52,7 +57,22 @@
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>03F456AB282CA3A4CF9A3785176A05BB</key>
+		<key>07D1D8BAA914DAF13E65041A47206268</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>30FA68459B2B042B4E364B7F73D2F4A1</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>39E3D85416E88E96E6C79700393D97D3</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>66BB5DD718B5B1488BCD3AC97FE25CD8</key>
 		<dict>
 			<key>primary</key>
 			<true/>
@@ -62,27 +82,17 @@
 			<key>primary</key>
 			<true/>
 		</dict>
+		<key>67CEC49EA710223F557D23712AA577E7</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
 		<key>88E9EC28B8B46C3631E6B242B50F4442</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>A13EC7E6AD5007EB260AB19C0173673C</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
 		<key>B43918AB915242B851ABEFB5D70BE0AD</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>C7E1848A82F72123BE438EEDBCCD54C6</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>F3B64A46E2175D7124FD75EE131BB3C1</key>
 		<dict>
 			<key>primary</key>
 			<true/>

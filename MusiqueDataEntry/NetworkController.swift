@@ -42,7 +42,9 @@ class NetworkController: NSObject {
                 let keys = val.allKeys as! [String]
                 var ints = [Int]()
                 for key in keys {
-                    ints.append(Int(key)!)
+                    if let newint = Int(key) {
+                        ints.append(newint)
+                    }
                 }
                 completion(ints)
             } else {

@@ -91,6 +91,10 @@ extension NetworkController {
         })
     }
     
+    func updateRegion(venue: String, region: String) {
+        FIRDatabase.database().reference().child("DC/Venues/\(venue)/info/region").setValue(region)
+    }
+    
     func sendVenueData(venue: VenueObject, completion: @escaping (Bool) -> Void) {
         guard let newvenue = venue.venue else { return }
         let venuename = cleanFBString(string: newvenue)
@@ -174,6 +178,7 @@ extension NetworkController {
                                 newevent.venue?.address = infodict["address"] as? String
                                 newevent.venue?.yelp = infodict["yelp"] as? String
                                 newevent.venue?.website = infodict["website"] as? String
+                                newevent.venue?.region = infodict["region"] as? String
                                 if let coord = infodict["coordinates"] as? [Double] {
                                     newevent.venue?.coordinates = CLLocation(latitude: coord[0], longitude: coord[1])
                                 }
@@ -220,7 +225,9 @@ extension NetworkController {
             "venuename": venuestring,
             ]
             as [String : Any]
-        
+        if let region = event.venue?.region {
+            newData["venueregion"] = region
+        }
         if let genre = event.band?.genre {
             newData["bandgenre"] = genre
         }
@@ -266,13 +273,6 @@ extension NetworkController {
         }
         
         newEventRef.setValue(newData)
-        
-        
-        if let region = event.venue?.region {
-            let regionRef = FIRDatabase.database().reference()
-                .child("DC/Region/\(region)/Events/\(newEventID)")
-            regionRef.setValue(newData)
-        }
         
         if let band = event.bandString {
             var newband = cleanFBString(string: band)

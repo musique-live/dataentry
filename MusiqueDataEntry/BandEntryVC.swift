@@ -23,7 +23,23 @@ class BandEntryVC: FormViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        form +++ Section("Enter BandObject Facebook Username:")
+        form +++ Section(){ section in
+                section.header = {
+                    var header = HeaderFooterView<UIView>(.callback({
+                        let view = UIView(frame: CGRect(x: 0, y: 0, width: 200, height: 100))
+                        view.backgroundColor = .darkGray
+                        let menuButton = UIButton(frame: CGRect(x: 30, y: 20, width: 100, height: 50))
+                        menuButton.setTitle("MENU", for: .normal)
+                        menuButton.setTitleColor(.white, for: .normal)
+                        menuButton.addTarget(self, action: #selector(self.openMenu), for: .touchUpInside)
+                        view.addSubview(menuButton)
+                        return view
+                    }))
+                    header.height = { 100 }
+                    return header
+                }()
+            }
+            +++ Section("Enter BandObject Facebook Username:")
             <<< TextRow("username"){ row in
                 row.title = "Username"
                 row.placeholder = ""
@@ -114,6 +130,10 @@ class BandEntryVC: FormViewController {
         imageView.backgroundColor = UIColor.gray
         view.addSubview(imageView)
 
+    }
+    
+    func openMenu() {
+        self.slideMenuController()?.openLeft()
     }
     
     func skip() {

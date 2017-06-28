@@ -15,7 +15,9 @@ class ToDoCell: UITableViewCell {
     let date = UILabel()
     let claimed = UILabel()
     let unclaim = UIButton()
+    let setRegion = UIButton()
     var venue: String?
+    var parentVC: ToDoVC?
     
     override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -32,24 +34,31 @@ class ToDoCell: UITableViewCell {
         date.textAlignment = .right
         contentView.addSubview(date)
         
-        unclaim.translatesAutoresizingMaskIntoConstraints = false
-        unclaim.setTitle("Done Working", for: .normal)
-        unclaim.addTarget(self, action: "StopWorking", for: .touchUpInside)
-        unclaim.setTitleColor(UIColor.blue, for: .normal)
-        unclaim.titleLabel?.textAlignment = .right
-        contentView.addSubview(unclaim)
+//        unclaim.translatesAutoresizingMaskIntoConstraints = false
+//        unclaim.setTitle("Unclaim", for: .normal)
+//        unclaim.addTarget(self, action: "StopWorking", for: .touchUpInside)
+//        unclaim.setTitleColor(UIColor.blue, for: .normal)
+//        unclaim.titleLabel?.textAlignment = .right
+//        contentView.addSubview(unclaim)
+        
+        setRegion.translatesAutoresizingMaskIntoConstraints = false
+        setRegion.setTitle("Set Region", for: .normal)
+        setRegion.addTarget(self, action: "setRegion", for: .touchUpInside)
+        setRegion.setTitleColor(UIColor.blue, for: .normal)
+        setRegion.titleLabel?.textAlignment = .right
+        contentView.addSubview(setRegion)
         
         contentView.addConstraints([
-            NSLayoutConstraint(item: date, attribute: .leading, relatedBy: .equal, toItem: contentView, attribute: .trailing, multiplier: 1, constant: -100),
+            NSLayoutConstraint(item: date, attribute: .leading, relatedBy: .equal, toItem: contentView, attribute: .trailing, multiplier: 1, constant: -80),
             NSLayoutConstraint(item: date, attribute: .trailing, relatedBy: .equal, toItem: contentView, attribute: .trailing, multiplier: 1, constant: -10),
             NSLayoutConstraint(item: date, attribute: .top, relatedBy: .equal, toItem: contentView, attribute: .top, multiplier: 1, constant: 0),
             NSLayoutConstraint(item: date, attribute: .bottom, relatedBy: .equal, toItem: contentView, attribute: .bottom, multiplier: 1, constant: -20)
             ])
         contentView.addConstraints([
-            NSLayoutConstraint(item: unclaim, attribute: .leading, relatedBy: .equal, toItem: date, attribute: .leading, multiplier: 1, constant: -150),
-            NSLayoutConstraint(item: unclaim, attribute: .trailing, relatedBy: .equal, toItem: date, attribute: .leading, multiplier: 1, constant: -10),
-            NSLayoutConstraint(item: unclaim, attribute: .top, relatedBy: .equal, toItem: contentView, attribute: .top, multiplier: 1, constant: 0),
-            NSLayoutConstraint(item: unclaim, attribute: .bottom, relatedBy: .equal, toItem: contentView, attribute: .bottom, multiplier: 1, constant: -20)
+            NSLayoutConstraint(item: setRegion, attribute: .leading, relatedBy: .equal, toItem: date, attribute: .leading, multiplier: 1, constant: -150),
+            NSLayoutConstraint(item: setRegion, attribute: .trailing, relatedBy: .equal, toItem: date, attribute: .leading, multiplier: 1, constant: 20),
+            NSLayoutConstraint(item: setRegion, attribute: .top, relatedBy: .equal, toItem: contentView, attribute: .top, multiplier: 1, constant: 0),
+            NSLayoutConstraint(item: setRegion, attribute: .bottom, relatedBy: .equal, toItem: contentView, attribute: .bottom, multiplier: 1, constant: -20)
             ])
         contentView.addConstraints([
             NSLayoutConstraint(item: label, attribute: .leading, relatedBy: .equal, toItem: contentView, attribute: .leading, multiplier: 1, constant: 10),
@@ -67,6 +76,12 @@ class ToDoCell: UITableViewCell {
     
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+    func setRegion() {
+        if let venue = venue, let parentvc = parentvc {
+            
+        }
     }
     
     func StopWorking() {

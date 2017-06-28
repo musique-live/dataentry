@@ -43,7 +43,7 @@ class TabBarController: UITabBarController, UITabBarControllerDelegate {
         let icon6 = UITabBarItem(title: "Edit Band", image: nil, selectedImage: nil)
         item6.tabBarItem = icon6
         
-        let controllers = [item5, item1, item3, item2, item4, item6]
+        let controllers = [item4, item1, item3, item2, item6, item5]
         self.viewControllers = controllers
     }
 }

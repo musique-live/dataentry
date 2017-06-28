@@ -33,6 +33,12 @@ class EventEntryVC: UIViewController, UITextFieldDelegate {
         
         refresh()
         
+        let menuButton = UIButton(frame: CGRect(x: 20, y: 50, width: 100, height: 50))
+        menuButton.setTitle("MENU", for: .normal)
+        menuButton.setTitleColor(.black, for: .normal)
+        menuButton.addTarget(self, action: "openMenu", for: .touchUpInside)
+        view.addSubview(menuButton)
+        
         bandField.backgroundColor = UIColor.white.withAlphaComponent(0.5)
         bandField.autoCompleteTextColor = UIColor.black
         bandField.autoCompleteCellHeight = 50
@@ -41,7 +47,7 @@ class EventEntryVC: UIViewController, UITextFieldDelegate {
         bandField.hidesWhenEmpty = true
         bandField.enableAttributedText = true
         bandField.placeholder = "Band"
-        bandField.frame = CGRect(x: 20, y: 50, width: halfwidth, height: 50)
+        bandField.frame = CGRect(x: 120, y: 50, width: halfwidth, height: 50)
         view.addSubview(bandField)
         
         bandField.onSelect = {text, indexpath in
@@ -67,7 +73,7 @@ class EventEntryVC: UIViewController, UITextFieldDelegate {
         venueField.hidesWhenEmpty = true
         venueField.enableAttributedText = true
         venueField.placeholder = "Venue"
-        venueField.frame = CGRect(x: 20, y: 250, width: halfwidth, height: 50)
+        venueField.frame = CGRect(x: 120, y: 250, width: halfwidth, height: 50)
         view.addSubview(venueField)
         
         venueField.onSelect = {text, indexpath in
@@ -84,26 +90,26 @@ class EventEntryVC: UIViewController, UITextFieldDelegate {
         venueField.leftView = paddingView
         venueField.leftViewMode = .always
         
-        datepicker = UIDatePicker(frame: CGRect(x: 20, y: 450, width: halfwidth, height: 250))
+        datepicker = UIDatePicker(frame: CGRect(x: 120, y: 450, width: halfwidth, height: 250))
         datepicker?.datePickerMode = .date
         datepicker?.addTarget(self, action: #selector(EventEntryVC.handleDatePicker), for: .valueChanged)
         view.addSubview(datepicker!)
         
-        timeEntry = UITextField(frame: CGRect(x: 20, y: 750, width: halfwidth, height: 50))
+        timeEntry = UITextField(frame: CGRect(x: 120, y: 750, width: halfwidth, height: 50))
         timeEntry.delegate = self
         timeEntry.placeholder = "Time"
         timeEntry.tag = 0
         timeEntry.backgroundColor = UIColor.lightGray.withAlphaComponent(0.5)
         view.addSubview(timeEntry)
         
-        let priceEntry = UITextField(frame: CGRect(x: 20, y: 850, width: halfwidth, height: 50))
+        let priceEntry = UITextField(frame: CGRect(x: 120, y: 850, width: halfwidth, height: 50))
         priceEntry.delegate = self
         priceEntry.tag = 1
         priceEntry.placeholder = "Price"
         priceEntry.backgroundColor = UIColor.lightGray.withAlphaComponent(0.5)
         view.addSubview(priceEntry)
         
-        goButton = UIButton(frame: CGRect(x: view.frame.width - 100, y: 100, width: 80, height: 50))
+        goButton = UIButton(frame: CGRect(x: view.frame.width - 100, y: 20, width: 80, height: 50))
         goButton.setTitle("Send", for: .normal)
         goButton.backgroundColor = UIColor.blue
         goButton.setTitleColor(.white, for: .normal)
@@ -143,6 +149,10 @@ class EventEntryVC: UIViewController, UITextFieldDelegate {
         if self.seatGeekObject != nil {
             populateWithSeatGeek()
         }
+    }
+    
+    func openMenu() {
+        self.slideMenuController()?.openLeft()
     }
     
     func populateWithSeatGeek() {

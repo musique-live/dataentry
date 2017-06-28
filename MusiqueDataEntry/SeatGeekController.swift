@@ -19,7 +19,7 @@ class SeatGeekController: NSObject {
     
     var myGroup = DispatchGroup()
     var page: Int?
-    let searchURL = "https://api.seatgeek.com/2/events?client_id=Nzc4NjQxMnwxNDk2OTc2NTE3LjEz&geoip=20769&type=concert&per_page=50"
+    let searchURL = "https://api.seatgeek.com/2/events?client_id=Nzc4NjQxMnwxNDk2OTc2NTE3LjEz&geoip=20769&type=concert&per_page=50&aid=12689"
     var youtubeURL = "https://www.googleapis.com/youtube/v3/search?part=snippet&type=video&key=AIzaSyDDqTGpVR7jxeozoOEjH6SLaRdw0YY-HPQ"
     var googleImagesURL = "https://www.googleapis.com/customsearch/v3/search?searchType=image&key=AIzaSyDDqTGpVR7jxeozoOEjH6SLaRdw0YY-HPQ"
     var venues: [String]?
@@ -56,9 +56,9 @@ class SeatGeekController: NSObject {
             var updatedevents = self.updateEvents(events: newevents)
             
             NetworkController().getVenuesList(completion: {
-                newvenues in
+                dictvenues in
                 
-                
+                let newvenues = dictvenues.allKeys as! [String]
                 //just setting venues
                 var checkvenues = [String]()
                 for item in newvenues {
@@ -164,14 +164,12 @@ class SeatGeekController: NSObject {
     
     func getImagesForBand(band: String, completion: @escaping(String) -> Void) {
         let searchband = band.replacingOccurrences(of: " ", with: "+")
-        let url = googleImagesURL + "&q=\(searchband)+music+band"
-        Alamofire.request(url).responseJSON { response in
+        let url = googleImagesURL + "&q=music"
+        Alamofire.request(url).responseString(completionHandler: {
+            response in
             print(response)
-            print(response.error)
-            if let result = response.result.value as? NSDictionary {
-                print(result)
-            }
-        }
+            print(response.result.value)
+        })
     }
     
     func getYoutubeForBand(band: String, completion: @escaping(String) -> Void) {

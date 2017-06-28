@@ -9,10 +9,15 @@
 import Foundation
 import UIKit
 
-class ToDoList: UIViewController, UITableViewDelegate, UITableViewDataSource, UIPickerViewDelegate, UIPickerViewDataSource {
+class ToDoList: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
     var tableView: UITableView!
-    var venues: [String]?
+    var venues: NSDictionary?
+    var allVenues = [String]()
+    var taraVenues = [String]()
+    var kathiVenues = [String]()
+    var tameraVenues = [String]()
+    var unclaimedvenues = [String]()
     var name: String?
     var currentRegion: String?
     var currentVenue: String?
@@ -25,8 +30,27 @@ class ToDoList: UIViewController, UITableViewDelegate, UITableViewDataSource, UI
         
         NetworkController().getVenuesList(completion:  {
             venues in
-            self.venues = venues.sorted()
+            self.venues = venues
+            self.allVenues = venues.allKeys as! [String]
             self.tableView.reloadData()
+            
+            for venue in self.allVenues {
+                if let val = venues.object(forKey: venue) as? String {
+                    switch val {
+                    case "tara":
+                        self.taraVenues.append(venue)
+                    case "tamera":
+                        self.tameraVenues.append(venue)
+                    case "kathi":
+                        self.kathiVenues.append(venue)
+                    case "unclaimed":
+                        self.unclaimedvenues.append(venue)
+                    default:
+                        self.unclaimedvenues.append(venue)
+                    }
+                }
+                
+            }
         })
         
         let menuButton = UIButton(frame: CGRect(x: 30, y: 20, width: 100, height: 50))
@@ -35,10 +59,45 @@ class ToDoList: UIViewController, UITableViewDelegate, UITableViewDataSource, UI
         menuButton.addTarget(self, action: "openMenu", for: .touchUpInside)
         view.addSubview(menuButton)
         
+        let kathiButton = UIButton(frame: CGRect(x: 150, y: 20, width: 100, height: 50))
+        kathiButton.setTitle("Kathi", for: .normal)
+        kathiButton.setTitleColor(.white, for: .normal)
+        kathiButton.tag = 0
+        kathiButton.addTarget(self, action: #selector(ToDoList.filterUser), for: .touchUpInside)
+        view.addSubview(kathiButton)
+        
+        let tamerabutton = UIButton(frame: CGRect(x: 270, y: 20, width: 100, height: 50))
+        tamerabutton.setTitle("Tamera", for: .normal)
+        tamerabutton.setTitleColor(.white, for: .normal)
+        tamerabutton.tag = 1
+        tamerabutton.addTarget(self, action: #selector(ToDoList.filterUser), for: .touchUpInside)
+        view.addSubview(tamerabutton)
+        
+        let tarabutton = UIButton(frame: CGRect(x: 390, y: 20, width: 100, height: 50))
+        tarabutton.setTitle("Tara", for: .normal)
+        tarabutton.setTitleColor(.white, for: .normal)
+        tarabutton.tag = 2
+        tarabutton.addTarget(self, action: #selector(ToDoList.filterUser), for: .touchUpInside)
+        view.addSubview(tarabutton)
+        
+        let unknown = UIButton(frame: CGRect(x: 510, y: 20, width: 100, height: 50))
+        unknown.setTitle("Unclaimed", for: .normal)
+        unknown.setTitleColor(.white, for: .normal)
+        unknown.tag = 3
+        unknown.addTarget(self, action: #selector(ToDoList.filterUser), for: .touchUpInside)
+        view.addSubview(unknown)
+        
+        let all = UIButton(frame: CGRect(x: 630, y: 20, width: 100, height: 50))
+        all.setTitle("All", for: .normal)
+        all.setTitleColor(.white, for: .normal)
+        all.tag = 4
+        all.addTarget(self, action: #selector(ToDoList.filterUser), for: .touchUpInside)
+        view.addSubview(all)
+        
         tableView = UITableView(frame: CGRect(x: 0, y: 90, width: view.frame.width, height: view.frame.height - 90))
         tableView.delegate = self
         let refresh = UIRefreshControl()
-        refresh.addTarget(self, action: "refresh", for: .valueChanged)
+        refresh.addTarget(self, action: #selector(ToDoList.refresh), for: .valueChanged)
         if #available(iOS 10.0, *) {
             tableView.refreshControl = refresh
         }
@@ -48,119 +107,64 @@ class ToDoList: UIViewController, UITableViewDelegate, UITableViewDataSource, UI
         tableView.register(ToDoCell.self, forCellReuseIdentifier: "cell")
     }
     
+    func filterUser(button: UIButton) {
+        switch button.tag {
+        case 0:
+            let dict = NSMutableDictionary()
+            for val in kathiVenues {
+                dict.setObject("kathi", forKey: val as NSCopying)
+            }
+            venues = dict
+            tableView.reloadData()
+        case 1:
+            let dict = NSMutableDictionary()
+            for val in tameraVenues {
+                dict.setObject("tamera", forKey: val as NSCopying)
+            }
+            venues = dict
+            tableView.reloadData()
+        case 2:
+            let dict = NSMutableDictionary()
+            for val in taraVenues {
+                dict.setObject("tara", forKey: val as NSCopying)
+            }
+            venues = dict
+            tableView.reloadData()
+        case 3:
+            let dict = NSMutableDictionary()
+            for val in unclaimedvenues {
+                dict.setObject("unclaimed", forKey: val as NSCopying)
+            }
+            venues = dict
+            tableView.reloadData()
+        case 4:
+            let dict = NSMutableDictionary()
+            for val in allVenues {
+                dict.setObject("", forKey: val as NSCopying)
+            }
+            venues = dict
+            tableView.reloadData()
+        default:
+            let dict = NSMutableDictionary()
+            for val in allVenues {
+                dict.setObject("", forKey: val as NSCopying)
+            }
+            venues = dict
+            tableView.reloadData()
+        }
+    }
+    
     func refresh() {
         NetworkController().getVenuesList(completion:  {
             venues in
-            self.venues = venues.sorted()
             if #available(iOS 10.0, *) {
                 self.tableView.refreshControl?.endRefreshing()
             }
             self.tableView.reloadData()
         })
     }
-    
-    func addRegion(venue: String) {
-        currentVenue = venue
-        regionView = getRegionSubview()
-        view.addSubview(regionView!)
-    }
-    
-    func getRegionSubview() -> UIView {
-        let subview = UIView(frame: CGRect(x: 50, y: 100, width: view.frame.width - 100, height: 250))
-        subview.layer.borderWidth = 5
-        subview.layer.borderColor = UIColor.black.cgColor
-        subview.backgroundColor = .white
-        
-        let buttonOne = UIButton(frame: CGRect(x: 10, y: 40, width: 100, height: 60))
-        buttonOne.tag = 0
-        buttonOne.setTitle("DC", for: .normal)
-        buttonOne.addTarget(self, action: #selector(clickRegion), for: .touchUpInside)
-        buttonOne.backgroundColor = UIColor.blue
-        subview.addSubview(buttonOne)
-        
-        let buttonTwo = UIButton(frame: CGRect(x: 120, y: 40, width: 100, height: 60))
-        buttonTwo.tag = 1
-        buttonTwo.setTitle("Annapolis", for: .normal)
-        buttonTwo.addTarget(self, action: #selector(clickRegion), for: .touchUpInside)
-        buttonTwo.backgroundColor = UIColor.blue
-        subview.addSubview(buttonTwo)
-        
-        let buttonThree = UIButton(frame: CGRect(x: 230, y: 40, width: 100, height: 60))
-        buttonThree.tag = 2
-        buttonThree.setTitle("Baltimore", for: .normal)
-        buttonThree.addTarget(self, action: #selector(clickRegion), for: .touchUpInside)
-        buttonThree.backgroundColor = UIColor.blue
-        subview.addSubview(buttonThree)
-        
-        let buttonFour = UIButton(frame: CGRect(x: 340, y: 40, width: 100, height: 60))
-        buttonFour.tag = 3
-        buttonFour.setTitle("Ocean City", for: .normal)
-        buttonFour.addTarget(self, action: #selector(clickRegion), for: .touchUpInside)
-        buttonFour.backgroundColor = UIColor.blue
-        subview.addSubview(buttonFour)
-        
-        let ok = UIButton(frame: CGRect(x: 10, y: 40, width: 100, height: 60))
-        ok.setTitle("OK", for: .normal)
-        ok.addTarget(self, action: #selector(self.ok), for: .touchUpInside)
-        ok.backgroundColor = UIColor.blue
-        subview.addSubview(ok)
-        
-        let spinner = UIPickerView(frame: CGRect(x: 450, y: 50, width: 150, height: 100))
-        spinner.delegate = self
-        spinner.backgroundColor = UIColor.gray
-        spinner.dataSource = self
-        subview.addSubview(spinner)
-        
-        return subview
-        
-    }
-    
-    func numberOfComponents(in pickerView: UIPickerView) -> Int {
-        return 1
-    }
-    
-    func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
-        return 100
-    }
-    
-    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
-        return "\(row)"
-    }
-    
-    func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
-        reservationsNumber = row
-    }
-    
-    func clickRegion(button: UIButton) {
-        button.backgroundColor = UIColor.gray
-        switch button.tag {
-        case 0:
-            currentRegion = "DC"
-        case 1:
-            currentRegion = "Annapolis"
-        case 2:
-            currentRegion = "Baltimore"
-        case 3:
-            currentRegion = "OC"
-        default:
-            print("")
-        }
-    }
-    
-    func ok() {
-        sendRegion()
-    }
-    
-    func sendRegion() {
-        if let view = regionView {
-            regionView?.removeFromSuperview()
-            regionView = nil
-        }
-        guard let ven = currentVenue, let reg = currentRegion, let res = reservationsNumber else { return }
-        NetworkController().updateRegion(venue: ven, region: reg, res: res)
-        currentRegion = nil
-        currentVenue = nil
-    }
+
+
     
     func openMenu() {
         self.slideMenuController()?.openLeft()
@@ -175,13 +179,15 @@ class ToDoList: UIViewController, UITableViewDelegate, UITableViewDataSource, UI
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 180
+        return 120
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as? ToDoCell {
-            if let venue = venues?[indexPath.row] {
+            if let keys = venues?.allKeys as? [String] {
+                let venue = keys[indexPath.row]
                 cell.getInfo(venue: venue)
+                cell.claimedBy(name: venues?.object(forKey: venue) as! String)
             }
             cell.parent = self
             cell.selectionStyle = .none
@@ -192,7 +198,8 @@ class ToDoList: UIViewController, UITableViewDelegate, UITableViewDataSource, UI
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if let cell = tableView.cellForRow(at: indexPath) as? ToDoCell {
-            if let venue = venues?[indexPath.row] {
+            if let keys = venues?.allKeys as? [String] {
+                let venue = keys[indexPath.row]
                 if let name = self.name {
                     cell.setClaimed(venue: venue, name: name)
                 } else {

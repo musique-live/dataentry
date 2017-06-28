@@ -10,7 +10,6 @@ import Foundation
 import UIKit
 
 let resetCoords = false
-let resetReservationAndRegion = true
 
 class ToDoCell: UITableViewCell {
     
@@ -45,21 +44,21 @@ class ToDoCell: UITableViewCell {
             NSLayoutConstraint(item: date, attribute: .bottom, relatedBy: .equal, toItem: contentView, attribute: .bottom, multiplier: 1, constant: -20)
             ])
         
-        if resetReservationAndRegion == true {
-            setRegion.translatesAutoresizingMaskIntoConstraints = false
-            setRegion.setTitle("Set Region", for: .normal)
-            setRegion.addTarget(self, action: "doRegion", for: .touchUpInside)
-            setRegion.setTitleColor(UIColor.blue, for: .normal)
-            setRegion.titleLabel?.textAlignment = .right
-            contentView.addSubview(setRegion)
-            
-            contentView.addConstraints([
-                NSLayoutConstraint(item: setRegion, attribute: .leading, relatedBy: .equal, toItem: date, attribute: .leading, multiplier: 1, constant: -150),
-                NSLayoutConstraint(item: setRegion, attribute: .trailing, relatedBy: .equal, toItem: date, attribute: .leading, multiplier: 1, constant: 20),
-                NSLayoutConstraint(item: setRegion, attribute: .top, relatedBy: .equal, toItem: contentView, attribute: .top, multiplier: 1, constant: 0),
-                NSLayoutConstraint(item: setRegion, attribute: .bottom, relatedBy: .equal, toItem: contentView, attribute: .bottom, multiplier: 1, constant: -20)
-                ])
-        }
+
+//            setRegion.translatesAutoresizingMaskIntoConstraints = false
+//            setRegion.setTitle("Set Region", for: .normal)
+//            setRegion.addTarget(self, action: "doRegion", for: .touchUpInside)
+//            setRegion.setTitleColor(UIColor.blue, for: .normal)
+//            setRegion.titleLabel?.textAlignment = .right
+//            contentView.addSubview(setRegion)
+//            
+//            contentView.addConstraints([
+//                NSLayoutConstraint(item: setRegion, attribute: .leading, relatedBy: .equal, toItem: date, attribute: .leading, multiplier: 1, constant: -150),
+//                NSLayoutConstraint(item: setRegion, attribute: .trailing, relatedBy: .equal, toItem: date, attribute: .leading, multiplier: 1, constant: 20),
+//                NSLayoutConstraint(item: setRegion, attribute: .top, relatedBy: .equal, toItem: contentView, attribute: .top, multiplier: 1, constant: 0),
+//                NSLayoutConstraint(item: setRegion, attribute: .bottom, relatedBy: .equal, toItem: contentView, attribute: .bottom, multiplier: 1, constant: -20)
+//                ])
+
         
         contentView.addConstraints([
             NSLayoutConstraint(item: label, attribute: .leading, relatedBy: .equal, toItem: contentView, attribute: .leading, multiplier: 1, constant: 10),
@@ -75,14 +74,12 @@ class ToDoCell: UITableViewCell {
             ])
     }
     
-    required init?(coder aDecoder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
+    func claimedBy(name: String) {
+        claimed.text = "Claimed by: \(name.uppercased())"
     }
     
-    func doRegion() {
-        if let venue = venue, let parent = parent {
-            parent.addRegion(venue: venue)
-        }
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
     }
     
     func StopWorking() {
@@ -128,19 +125,19 @@ class ToDoCell: UITableViewCell {
                     } else if components.day! < 14 {
                         self.backgroundColor = UIColor.yellow.withAlphaComponent(0.5)
                     }
-//                    else if components.day! > 40 {
-//                        NetworkController().getFirstDate(fullvenue: venue, completion: {
-//                            event in
-//                            if let date = event?.timestamp {
-//                                let currentdate = Date()
-//                                let calendar = NSCalendar.current
-//                                let components = calendar.dateComponents([.day], from: currentdate, to: date as Date)
-//                                if components.day! > 14 {
-//                                    self.backgroundColor = UIColor.yellow.withAlphaComponent(0.5)
-//                                }
-//                            }
-//                        })
-//                    }
+                    else if components.day! > 40 {
+                        NetworkController().getFirstDate(fullvenue: venue, completion: {
+                            event in
+                            if let date = event?.timestamp {
+                                let currentdate = Date()
+                                let calendar = NSCalendar.current
+                                let components = calendar.dateComponents([.day], from: currentdate, to: date as Date)
+                                if components.day! > 14 {
+                                    self.backgroundColor = UIColor.yellow.withAlphaComponent(0.5)
+                                }
+                            }
+                        })
+                    }
                     
                     let formatter = DateFormatter()
                     formatter.dateStyle = .short
@@ -150,42 +147,10 @@ class ToDoCell: UITableViewCell {
                     self.backgroundColor = UIColor.red.withAlphaComponent(0.5)
                 }
             })
-
-            if resetReservationAndRegion {
-                NetworkController().getInfo(fullvenue: venue, completion: {
-                    dict in
-                    if resetReservationAndRegion == true {
-                        if let _ = dict?["region"] as? String {
-                            self.setRegion.setTitle("Set Reservations", for: .normal)
-                            if let _ = dict?["reservations"] as? NSDictionary {
-                                self.setRegion.setTitle("", for: .normal)
-                            }
-                        } else {
-                            self.setRegion.setTitle("Set Region", for: .normal)
-                        }
-                    }
-                })
-            }
             
-            
-            NetworkController().getClaimed(venue: venue, completion: {
-                name in
-                if let name = name {
-                    if !name.isEmpty {
-                        self.claimed.text = "Owner: \(name.capitalized)"
-                    }
-                } else {
-                    self.claimed.text = "NEEDS OWNER"
-                }
-            })
  
         }
-        
-        
-        
-        
-        
-        
+
     }
     
     func setClaimed(venue: String, name: String) {

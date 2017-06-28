@@ -102,7 +102,7 @@ class EventEntryVC: UIViewController, UITextFieldDelegate {
         timeEntry.backgroundColor = UIColor.lightGray.withAlphaComponent(0.5)
         view.addSubview(timeEntry)
         
-        let priceEntry = UITextField(frame: CGRect(x: 120, y: 850, width: halfwidth, height: 50))
+        priceEntry = UITextField(frame: CGRect(x: 120, y: 850, width: halfwidth, height: 50))
         priceEntry.delegate = self
         priceEntry.tag = 1
         priceEntry.placeholder = "Price"
@@ -138,6 +138,12 @@ class EventEntryVC: UIViewController, UITextFieldDelegate {
         } else {
             if let pricenum = Int(textField.text!) {
                 event.price = pricenum
+            } else {
+                let alert = UIAlertController(title: "HEY", message: "Price needs to be a number", preferredStyle: UIAlertControllerStyle.alert)
+                alert.addAction(UIAlertAction(title: "Ok", style: UIAlertActionStyle.default, handler: {
+                    handle in
+                }))
+                self.present(alert, animated: true, completion: nil)
             }
         }
         return true
@@ -225,7 +231,7 @@ class EventEntryVC: UIViewController, UITextFieldDelegate {
     func refresh() {
         NetworkController().getVenuesList(completion: {
             venues in
-            self.venues = venues
+            self.venues = venues.allKeys as! [String]
         })
         
         NetworkController().getBandObjectsList(completion: {

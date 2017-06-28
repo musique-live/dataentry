@@ -50,6 +50,12 @@ class BandEntryVC: FormViewController {
                     selected in
                     self.doFacebookCollect()
                 })
+            <<< ButtonRow(){
+                $0.title = "GOOGLE FACEBOOK"
+                }.onCellSelection({
+                    selected in
+                    self.googleFacebook()
+                })
             +++ Section("Collected Data")
             <<< TextRow("name"){
                 $0.title = "Name:"
@@ -391,7 +397,6 @@ class BandEntryVC: FormViewController {
                 
             })
         }
-        completion(false)
     }
     
     func displayCollected() {
@@ -470,6 +475,16 @@ class BandEntryVC: FormViewController {
         let nameRow: TextRow? = form.rowBy(tag: "name")
         if let name = nameRow?.value {
             let urlstring = googleLink + name.replacingOccurrences(of: " ", with: "+") + "+music+band"
+            let url = URL(string: urlstring)
+            UIApplication.shared.openURL(url!)
+        }
+    }
+    
+    func googleFacebook() {
+        let googleLink = "https://www.google.com/search?q="
+        let nameRow: TextRow? = form.rowBy(tag: "name")
+        if let name = nameRow?.value {
+            let urlstring = googleLink + name.replacingOccurrences(of: " ", with: "+") + "facebook+music"
             let url = URL(string: urlstring)
             UIApplication.shared.openURL(url!)
         }

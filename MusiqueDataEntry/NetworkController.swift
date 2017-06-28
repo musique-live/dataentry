@@ -44,23 +44,56 @@ class NetworkController: NSObject {
     }
     
     func deleteEvent(event: EventObject) {
-        guard let id = event.id else { return }
+        guard let id = event.id, let band = event.band?.name, let venue = event.venue?.venue else { return }
         
+        let query = FIRDatabase.database().reference().child("DC/Events/\(id)")
+        query.removeValue()
+        
+        let venuequery = FIRDatabase.database().reference().child("DC/Bands/\(cleanFBString(string: band))/Events/\(id)")
+        venuequery.removeValue()
+        
+        let bandquery = FIRDatabase.database().reference().child("DC/Venues/\(cleanFBString(string: venue))/Events/\(id)")
+        bandquery.removeValue()
     }
     
-    func getVenuesList(completion: @escaping (([String]) -> Void)) {
+    func getVenuesList(completion: @escaping ((NSDictionary) -> Void)) {
         let query = FIRDatabase.database().reference().child("DC/Venues").queryOrderedByKey()
         query.observeSingleEvent(of: .value, with: {
             snapshot in
             if let val = snapshot.value as? NSDictionary {
-                completion(val.allKeys as! [String])
+                let keys = val.allKeys as! [String]
+                self.getOwner(venues: keys.sorted(), completion: {
+                    result in
+                    completion(result)
+                })
             } else {
-                completion([])
+                completion([:])
             }
         }, withCancel: {
             (error) in
-            completion([])
+            completion([:])
         })
+    }
+
+    func getOwner(venues: [String], completion: @escaping((NSDictionary) -> Void)) {
+        var returndict = NSMutableDictionary()
+        
+        for venue in venues {
+            myGroup.enter()
+            getClaimed(venue: venue, completion: {
+                name in
+                if let name = name {
+                    returndict.setObject(name.lowercased(), forKey: venue as NSCopying)
+                } else {
+                    returndict.setObject("unclaimed", forKey: venue as NSCopying)
+                }
+                self.myGroup.leave()
+            })
+        }
+        
+        myGroup.notify(queue: .main) {
+            completion(returndict)
+        }
     }
     
     func getIdsList(venue: String, completion: @escaping (([String]) -> Void)) {

@@ -91,8 +91,10 @@ extension NetworkController {
         })
     }
     
-    func updateRegion(venue: String, region: String) {
+    func updateRegion(venue: String, region: String, res: Int) {
         FIRDatabase.database().reference().child("DC/Venues/\(venue)/info/region").setValue(region)
+        FIRDatabase.database().reference().child("DC/Venues/\(venue)/info/reservations/available").setValue(res)
+        FIRDatabase.database().reference().child("DC/Venues/\(venue)/info/reservations/working").setValue(1)
     }
     
     func sendVenueData(venue: VenueObject, completion: @escaping (Bool) -> Void) {
@@ -115,6 +117,10 @@ extension NetworkController {
         }
         if let email = venue.email {
             FIRDatabase.database().reference().child("DC/Venues/\(venuename)/info/email").setValue(email)
+        }
+        if let res = venue.reservationsNum {
+            FIRDatabase.database().reference().child("DC/Venues/\(venuename)/info/reservations/available").setValue(res)
+            FIRDatabase.database().reference().child("DC/Venues/\(venuename)/info/reservations/working").setValue(1)
         }
         if let coordinates = venue.coordinates {
             let ref = FIRDatabase.database().reference().child("DC/Venues/\(venuename)/info/")
@@ -266,35 +272,51 @@ extension NetworkController {
         if let descript = event.band?.bandDescription {
             newData["banddescription"] = descript
         }
-        if let location = event.venue?.coordinates {
-            newData["coordinates"] =
-                [location.coordinate.latitude,
-                 location.coordinate.longitude]
+        if bandstring == "Save For Later" {
+            
+        } else {
+            if let location = event.venue?.coordinates {
+                newData["coordinates"] =
+                    [location.coordinate.latitude,
+                     location.coordinate.longitude]
+            }
         }
         
-        newEventRef.setValue(newData)
-        
-        if let band = event.bandString {
-            var newband = cleanFBString(string: band)
-            let bandRef = FIRDatabase.database().reference()
-                .child("DC/Bands/\(newband)/Events/\(newEventID)")
-            bandRef.setValue(newData)
+        if bandstring == "Save For Later" {
+            if let venue = event.venueString {
+                var newvenue = cleanFBString(string: venue)
+                let venueref = FIRDatabase.database().reference()
+                    .child("DC/Venues/\(newvenue)/Events/\(newEventID)")
+                venueref.setValue(newData)
+            }
+            
+        } else {
+            newEventRef.setValue(newData)
+            
+            if let band = event.bandString {
+                var newband = cleanFBString(string: band)
+                let bandRef = FIRDatabase.database().reference()
+                    .child("DC/Bands/\(newband)/Events/\(newEventID)")
+                bandRef.setValue(newData)
+            }
+            
+            if let venue = event.venueString {
+                var newvenue = cleanFBString(string: venue)
+                let venueref = FIRDatabase.database().reference()
+                    .child("DC/Venues/\(newvenue)/Events/\(newEventID)")
+                venueref.setValue(newData)
+            }
+            
+            
+            
+            if let sgid = event.seatGeekID, let venue = event.venueString  {
+                let idsref = FIRDatabase.database().reference()
+                    .child("DC/SeatGeek/\(sgid)")
+                idsref.setValue(cleanFBString(string: venue))
+            }
         }
         
-        if let venue = event.venueString {
-            var newvenue = cleanFBString(string: venue)
-            let venueref = FIRDatabase.database().reference()
-                .child("DC/Venues/\(newvenue)/Events/\(newEventID)")
-            venueref.setValue(newData)
-        }
         
-        
-        
-        if let sgid = event.seatGeekID, let venue = event.venueString  {
-            let idsref = FIRDatabase.database().reference()
-                .child("DC/SeatGeek/\(sgid)")
-            idsref.setValue(cleanFBString(string: venue))
-        }
         
         completion(true)
     }

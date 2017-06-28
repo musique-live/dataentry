@@ -19,6 +19,7 @@ class VenueObject: NSObject {
     var coordinates: CLLocation?
     var email: String?
     var region: String?
+    var reservationsNum: Int?
     
     init(address: String?, facebook: String?, venue: String?, yelp: String?, website: String?) {
         self.address = address

@@ -9,6 +9,7 @@
 import Foundation
 import UIKit
 import Firebase
+import CoreLocation
 
 extension NetworkController {
     
@@ -24,6 +25,88 @@ extension NetworkController {
                     completion(newevents.last)
                     
                 })
+            } else {
+                completion(nil)
+            }
+            
+        }, withCancel: {
+            error in
+            completion(nil)
+        })
+        
+    }
+    
+    func getFirstDate(fullvenue: String, completion: @escaping(EventObject?) -> Void) {
+        let venue = cleanFBString(string: fullvenue)
+        let newquery = FIRDatabase.database().reference().child("DC/Venues/\(venue)/Events").queryOrdered(byChild: "date").queryLimited(toFirst: 1)
+        newquery.observeSingleEvent(of: .value, with: {
+            
+            snapshot in
+            if snapshot.hasChildren() {
+                self.processEventSnapshot(snapArray: snapshot, completion: {
+                    newevents in
+                    completion(newevents.last)
+                    
+                })
+            } else {
+                completion(nil)
+            }
+            
+        }, withCancel: {
+            error in
+            completion(nil)
+        })
+        
+    }
+    
+    func fixCoordinates(venue: String, newCoords: CLLocationCoordinate2D) {
+        print(venue)
+        print(newCoords.latitude)
+        print(newCoords.longitude)
+        print("")
+        
+        NetworkController().getIdsList(venue: venue, completion: {
+            ids in
+            print(ids)
+            
+            for id in ids {
+                let ref = FIRDatabase.database().reference().child("DC/Venues/\(venue)/Events/\(id)")
+                
+                ref.updateChildValues([
+                    "coordinates":
+                        [newCoords.latitude,
+                         newCoords.longitude]
+                    ])
+
+            }
+            for id in ids {
+                let ref = FIRDatabase.database().reference().child("DC/Events/\(id)")
+                
+                ref.updateChildValues([
+                    "coordinates":
+                        [newCoords.latitude,
+                         newCoords.longitude]
+                    ])
+                
+            }
+            let ref = FIRDatabase.database().reference().child("DC/Venues/\(venue)/info")
+            
+            ref.updateChildValues([
+                "coordinates":
+                    [newCoords.latitude,
+                     newCoords.longitude]
+                ])
+        })
+    }
+    
+    func getInfo(fullvenue: String, completion: @escaping(NSDictionary?) -> Void) {
+        let venue = cleanFBString(string: fullvenue)
+        let newquery = FIRDatabase.database().reference().child("DC/Venues/\(venue)/info")
+        newquery.observeSingleEvent(of: .value, with: {
+            
+            snapshot in
+            if let dict = snapshot.value as? NSDictionary {
+                completion(dict)
             } else {
                 completion(nil)
             }

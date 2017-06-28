@@ -18,9 +18,53 @@ class NetworkController: NSObject {
     let geocoder = CLGeocoder()
     var myGroup = DispatchGroup()
     
+    func getAllEvents(completion: @escaping(([EventObject]) -> Void)) {
+        let fourweek = String(NSDate().addingTimeInterval(86400*7*4).timeIntervalSince1970)
+        let currentdate = String(NSDate().timeIntervalSince1970)
+        var querystring = "/DC/Events"
+        
+        let ref = FIRDatabase.database().reference()
+        let query = ref.child(querystring).queryOrdered(byChild: "date").queryStarting(atValue: currentdate).queryEnding(atValue: fourweek)
+        
+        query.observeSingleEvent(of: .value, with: {
+            snapshot in
+            if snapshot.hasChildren() {
+                self.processEventSnapshot(snapArray: snapshot, completion: {
+                    newevents in
+                    completion(newevents)
+                })
+            } else {
+                completion([EventObject]())
+            }
+        }, withCancel: {
+            (error) in
+            completion([EventObject]())
+        })
+
+    }
+    
+    func deleteEvent(event: EventObject) {
+        guard let id = event.id else { return }
+        
+    }
     
     func getVenuesList(completion: @escaping (([String]) -> Void)) {
         let query = FIRDatabase.database().reference().child("DC/Venues").queryOrderedByKey()
+        query.observeSingleEvent(of: .value, with: {
+            snapshot in
+            if let val = snapshot.value as? NSDictionary {
+                completion(val.allKeys as! [String])
+            } else {
+                completion([])
+            }
+        }, withCancel: {
+            (error) in
+            completion([])
+        })
+    }
+    
+    func getIdsList(venue: String, completion: @escaping (([String]) -> Void)) {
+        let query = FIRDatabase.database().reference().child("DC/Venues/\(venue)/Events").queryOrderedByKey()
         query.observeSingleEvent(of: .value, with: {
             snapshot in
             if let val = snapshot.value as? NSDictionary {
@@ -136,13 +180,19 @@ class NetworkController: NSObject {
             id: newObject["id"] as? String,
             bandName: newObject["bandname"] as? String,
             venueName: newObject["venuename"] as? String)
+        if let coord = newObject["coordinates"] as? [Double] {
+            event.coordinates = CLLocationCoordinate2D(latitude: coord[0], longitude: coord[1])
+        }
+        if let image = newObject["bandimage"] as? String {
+            event.band?.image = image
+        }
         
         return event
     }
 
 }
 
-    
+
 extension NSDate {
     convenience init?(jsonDate: String) {
         let scanner = Scanner(string: jsonDate)

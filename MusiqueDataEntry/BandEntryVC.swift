@@ -73,6 +73,12 @@ class BandEntryVC: FormViewController {
                     selected in
                     self.searchImages()
                 })
+            <<< ButtonRow(){
+                $0.title = "Clear Image"
+                }.onCellSelection({
+                    selected in
+                    self.clearImage()
+                })
             <<< TextRow("website"){
                 $0.title = "Website:"
                 $0.placeholder = ""
@@ -98,6 +104,7 @@ class BandEntryVC: FormViewController {
                 $0.placeholder = ""
             }
             <<< TextRow("genre"){
+                $0.maxLength = 30
                 $0.title = "Genre:"
                 $0.placeholder = "Genre"
             }
@@ -151,6 +158,12 @@ class BandEntryVC: FormViewController {
         }
     }
     
+    func clearImage() {
+        let imageRow: TextRow? = form.rowBy(tag: "image")
+        imageRow?.value = ""
+        imageRow?.updateCell()
+    }
+    
     func populateWithSeatGeek() {
         guard let seatGeekObject = seatGeekObject else { return }
         
@@ -189,6 +202,24 @@ class BandEntryVC: FormViewController {
         
         self.newBandObject = BandObject(name: seatGeekObject.name ?? "")
         
+    }
+    
+    override func textInput<T>(_ textInput: UITextInput, shouldChangeCharactersInRange range: NSRange, replacementString string: String, cell: Cell<T>) -> Bool {
+        var text: String?
+        var maxLength: Int?
+        let textAreaRow = cell.baseRow as? TextAreaRow
+        let textRow = cell.baseRow as? TextRow
+        if textAreaRow != nil {
+            text = textAreaRow?.value as String?
+            maxLength = textAreaRow?.maxLength
+        } else if textRow != nil {
+            text = textRow?.value as String?
+            maxLength = textRow?.maxLength
+        }
+        if text == nil || maxLength == nil {
+            return true
+        }
+        return text!.characters.count + string.characters.count - range.length <= maxLength!
     }
     
     override func viewDidDisappear(_ animated: Bool) {
@@ -485,5 +516,33 @@ class BandEntryVC: FormViewController {
     
     func clear() {
         
+    }
+}
+
+
+var extensionPropertyStorage: [String: [String: Any]] = [:]
+
+var maxLength_ = "maxLength"
+
+extension Row {
+    
+    public var maxLength: Int? {
+        get {
+            return didSetMaxLength
+        }
+        set {
+            didSetMaxLength = newValue
+        }
+    }
+    
+    private var didSetMaxLength: Int? {
+        get {
+            return extensionPropertyStorage[self.tag!]?[maxLength_] as? Int
+        }
+        set {
+            var selfDictionary = extensionPropertyStorage[self.tag!] ?? [String: Any]()
+            selfDictionary[maxLength_] = newValue
+            extensionPropertyStorage[self.tag!] = selfDictionary
+        }
     }
 }

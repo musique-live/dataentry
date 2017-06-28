@@ -9,11 +9,15 @@
 import Foundation
 import UIKit
 
-class ToDoList: UIViewController, UITableViewDelegate, UITableViewDataSource {
+class ToDoList: UIViewController, UITableViewDelegate, UITableViewDataSource, UIPickerViewDelegate, UIPickerViewDataSource {
     
     var tableView: UITableView!
     var venues: [String]?
     var name: String?
+    var currentRegion: String?
+    var currentVenue: String?
+    var regionView: UIView?
+    var reservationsNumber: Int?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -33,64 +37,129 @@ class ToDoList: UIViewController, UITableViewDelegate, UITableViewDataSource {
         
         tableView = UITableView(frame: CGRect(x: 0, y: 90, width: view.frame.width, height: view.frame.height - 90))
         tableView.delegate = self
+        let refresh = UIRefreshControl()
+        refresh.addTarget(self, action: "refresh", for: .valueChanged)
+        if #available(iOS 10.0, *) {
+            tableView.refreshControl = refresh
+        }
         tableView.dataSource = self
         view.addSubview(tableView)
         
         tableView.register(ToDoCell.self, forCellReuseIdentifier: "cell")
     }
     
+    func refresh() {
+        NetworkController().getVenuesList(completion:  {
+            venues in
+            self.venues = venues.sorted()
+            if #available(iOS 10.0, *) {
+                self.tableView.refreshControl?.endRefreshing()
+            }
+            self.tableView.reloadData()
+        })
+    }
     
+    func addRegion(venue: String) {
+        currentVenue = venue
+        regionView = getRegionSubview()
+        view.addSubview(regionView!)
+    }
     
     func getRegionSubview() -> UIView {
-        subview = UIView(frame: CGRect(x: 50, y: 100, width: view.frame.width - 100, height: 200))
+        let subview = UIView(frame: CGRect(x: 50, y: 100, width: view.frame.width - 100, height: 250))
+        subview.layer.borderWidth = 5
+        subview.layer.borderColor = UIColor.black.cgColor
         subview.backgroundColor = .white
         
-        buttonOne = UIButton(frame: CGRect(x: 20, y: view.frame.height/2, width: 100, height: 40))
+        let buttonOne = UIButton(frame: CGRect(x: 10, y: 40, width: 100, height: 60))
         buttonOne.tag = 0
         buttonOne.setTitle("DC", for: .normal)
         buttonOne.addTarget(self, action: #selector(clickRegion), for: .touchUpInside)
         buttonOne.backgroundColor = UIColor.blue
         subview.addSubview(buttonOne)
         
-        buttonTwo = UIButton(frame: CGRect(x: 140, y: view.frame.height/2, width: 100, height: 40))
+        let buttonTwo = UIButton(frame: CGRect(x: 120, y: 40, width: 100, height: 60))
         buttonTwo.tag = 1
         buttonTwo.setTitle("Annapolis", for: .normal)
         buttonTwo.addTarget(self, action: #selector(clickRegion), for: .touchUpInside)
         buttonTwo.backgroundColor = UIColor.blue
         subview.addSubview(buttonTwo)
         
-        buttonThree = UIButton(frame: CGRect(x: 260, y: view.frame.height/2, width: 100, height: 40))
+        let buttonThree = UIButton(frame: CGRect(x: 230, y: 40, width: 100, height: 60))
         buttonThree.tag = 2
         buttonThree.setTitle("Baltimore", for: .normal)
         buttonThree.addTarget(self, action: #selector(clickRegion), for: .touchUpInside)
         buttonThree.backgroundColor = UIColor.blue
         subview.addSubview(buttonThree)
         
-        buttonFour = UIButton(frame: CGRect(x: 380, y: view.frame.height/2, width: 100, height: 40))
+        let buttonFour = UIButton(frame: CGRect(x: 340, y: 40, width: 100, height: 60))
         buttonFour.tag = 3
         buttonFour.setTitle("Ocean City", for: .normal)
         buttonFour.addTarget(self, action: #selector(clickRegion), for: .touchUpInside)
         buttonFour.backgroundColor = UIColor.blue
         subview.addSubview(buttonFour)
         
+        let ok = UIButton(frame: CGRect(x: 10, y: 40, width: 100, height: 60))
+        ok.setTitle("OK", for: .normal)
+        ok.addTarget(self, action: #selector(self.ok), for: .touchUpInside)
+        ok.backgroundColor = UIColor.blue
+        subview.addSubview(ok)
+        
+        let spinner = UIPickerView(frame: CGRect(x: 450, y: 50, width: 150, height: 100))
+        spinner.delegate = self
+        spinner.backgroundColor = UIColor.gray
+        spinner.dataSource = self
+        subview.addSubview(spinner)
+        
         return subview
         
+    }
+    
+    func numberOfComponents(in pickerView: UIPickerView) -> Int {
+        return 1
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
+        return 100
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
+        return "\(row)"
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
+        reservationsNumber = row
     }
     
     func clickRegion(button: UIButton) {
         button.backgroundColor = UIColor.gray
         switch button.tag {
         case 0:
-            region = "DC"
+            currentRegion = "DC"
         case 1:
-            region = "Annapolis"
+            currentRegion = "Annapolis"
         case 2:
-            region = "Baltimore"
+            currentRegion = "Baltimore"
         case 3:
-            region = "OC"
+            currentRegion = "OC"
         default:
             print("")
         }
+    }
+    
+    func ok() {
+        sendRegion()
+    }
+    
+    func sendRegion() {
+        if let view = regionView {
+            regionView?.removeFromSuperview()
+            regionView = nil
+        }
+        guard let ven = currentVenue, let reg = currentRegion, let res = reservationsNumber else { return }
+        NetworkController().updateRegion(venue: ven, region: reg, res: res)
+        currentRegion = nil
+        currentVenue = nil
     }
     
     func openMenu() {
@@ -106,7 +175,7 @@ class ToDoList: UIViewController, UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 100
+        return 180
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -114,6 +183,7 @@ class ToDoList: UIViewController, UITableViewDelegate, UITableViewDataSource {
             if let venue = venues?[indexPath.row] {
                 cell.getInfo(venue: venue)
             }
+            cell.parent = self
             cell.selectionStyle = .none
             return cell
         }

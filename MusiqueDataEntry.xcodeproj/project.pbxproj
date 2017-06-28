@@ -21,6 +21,7 @@
 		DB1DEA931EA92A7800FD27BD /* Venue.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB1DEA921EA92A7800FD27BD /* Venue.swift */; };
 		DB1DEA951EA92E0000FD27BD /* TabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB1DEA941EA92E0000FD27BD /* TabBarController.swift */; };
 		DB1DEA971EA92EBF00FD27BD /* EventEntryVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB1DEA961EA92EBF00FD27BD /* EventEntryVC.swift */; };
+		DB3839771F037A2100721326 /* DeleteEventsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB3839761F037A2100721326 /* DeleteEventsVC.swift */; };
 		DB5B1A911EF102E400C80D20 /* EditBandVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB5B1A901EF102E400C80D20 /* EditBandVC.swift */; };
 		DB6598661EAAEC680085BD05 /* AutoCompleteTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB6598651EAAEC680085BD05 /* AutoCompleteTextField.swift */; };
 		DB6598681EAAEFB50085BD05 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = DB6598671EAAEFB50085BD05 /* GoogleService-Info.plist */; };
@@ -75,6 +76,7 @@
 		DB1DEA921EA92A7800FD27BD /* Venue.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Venue.swift; sourceTree = "<group>"; };
 		DB1DEA941EA92E0000FD27BD /* TabBarController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TabBarController.swift; path = ../TabBarController.swift; sourceTree = "<group>"; };
 		DB1DEA961EA92EBF00FD27BD /* EventEntryVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EventEntryVC.swift; sourceTree = "<group>"; };
+		DB3839761F037A2100721326 /* DeleteEventsVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DeleteEventsVC.swift; sourceTree = "<group>"; };
 		DB5B1A901EF102E400C80D20 /* EditBandVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditBandVC.swift; sourceTree = "<group>"; };
 		DB6598651EAAEC680085BD05 /* AutoCompleteTextField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AutoCompleteTextField.swift; sourceTree = "<group>"; };
 		DB6598671EAAEFB50085BD05 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
@@ -231,6 +233,7 @@
 			isa = PBXGroup;
 			children = (
 				DBBD055E1F034C0000C6179E /* ContainerViewController.swift */,
+				DB3839761F037A2100721326 /* DeleteEventsVC.swift */,
 				DBAC9C2C1EF0535700CDDA72 /* SeatGeekVC.swift */,
 				DB1D55081EF06C4E005A1099 /* SeatGeekCell.swift */,
 				DB1D550A1EF07EC4005A1099 /* VideoVC.swift */,
@@ -477,6 +480,7 @@
 				DB1DEA951EA92E0000FD27BD /* TabBarController.swift in Sources */,
 				DBAC9C291EF03C7000CDDA72 /* ToDoCell.swift in Sources */,
 				DBAC9C2B1EF04FB700CDDA72 /* SeatGeekController.swift in Sources */,
+				DB3839771F037A2100721326 /* DeleteEventsVC.swift in Sources */,
 				DBAC9C2F1EF0560300CDDA72 /* SeatGeekEvent.swift in Sources */,
 				DB1D550B1EF07EC4005A1099 /* VideoVC.swift in Sources */,
 				DB7176F81EA7E713008666AC /* AppDelegate.swift in Sources */,

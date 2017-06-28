@@ -65,6 +65,12 @@ class ContainerViewController: UIViewController {
         buttonSix.setTitleColor(UIColor.white, for: .normal)
         view.addSubview(buttonSix)
         
+        let buttonSeven = UIButton(frame: CGRect(x: 10, y: 560, width: width - 20, height: 60))
+        buttonSeven.setTitle("Delete Events", for: .normal)
+        buttonSeven.addTarget(self, action: #selector(ContainerViewController.openDelete), for: .touchUpInside)
+        buttonSeven.setTitleColor(UIColor.white, for: .normal)
+        view.addSubview(buttonSeven)
+        
     }
     
     func openToDo() {
@@ -95,6 +101,11 @@ class ContainerViewController: UIViewController {
     func openScrape() {
         self.slideMenuController()?.closeLeft()
         tab?.selectedIndex = 5
+    }
+    
+    func openDelete() {
+        self.slideMenuController()?.closeLeft()
+        tab?.selectedIndex = 6
     }
     
 }

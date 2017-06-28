@@ -77,6 +77,10 @@ class VenueEntryVC: FormViewController {
                 $0.title = "Address:"
                 $0.placeholder = ""
             }
+            <<< TextRow("reservations"){
+                $0.title = "Number Of Reservations:"
+                $0.value = "0"
+            }
             <<< ButtonRow(){
                 $0.title = "Looks Good!"
                 }.onCellSelection({
@@ -96,28 +100,28 @@ class VenueEntryVC: FormViewController {
         animateScroll = true
         rowKeyboardSpacing = 20
         
-        buttonOne = UIButton(frame: CGRect(x: 20, y: view.frame.height/2, width: 100, height: 40))
+        buttonOne = UIButton(frame: CGRect(x: 20, y: view.frame.height/2 + 50, width: 100, height: 40))
         buttonOne.tag = 0
         buttonOne.setTitle("DC", for: .normal)
         buttonOne.addTarget(self, action: #selector(clickRegion), for: .touchUpInside)
         buttonOne.backgroundColor = UIColor.blue
         view.addSubview(buttonOne)
         
-        buttonTwo = UIButton(frame: CGRect(x: 140, y: view.frame.height/2, width: 100, height: 40))
+        buttonTwo = UIButton(frame: CGRect(x: 140, y: view.frame.height/2 + 50, width: 100, height: 40))
         buttonTwo.tag = 1
         buttonTwo.setTitle("Annapolis", for: .normal)
         buttonTwo.addTarget(self, action: #selector(clickRegion), for: .touchUpInside)
         buttonTwo.backgroundColor = UIColor.blue
         view.addSubview(buttonTwo)
         
-        buttonThree = UIButton(frame: CGRect(x: 260, y: view.frame.height/2, width: 100, height: 40))
+        buttonThree = UIButton(frame: CGRect(x: 260, y: view.frame.height/2 + 50, width: 100, height: 40))
         buttonThree.tag = 2
         buttonThree.setTitle("Baltimore", for: .normal)
         buttonThree.addTarget(self, action: #selector(clickRegion), for: .touchUpInside)
         buttonThree.backgroundColor = UIColor.blue
         view.addSubview(buttonThree)
         
-        buttonFour = UIButton(frame: CGRect(x: 380, y: view.frame.height/2, width: 100, height: 40))
+        buttonFour = UIButton(frame: CGRect(x: 380, y: view.frame.height/2 + 50, width: 100, height: 40))
         buttonFour.tag = 3
         buttonFour.setTitle("Ocean City", for: .normal)
         buttonFour.addTarget(self, action: #selector(clickRegion), for: .touchUpInside)
@@ -138,13 +142,13 @@ class VenueEntryVC: FormViewController {
         button.backgroundColor = UIColor.gray
         switch button.tag {
         case 0:
-            newVenueObject?.region = "DC"
+            self.currentRegion = "DC"
         case 1:
-            newVenueObject?.region = "Annapolis"
+            self.currentRegion = "Annapolis"
         case 2:
-            newVenueObject?.region = "Baltimore"
+            self.currentRegion = "Baltimore"
         case 3:
-            newVenueObject?.region = "OC"
+            self.currentRegion = "OC"
         default:
             print("")
         }
@@ -220,11 +224,16 @@ class VenueEntryVC: FormViewController {
 
     
     func sendVenue() {
-        guard let nameRow: TextRow? = form.rowBy(tag: "venuename"), let region = self.currentRegion else { return }
-        newVenueObject = VenueObject(name: nameRow?.value ?? "error")
+        guard let nameRow: TextRow = form.rowBy(tag: "venuename"), let region = self.currentRegion else { return }
+        newVenueObject = VenueObject(name: nameRow.value ?? "error")
         
         let emailRow: EmailRow? = form.rowBy(tag: "venueemail")
         newVenueObject?.email = emailRow?.value
+        
+        let reservationsRow: TextRow? = form.rowBy(tag: "reservations")
+        if let val = Int(reservationsRow?.value ?? "0") {
+            newVenueObject?.reservationsNum = val
+        }
         
         let fbrow: TextRow? = form.rowBy(tag: "venuefacebook")
         newVenueObject?.facebook = fbrow?.value
@@ -256,8 +265,8 @@ class VenueEntryVC: FormViewController {
             fbrow?.updateCell()
             ytrow?.value = ""
             ytrow?.updateCell()
-            nameRow?.value = ""
-            nameRow?.updateCell()
+            nameRow.value = ""
+            nameRow.updateCell()
             webRow?.value = ""
             webRow?.updateCell()
             addrRow?.value = ""

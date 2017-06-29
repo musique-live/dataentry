@@ -38,6 +38,16 @@ class ResultsVC: UIViewController, UICollectionViewDataSource, UICollectionViewD
         
         getNewEvents()
         
+        let menuButton = UIButton(frame: CGRect(x: 20, y: 50, width: 100, height: 50))
+        menuButton.setTitle("MENU", for: .normal)
+        menuButton.setTitleColor(.black, for: .normal)
+        menuButton.addTarget(self, action: "openMenu", for: .touchUpInside)
+        view.addSubview(menuButton)
+        
+    }
+    
+    func openMenu() {
+        self.slideMenuController()?.openLeft()
     }
     
     func getNewEvents() {

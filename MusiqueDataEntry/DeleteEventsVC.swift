@@ -212,8 +212,26 @@ extension ResultsVC {
         }))
         alert.addAction(UIAlertAction(title: "Cancel", style: UIAlertActionStyle.default, handler: {
             handle in
+            self.featureEvent(event: self.events[indexPath.row])
         }))
         self.present(alert, animated: true, completion: nil)
+    }
+    
+    func featureEvent(event: EventObject) {
+        let alert = UIAlertController(title: "FEATURE", message: "Are you sure you want to feature this?", preferredStyle: UIAlertControllerStyle.alert)
+        alert.addAction(UIAlertAction(title: "Yes", style: UIAlertActionStyle.default, handler: {
+            handle in
+            self.doFeature(event: event)
+        }))
+        alert.addAction(UIAlertAction(title: "Cancel", style: UIAlertActionStyle.default, handler: {
+            handle in
+
+        }))
+        self.present(alert, animated: true, completion: nil)
+    }
+    
+    func doFeature(event: EventObject) {
+        NetworkController().sendFeaturedEvent(event: event)
     }
     
 

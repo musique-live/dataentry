@@ -13,16 +13,16 @@ import CoreLocation
 
 extension NetworkController {
     
-    func getLastDate(fullvenue: String, completion: @escaping(EventObject?) -> Void) {
+    func getLastDate(fullvenue: String, completion: @escaping([EventObject]?) -> Void) {
         let venue = cleanFBString(string: fullvenue)
-        let newquery = FIRDatabase.database().reference().child("DC/Venues/\(venue)/Events").queryOrdered(byChild: "date").queryLimited(toLast: 1)
+        let newquery = FIRDatabase.database().reference().child("DC/Venues/\(venue)/Events").queryOrdered(byChild: "date")
         newquery.observeSingleEvent(of: .value, with: {
             
             snapshot in
             if snapshot.hasChildren() {
                 self.processEventSnapshot(snapArray: snapshot, completion: {
                     newevents in
-                    completion(newevents.last)
+                    completion(newevents)
                     
                 })
             } else {

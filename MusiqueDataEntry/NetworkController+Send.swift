@@ -209,6 +209,75 @@ extension NetworkController {
         
         
     }
+    
+    func sendFeaturedEvent(event: EventObject) {
+        guard let id = event.id else { return }
+        let eventRef = FIRDatabase.database().reference()
+            .child("/DC/Other/FeaturedEvents/\(id)")
+        
+        guard let bandstring = event.band?.name, let venuestring = event.venue?.venue else {
+            return
+        }
+        
+        var newData = [
+            "id": id,
+            "bandname": bandstring,
+            "date": String(event.timestamp!.timeIntervalSince1970),
+            "timeString": event.timeString ?? "",
+            "updated": "true",
+            "venuename": venuestring,
+            ]
+            as [String : Any]
+        if let region = event.venue?.region {
+            newData["venueregion"] = region
+        }
+        if let genre = event.band?.genre {
+            newData["bandgenre"] = genre
+        }
+        if let ticket = event.ticketURL {
+            newData["ticketURL"] = ticket
+        }
+        if let sgid = event.seatGeekID {
+            newData["seatGeekID"] = sgid
+        }
+        if let image = event.band?.image {
+            newData["bandimage"] = image
+        }
+        if let address = event.venue?.address {
+            newData["venueaddress"] = address
+        }
+        if let price = event.price {
+            newData["eventprice"] = price
+        } else {
+            newData["eventprice"] = "Unknown"
+        }
+        if let fb = event.band?.facebook {
+            newData["bandfacebook"] = fb
+        }
+        if let site = event.venue?.website {
+            newData["venuewebsite"] = site
+        }
+        if let yelp = event.venue?.yelp {
+            newData["venueyelp"] = yelp
+        }
+        if let bandsite = event.band?.website {
+            newData["bandwebsite"] = bandsite
+        }
+        if let yt = event.band?.youtube {
+            newData["bandyoutube"] = yt
+        }
+        if let descript = event.band?.bandDescription {
+            newData["banddescription"] = descript
+        }
+        if let location = event.venue?.coordinates {
+            newData["coordinates"] =
+                [location.coordinate.latitude,
+                 location.coordinate.longitude]
+        }
+        
+        eventRef.setValue(newData)
+
+    }
 
     func sendBuiltEvent(event: EventObject, completion: @escaping ((Bool) -> Void)) {
         let newEventRef = FIRDatabase.database().reference()

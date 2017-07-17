@@ -22,10 +22,11 @@ class NetworkController: NSObject {
         let fourweek = String(NSDate().addingTimeInterval(86400*7*4).timeIntervalSince1970)
         let currentdate = String(NSDate().timeIntervalSince1970)
         var querystring = "/DC/Events"
-        
         let ref = FIRDatabase.database().reference()
-        let query = ref.child(querystring).queryOrdered(byChild: "date").queryStarting(atValue: currentdate).queryEnding(atValue: fourweek)
         
+
+        
+        let query = ref.child(querystring).queryOrdered(byChild: "date").queryStarting(atValue: currentdate).queryEnding(atValue: fourweek)
         query.observeSingleEvent(of: .value, with: {
             snapshot in
             if snapshot.hasChildren() {
@@ -43,8 +44,34 @@ class NetworkController: NSObject {
 
     }
     
+    
+    //for delete
+    //        let fourweekago = String(NSDate().addingTimeInterval(-86400*7*4).timeIntervalSince1970)
+    //        let query = ref.child(querystring).queryOrdered(byChild: "date").queryEnding(atValue: fourweekago)
+    //        query.observeSingleEvent(of: .value, with: {
+    //            snapshot in
+    //            if snapshot.hasChildren() {
+    //                self.processEventSnapshot(snapArray: snapshot, completion: {
+    //                    newevents in
+    //                    for event in newevents {
+    //                        self.deleteEvent(event: event)
+    //                    }
+    //                    completion(newevents)
+    //                })
+    //            } else {
+    //                completion([EventObject]())
+    //            }
+    //        }, withCancel: {
+    //            (error) in
+    //            completion([EventObject]())
+    //        })
+    
     func deleteEvent(event: EventObject) {
         guard let id = event.id, let band = event.band?.name, let venue = event.venue?.venue else { return }
+        
+        let formatter = DateFormatter()
+        formatter.dateStyle = .long
+        print(formatter.string(from: event.timestamp as? Date ?? Date()))
         
         let query = FIRDatabase.database().reference().child("DC/Events/\(id)")
         query.removeValue()

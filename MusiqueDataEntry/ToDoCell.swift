@@ -15,6 +15,7 @@ class ToDoCell: UITableViewCell {
     
     let label = UILabel()
     let date = UILabel()
+    let numEvents = UILabel()
     let claimed = UILabel()
     let unclaim = UIButton()
     let setRegion = UIButton()
@@ -41,7 +42,18 @@ class ToDoCell: UITableViewCell {
             NSLayoutConstraint(item: date, attribute: .leading, relatedBy: .equal, toItem: contentView, attribute: .trailing, multiplier: 1, constant: -80),
             NSLayoutConstraint(item: date, attribute: .trailing, relatedBy: .equal, toItem: contentView, attribute: .trailing, multiplier: 1, constant: -10),
             NSLayoutConstraint(item: date, attribute: .top, relatedBy: .equal, toItem: contentView, attribute: .top, multiplier: 1, constant: 0),
-            NSLayoutConstraint(item: date, attribute: .bottom, relatedBy: .equal, toItem: contentView, attribute: .bottom, multiplier: 1, constant: -20)
+            NSLayoutConstraint(item: date, attribute: .bottom, relatedBy: .equal, toItem: contentView, attribute: .bottom, multiplier: 1, constant: -50)
+            ])
+        
+        numEvents.translatesAutoresizingMaskIntoConstraints = false
+        numEvents.textAlignment = .right
+        contentView.addSubview(numEvents)
+        
+        contentView.addConstraints([
+            NSLayoutConstraint(item: numEvents, attribute: .leading, relatedBy: .equal, toItem: contentView, attribute: .trailing, multiplier: 1, constant: -80),
+            NSLayoutConstraint(item: numEvents, attribute: .trailing, relatedBy: .equal, toItem: contentView, attribute: .trailing, multiplier: 1, constant: -10),
+            NSLayoutConstraint(item: numEvents, attribute: .top, relatedBy: .equal, toItem: contentView, attribute: .bottom, multiplier: 1, constant: -50),
+            NSLayoutConstraint(item: numEvents, attribute: .bottom, relatedBy: .equal, toItem: contentView, attribute: .bottom, multiplier: 1, constant: 0)
             ])
         
 
@@ -115,7 +127,13 @@ class ToDoCell: UITableViewCell {
             })
         } else {
             NetworkController().getLastDate(fullvenue: venue, completion: {
-                event in
+                events in
+                if let events = events {
+                    self.numEvents.text = "\(events.count)"
+                } else {
+                    self.numEvents.text = "0"
+                }
+                let event = events?.last
                 if let date = event?.timestamp {
                     let currentdate = Date()
                     let calendar = NSCalendar.current

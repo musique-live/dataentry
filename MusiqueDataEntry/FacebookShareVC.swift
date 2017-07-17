@@ -16,14 +16,21 @@ class FacebookShareVC: UIViewController {
     var shareText: String?
     var shareImage: UIImage?
     let extratext = " Download our app to see more live events: https://itunes.apple.com/us/app/musique-live/id1217586564"
+    let link = "https://itunes.apple.com/us/app/musique-live/id1217586564"
     let pageid = "835920719906047"
-    var textField: UITextField?
+    var textField: UITextView?
     var imageView: UIImageView?
+    var shareLink: UITextView?
+    let kathiShareText = "Hey! I'm with the Musique Live App and we're featuring your event on our facebook today. It would be really great if you could share that feature to your followers by sharing this post: "
     
     override func viewDidLoad() {
         view.backgroundColor = UIColor.white
-        setUpUI()
+        
         doFacebook()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        setUpUI()
     }
     
     func setUpUI() {
@@ -34,24 +41,99 @@ class FacebookShareVC: UIViewController {
         menuButton.addTarget(self, action: "openMenu", for: .touchUpInside)
         view.addSubview(menuButton)
         
-        textField = UITextField(frame: CGRect(x: 100, y: 200, width: view.frame.width - 200, height: 150))
+        textField = UITextView(frame: CGRect(x: 100, y: 200, width: view.frame.width - 200, height: 80))
         textField?.backgroundColor = UIColor.lightGray.withAlphaComponent(0.5)
         view.addSubview(textField!)
         
-        imageView = UIImageView(frame: CGRect(x: 100, y: 400, width: 300, height: 300))
+        imageView = UIImageView(frame: CGRect(x: 100, y: 300, width: 150, height: 150))
         imageView?.backgroundColor = UIColor.gray
         view.addSubview(imageView!)
         
-        let sendButton = UIButton(frame: CGRect(x: 100, y: 800, width: 150, height: 100))
+        let sendButton = UIButton(frame: CGRect(x: 100, y: 620, width: 150, height: 50))
         sendButton.backgroundColor = UIColor.blue
+        sendButton.setTitle("Send", for: .normal)
         sendButton.addTarget(self, action: #selector(self.sendToFB), for: .touchUpInside)
         view.addSubview(sendButton)
+        
+        let copyButton = UIButton(frame: CGRect(x: 100, y: 690, width: 150, height: 50))
+        copyButton.backgroundColor = UIColor.red
+        copyButton.setTitle("COPY", for: .normal)
+        copyButton.addTarget(self, action: #selector(self.copyText), for: .touchUpInside)
+        view.addSubview(copyButton)
+        
+        shareLink = UITextView(frame: CGRect(x: 100, y: 500, width: view.frame.width - 200, height: 100))
+        shareLink?.backgroundColor = UIColor.lightGray.withAlphaComponent(0.5)
+        shareLink?.text = "Share..."
+        if let share = UserDefaults.standard.string(forKey: "currentShareLink") {
+            shareLink?.text = kathiShareText + share
+        }
+        view.addSubview(shareLink!)
+        
+        let notes = UILabel(frame: CGRect(x: 100, y: 750, width: view.frame.width - 200, height: 200))
+        notes.numberOfLines = 0
+        notes.text = "Make sure the above is what you want to share. Press Share. \nThat post was just posted on the Musique Facebook page. Everyone can see it. \nIf you want someone else to share that post, press the copy button. \n Then, as Kathi, paste what is copied into messenger. This works best if you are messaging a band or venue page and not a user. \nREMEMBER: you are messaging the page as a normal user. Musique Live Page cannot send messages, it's not a person."
+        view.addSubview(notes)
         
         getShareInfo()
     }
     
+    func copyText() {
+        if let shareLink = shareLink {
+            if let text = shareLink.text {
+                UIPasteboard.general.string = text
+            }
+        }
+        
+    }
+    
     func sendToFB() {
-        if let text = textField?.text, let image = imageView?.image {
+        if let text = textField?.text, let image = imageView?.image, let pagekey = UserDefaults.standard.string(forKey: "pagekey") {
+            
+            let fbimage = UIImagePNGRepresentation(image)!
+            
+
+            let photorequest = FBSDKGraphRequest(graphPath: "/\(self.pageid)/photos", parameters: ["sourceImage":fbimage], tokenString: pagekey, version: "", httpMethod: "POST")
+            photorequest?.start(completionHandler: {
+                requestHandler in
+                
+                if let handler = requestHandler.1 {
+                    if let dict = handler as? NSDictionary {
+                        print(dict)
+                        if let postid = dict["post_id"] as? String {
+                            
+                            let link = "https://www.facebook.com/" + postid
+                            let postparams = ["message":text, "link":link]
+                            let request = FBSDKGraphRequest(graphPath: "/\(self.pageid)/feed", parameters: postparams, tokenString: pagekey, version: "", httpMethod: "POST")
+                            request?.start(completionHandler: {
+                                handle in
+                                print(handle.2)
+                                if let handler = handle.1 {
+                                    if let dict = handler as? NSDictionary {
+                                        print(dict)
+                                        if let postid = dict["id"] as? String {
+                                            UserDefaults.standard.set("https://www.facebook.com/" + postid, forKey: "currentShareLink")
+                                            UserDefaults.standard.synchronize()
+                                            DispatchQueue.main.async {
+                                                if let shareLink = self.shareLink {
+                                                    shareLink.text = self.kathiShareText + "https://www.facebook.com/" + postid
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            })
+                            
+                            
+                        }
+                    }
+                }
+                
+                
+               
+                
+                
+                
+            })
             
         }
     }
@@ -92,18 +174,15 @@ class FacebookShareVC: UIViewController {
         })
     }
     
+    func openMenu() {
+        self.slideMenuController()?.openLeft()
+    }
+    
     func getShareInfo() {
-        print("WTF")
         if let userDefaults = UserDefaults(suiteName: "group.musiquelive.datashare") {
-            if let text = userDefaults.value(forKey: "shareText") as? String, let image = userDefaults.value(forKey: "path") as? String {
+            if let text = userDefaults.value(forKey: "shareText") as? String, let data = userDefaults.value(forKey: "data") as? Data {
                 textField?.text = text + extratext
-                
-
-                let imagePath = NSURL(fileURLWithPath: NSTemporaryDirectory()).appendingPathComponent(image)!
-
-                let oldImageData = NSData(contentsOfFile: image)
-                
-                let oldImage = UIImage(data: oldImageData as! Data)
+                let oldImage = UIImage(data: data)
                 self.imageView?.image = oldImage
             }
             

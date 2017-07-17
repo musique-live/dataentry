@@ -42,12 +42,8 @@ class ShareViewController: SLComposeServiceViewController {
         if let userDefaults = UserDefaults(suiteName: "group.musiquelive.datashare") {
             userDefaults.set(text, forKey: "shareText")
             
-            let relativePath = "image_\(NSDate.timeIntervalSinceReferenceDate).jpg"
-            let imagePath = NSURL(fileURLWithPath: NSTemporaryDirectory()).appendingPathComponent(relativePath)!
-            if let jpegData = UIImageJPEGRepresentation(image, 1) {
-                try! jpegData.write(to: imagePath)
-                userDefaults.set(relativePath, forKey: "path")
-            }
+            let imageData = UIImageJPEGRepresentation(image, 1.0)
+            userDefaults.set(imageData, forKey: "data")
             
             userDefaults.synchronize()
         }

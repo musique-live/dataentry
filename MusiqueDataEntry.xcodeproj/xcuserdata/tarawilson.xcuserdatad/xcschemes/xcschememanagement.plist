@@ -9,6 +9,11 @@
 			<key>orderHint</key>
 			<integer>0</integer>
 		</dict>
+		<key>ShareExtension.xcscheme</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>11</integer>
+		</dict>
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
@@ -23,6 +28,11 @@
 			<true/>
 		</dict>
 		<key>DB7177121EA7E713008666AC</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>DBCA398D1F1D302500EAEEA0</key>
 		<dict>
 			<key>primary</key>
 			<true/>

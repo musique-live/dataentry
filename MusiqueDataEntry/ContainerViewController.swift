@@ -71,6 +71,17 @@ class ContainerViewController: UIViewController {
         buttonSeven.setTitleColor(UIColor.white, for: .normal)
         view.addSubview(buttonSeven)
         
+        let buttonEight = UIButton(frame: CGRect(x: 10, y: 640, width: width - 20, height: 60))
+        buttonEight.setTitle("Share to Facebook", for: .normal)
+        buttonEight.addTarget(self, action: #selector(ContainerViewController.openShare), for: .touchUpInside)
+        buttonEight.setTitleColor(UIColor.white, for: .normal)
+        view.addSubview(buttonEight)
+        
+    }
+    
+    func openShare() {
+        self.slideMenuController()?.closeLeft()
+        tab?.selectedIndex = 7
     }
     
     func openToDo() {

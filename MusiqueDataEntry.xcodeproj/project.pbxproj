@@ -21,6 +21,7 @@
 		DB1DEA931EA92A7800FD27BD /* Venue.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB1DEA921EA92A7800FD27BD /* Venue.swift */; };
 		DB1DEA951EA92E0000FD27BD /* TabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB1DEA941EA92E0000FD27BD /* TabBarController.swift */; };
 		DB1DEA971EA92EBF00FD27BD /* EventEntryVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB1DEA961EA92EBF00FD27BD /* EventEntryVC.swift */; };
+		DB2A2F2E1F1D37E5000A9641 /* FacebookShareVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB2A2F2D1F1D37E5000A9641 /* FacebookShareVC.swift */; };
 		DB3839771F037A2100721326 /* DeleteEventsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB3839761F037A2100721326 /* DeleteEventsVC.swift */; };
 		DB5B1A911EF102E400C80D20 /* EditBandVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB5B1A901EF102E400C80D20 /* EditBandVC.swift */; };
 		DB6598661EAAEC680085BD05 /* AutoCompleteTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB6598651EAAEC680085BD05 /* AutoCompleteTextField.swift */; };
@@ -40,6 +41,9 @@
 		DBAC9C2D1EF0535700CDDA72 /* SeatGeekVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBAC9C2C1EF0535700CDDA72 /* SeatGeekVC.swift */; };
 		DBAC9C2F1EF0560300CDDA72 /* SeatGeekEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBAC9C2E1EF0560300CDDA72 /* SeatGeekEvent.swift */; };
 		DBBD055F1F034C0000C6179E /* ContainerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBBD055E1F034C0000C6179E /* ContainerViewController.swift */; };
+		DBCA39911F1D302500EAEEA0 /* ShareViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBCA39901F1D302500EAEEA0 /* ShareViewController.swift */; };
+		DBCA39941F1D302500EAEEA0 /* MainInterface.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DBCA39921F1D302500EAEEA0 /* MainInterface.storyboard */; };
+		DBCA39981F1D302500EAEEA0 /* ShareExtension.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = DBCA398E1F1D302500EAEEA0 /* ShareExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -57,7 +61,28 @@
 			remoteGlobalIDString = DB7176F31EA7E712008666AC;
 			remoteInfo = MusiqueDataEntry;
 		};
+		DBCA39961F1D302500EAEEA0 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = DB7176EC1EA7E712008666AC /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = DBCA398D1F1D302500EAEEA0;
+			remoteInfo = ShareExtension;
+		};
 /* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		DBCA399C1F1D302500EAEEA0 /* Embed App Extensions */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 13;
+			files = (
+				DBCA39981F1D302500EAEEA0 /* ShareExtension.appex in Embed App Extensions */,
+			);
+			name = "Embed App Extensions";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		35930150045AE778BC0282D1 /* Pods_MusiqueDataEntry.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MusiqueDataEntry.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -76,6 +101,7 @@
 		DB1DEA921EA92A7800FD27BD /* Venue.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Venue.swift; sourceTree = "<group>"; };
 		DB1DEA941EA92E0000FD27BD /* TabBarController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TabBarController.swift; path = ../TabBarController.swift; sourceTree = "<group>"; };
 		DB1DEA961EA92EBF00FD27BD /* EventEntryVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EventEntryVC.swift; sourceTree = "<group>"; };
+		DB2A2F2D1F1D37E5000A9641 /* FacebookShareVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FacebookShareVC.swift; sourceTree = "<group>"; };
 		DB3839761F037A2100721326 /* DeleteEventsVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DeleteEventsVC.swift; sourceTree = "<group>"; };
 		DB5B1A901EF102E400C80D20 /* EditBandVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditBandVC.swift; sourceTree = "<group>"; };
 		DB6598651EAAEC680085BD05 /* AutoCompleteTextField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AutoCompleteTextField.swift; sourceTree = "<group>"; };
@@ -101,6 +127,12 @@
 		DBAC9C2C1EF0535700CDDA72 /* SeatGeekVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SeatGeekVC.swift; sourceTree = "<group>"; };
 		DBAC9C2E1EF0560300CDDA72 /* SeatGeekEvent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SeatGeekEvent.swift; path = ../SeatGeekEvent.swift; sourceTree = "<group>"; };
 		DBBD055E1F034C0000C6179E /* ContainerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContainerViewController.swift; sourceTree = "<group>"; };
+		DBCA398E1F1D302500EAEEA0 /* ShareExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = ShareExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
+		DBCA39901F1D302500EAEEA0 /* ShareViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareViewController.swift; sourceTree = "<group>"; };
+		DBCA39931F1D302500EAEEA0 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/MainInterface.storyboard; sourceTree = "<group>"; };
+		DBCA39951F1D302500EAEEA0 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		DBCA399D1F1D303A00EAEEA0 /* ShareExtension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = ShareExtension.entitlements; sourceTree = "<group>"; };
+		DBCA399E1F1D304500EAEEA0 /* MusiqueDataEntry.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = MusiqueDataEntry.entitlements; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -124,6 +156,13 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 		DB7177101EA7E713008666AC /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		DBCA398B1F1D302500EAEEA0 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -171,6 +210,7 @@
 				DB7176F61EA7E712008666AC /* MusiqueDataEntry */,
 				DB71770B1EA7E713008666AC /* MusiqueDataEntryTests */,
 				DB7177161EA7E713008666AC /* MusiqueDataEntryUITests */,
+				DBCA398F1F1D302500EAEEA0 /* ShareExtension */,
 				DB7176F51EA7E712008666AC /* Products */,
 				D7D74D51A02AF0AE542CB59E /* Pods */,
 				FC8BA63FF1E58FA6586353D6 /* Frameworks */,
@@ -183,6 +223,7 @@
 				DB7176F41EA7E712008666AC /* MusiqueDataEntry.app */,
 				DB7177081EA7E713008666AC /* MusiqueDataEntryTests.xctest */,
 				DB7177131EA7E713008666AC /* MusiqueDataEntryUITests.xctest */,
+				DBCA398E1F1D302500EAEEA0 /* ShareExtension.appex */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -190,6 +231,7 @@
 		DB7176F61EA7E712008666AC /* MusiqueDataEntry */ = {
 			isa = PBXGroup;
 			children = (
+				DBCA399E1F1D304500EAEEA0 /* MusiqueDataEntry.entitlements */,
 				DBAC9C221EF0321800CDDA72 /* Resources */,
 				DBAC9C211EF0320500CDDA72 /* Views */,
 				DBAC9C231EF0322300CDDA72 /* Network */,
@@ -243,6 +285,7 @@
 				DB5B1A901EF102E400C80D20 /* EditBandVC.swift */,
 				DB1DEA961EA92EBF00FD27BD /* EventEntryVC.swift */,
 				DB6598691EAAF2920085BD05 /* VenueEntryVC.swift */,
+				DB2A2F2D1F1D37E5000A9641 /* FacebookShareVC.swift */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -268,6 +311,17 @@
 			name = Network;
 			sourceTree = "<group>";
 		};
+		DBCA398F1F1D302500EAEEA0 /* ShareExtension */ = {
+			isa = PBXGroup;
+			children = (
+				DBCA399D1F1D303A00EAEEA0 /* ShareExtension.entitlements */,
+				DBCA39901F1D302500EAEEA0 /* ShareViewController.swift */,
+				DBCA39921F1D302500EAEEA0 /* MainInterface.storyboard */,
+				DBCA39951F1D302500EAEEA0 /* Info.plist */,
+			);
+			path = ShareExtension;
+			sourceTree = "<group>";
+		};
 		FC8BA63FF1E58FA6586353D6 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
@@ -289,10 +343,12 @@
 				DB7176F21EA7E712008666AC /* Resources */,
 				D5DE17836BE29A948A4283CD /* [CP] Embed Pods Frameworks */,
 				FE30E29146B852474758F882 /* [CP] Copy Pods Resources */,
+				DBCA399C1F1D302500EAEEA0 /* Embed App Extensions */,
 			);
 			buildRules = (
 			);
 			dependencies = (
+				DBCA39971F1D302500EAEEA0 /* PBXTargetDependency */,
 			);
 			name = MusiqueDataEntry;
 			productName = MusiqueDataEntry;
@@ -335,13 +391,30 @@
 			productReference = DB7177131EA7E713008666AC /* MusiqueDataEntryUITests.xctest */;
 			productType = "com.apple.product-type.bundle.ui-testing";
 		};
+		DBCA398D1F1D302500EAEEA0 /* ShareExtension */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = DBCA399B1F1D302500EAEEA0 /* Build configuration list for PBXNativeTarget "ShareExtension" */;
+			buildPhases = (
+				DBCA398A1F1D302500EAEEA0 /* Sources */,
+				DBCA398B1F1D302500EAEEA0 /* Frameworks */,
+				DBCA398C1F1D302500EAEEA0 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = ShareExtension;
+			productName = ShareExtension;
+			productReference = DBCA398E1F1D302500EAEEA0 /* ShareExtension.appex */;
+			productType = "com.apple.product-type.app-extension";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
 		DB7176EC1EA7E712008666AC /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastSwiftUpdateCheck = 0820;
+				LastSwiftUpdateCheck = 0830;
 				LastUpgradeCheck = 0820;
 				ORGANIZATIONNAME = twil;
 				TargetAttributes = {
@@ -350,6 +423,11 @@
 						DevelopmentTeam = T8F23BFN6Q;
 						LastSwiftMigration = 0820;
 						ProvisioningStyle = Automatic;
+						SystemCapabilities = {
+							com.apple.ApplicationGroups.iOS = {
+								enabled = 1;
+							};
+						};
 					};
 					DB7177071EA7E713008666AC = {
 						CreatedOnToolsVersion = 8.2.1;
@@ -364,6 +442,16 @@
 						LastSwiftMigration = 0820;
 						ProvisioningStyle = Automatic;
 						TestTargetID = DB7176F31EA7E712008666AC;
+					};
+					DBCA398D1F1D302500EAEEA0 = {
+						CreatedOnToolsVersion = 8.3.3;
+						DevelopmentTeam = T8F23BFN6Q;
+						ProvisioningStyle = Automatic;
+						SystemCapabilities = {
+							com.apple.ApplicationGroups.iOS = {
+								enabled = 1;
+							};
+						};
 					};
 				};
 			};
@@ -383,6 +471,7 @@
 				DB7176F31EA7E712008666AC /* MusiqueDataEntry */,
 				DB7177071EA7E713008666AC /* MusiqueDataEntryTests */,
 				DB7177121EA7E713008666AC /* MusiqueDataEntryUITests */,
+				DBCA398D1F1D302500EAEEA0 /* ShareExtension */,
 			);
 		};
 /* End PBXProject section */
@@ -410,6 +499,14 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		DBCA398C1F1D302500EAEEA0 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				DBCA39941F1D302500EAEEA0 /* MainInterface.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -488,6 +585,7 @@
 				DBBD055F1F034C0000C6179E /* ContainerViewController.swift in Sources */,
 				DB1DEA911EA92A6900FD27BD /* Event.swift in Sources */,
 				DBAC9C2D1EF0535700CDDA72 /* SeatGeekVC.swift in Sources */,
+				DB2A2F2E1F1D37E5000A9641 /* FacebookShareVC.swift in Sources */,
 				DBAC9C251EF0333400CDDA72 /* NetworkController+ToDo.swift in Sources */,
 				DB65986A1EAAF2920085BD05 /* VenueEntryVC.swift in Sources */,
 			);
@@ -509,6 +607,14 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		DBCA398A1F1D302500EAEEA0 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				DBCA39911F1D302500EAEEA0 /* ShareViewController.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
@@ -522,6 +628,11 @@
 			target = DB7176F31EA7E712008666AC /* MusiqueDataEntry */;
 			targetProxy = DB7177141EA7E713008666AC /* PBXContainerItemProxy */;
 		};
+		DBCA39971F1D302500EAEEA0 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = DBCA398D1F1D302500EAEEA0 /* ShareExtension */;
+			targetProxy = DBCA39961F1D302500EAEEA0 /* PBXContainerItemProxy */;
+		};
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
@@ -531,6 +642,14 @@
 				DB7177011EA7E713008666AC /* Base */,
 			);
 			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+		DBCA39921F1D302500EAEEA0 /* MainInterface.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				DBCA39931F1D302500EAEEA0 /* Base */,
+			);
+			name = MainInterface.storyboard;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */
@@ -633,7 +752,9 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = AAF82A41F63859A724020D2B /* Pods-MusiqueDataEntry.debug.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = MusiqueDataEntry/MusiqueDataEntry.entitlements;
 				DEVELOPMENT_TEAM = T8F23BFN6Q;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -645,7 +766,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = twil.MusiqueDataEntry;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 3.0;
-				TARGETED_DEVICE_FAMILY = 2;
+				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
 		};
@@ -653,7 +774,9 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 3F282016DCA9D71E8F449973 /* Pods-MusiqueDataEntry.release.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = MusiqueDataEntry/MusiqueDataEntry.entitlements;
 				DEVELOPMENT_TEAM = T8F23BFN6Q;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -665,7 +788,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = twil.MusiqueDataEntry;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 3.0;
-				TARGETED_DEVICE_FAMILY = 2;
+				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;
 		};
@@ -727,6 +850,40 @@
 			};
 			name = Release;
 		};
+		DBCA39991F1D302500EAEEA0 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CODE_SIGN_ENTITLEMENTS = ShareExtension/ShareExtension.entitlements;
+				DEVELOPMENT_TEAM = T8F23BFN6Q;
+				INFOPLIST_FILE = ShareExtension/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = twil.MusiqueDataEntry.ShareExtension;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 3.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		DBCA399A1F1D302500EAEEA0 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CODE_SIGN_ENTITLEMENTS = ShareExtension/ShareExtension.entitlements;
+				DEVELOPMENT_TEAM = T8F23BFN6Q;
+				INFOPLIST_FILE = ShareExtension/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = twil.MusiqueDataEntry.ShareExtension;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 3.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -762,6 +919,15 @@
 			buildConfigurations = (
 				DB7177231EA7E713008666AC /* Debug */,
 				DB7177241EA7E713008666AC /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		DBCA399B1F1D302500EAEEA0 /* Build configuration list for PBXNativeTarget "ShareExtension" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				DBCA39991F1D302500EAEEA0 /* Debug */,
+				DBCA399A1F1D302500EAEEA0 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

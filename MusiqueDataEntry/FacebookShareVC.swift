@@ -22,6 +22,8 @@ class FacebookShareVC: UIViewController {
     var imageView: UIImageView?
     var shareLink: UITextView?
     let kathiShareText = "Hey! I'm with the Musique Live App and we're featuring your event on our facebook today. It would be really great if you could share that feature to your followers by sharing this post: "
+    var sendButton: UIButton!
+    var copyButton: UIButton!
     
     override func viewDidLoad() {
         view.backgroundColor = UIColor.white
@@ -49,13 +51,13 @@ class FacebookShareVC: UIViewController {
         imageView?.backgroundColor = UIColor.gray
         view.addSubview(imageView!)
         
-        let sendButton = UIButton(frame: CGRect(x: 100, y: 620, width: 150, height: 50))
+        sendButton = UIButton(frame: CGRect(x: 100, y: 620, width: 150, height: 50))
         sendButton.backgroundColor = UIColor.blue
         sendButton.setTitle("Send", for: .normal)
         sendButton.addTarget(self, action: #selector(self.sendToFB), for: .touchUpInside)
         view.addSubview(sendButton)
         
-        let copyButton = UIButton(frame: CGRect(x: 100, y: 690, width: 150, height: 50))
+        copyButton = UIButton(frame: CGRect(x: 100, y: 690, width: 150, height: 50))
         copyButton.backgroundColor = UIColor.red
         copyButton.setTitle("COPY", for: .normal)
         copyButton.addTarget(self, action: #selector(self.copyText), for: .touchUpInside)
@@ -81,12 +83,20 @@ class FacebookShareVC: UIViewController {
         if let shareLink = shareLink {
             if let text = shareLink.text {
                 UIPasteboard.general.string = text
+                copyButton.setTitle("Copied!", for: .normal)
+                copyButton.backgroundColor = UIColor.green
+                let when = DispatchTime.now() + 2
+                DispatchQueue.main.asyncAfter(deadline: when) {
+                    copyButton.setTitle("COPY", for: .normal)
+                    copyButton.backgroundColor = UIColor.red
+                }
             }
         }
         
     }
     
     func sendToFB() {
+        sendButton.backgroundColor = UIColor.gray
         if let text = textField?.text, let image = imageView?.image, let pagekey = UserDefaults.standard.string(forKey: "pagekey") {
             
             let fbimage = UIImagePNGRepresentation(image)!
@@ -114,8 +124,11 @@ class FacebookShareVC: UIViewController {
                                             UserDefaults.standard.set("https://www.facebook.com/" + postid, forKey: "currentShareLink")
                                             UserDefaults.standard.synchronize()
                                             DispatchQueue.main.async {
+                                                self.sendButton.backgroundColor = UIColor.blue
                                                 if let shareLink = self.shareLink {
                                                     shareLink.text = self.kathiShareText + "https://www.facebook.com/" + postid
+                                                    
+                                                    self.clear()
                                                 }
                                             }
                                         }
@@ -135,6 +148,16 @@ class FacebookShareVC: UIViewController {
                 
             })
             
+        }
+    }
+    
+    func clear() {
+        textField?.text = ""
+        imageView?.image = nil
+        
+        if let userDefaults = UserDefaults(suiteName: "group.musiquelive.datashare") {
+            userDefaults.removeObject(forKey: "shareText")
+            userDefaults.removeObject(forKey: "data")
         }
     }
     

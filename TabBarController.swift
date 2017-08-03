@@ -47,11 +47,11 @@ class TabBarController: UITabBarController, UITabBarControllerDelegate {
         let icon7 = UITabBarItem(title: "Delete Event", image: nil, selectedImage: nil)
         item7.tabBarItem = icon7
         
-        let item8 = FacebookShareVC()
-        let icon8 = UITabBarItem(title: "Share to Facebook", image: nil, selectedImage: nil)
-        item8.tabBarItem = icon8
+        let item9 = TicketflyVC()
+        let icon9 = UITabBarItem(title: "Ticketfly", image: nil, selectedImage: nil)
+        item9.tabBarItem = icon9
         
-        let controllers = [item4, item1, item3, item2, item6, item5, item7, item8]
+        let controllers = [item4, item1, item3, item2, item6, item5, item7, item9]
         self.viewControllers = controllers
     }
 }

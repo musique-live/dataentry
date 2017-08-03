@@ -34,6 +34,8 @@
 		DB7177021EA7E713008666AC /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DB7177001EA7E713008666AC /* LaunchScreen.storyboard */; };
 		DB71770D1EA7E713008666AC /* MusiqueDataEntryTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB71770C1EA7E713008666AC /* MusiqueDataEntryTests.swift */; };
 		DB7177181EA7E713008666AC /* MusiqueDataEntryUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB7177171EA7E713008666AC /* MusiqueDataEntryUITests.swift */; };
+		DB7892A01F33820D00C3DD8F /* TicketflyVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB78929F1F33820D00C3DD8F /* TicketflyVC.swift */; };
+		DB7892A21F33822200C3DD8F /* TicketflyController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB7892A11F33822200C3DD8F /* TicketflyController.swift */; };
 		DBAC9C251EF0333400CDDA72 /* NetworkController+ToDo.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBAC9C241EF0333400CDDA72 /* NetworkController+ToDo.swift */; };
 		DBAC9C271EF033B900CDDA72 /* NetworkController+Send.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBAC9C261EF033B900CDDA72 /* NetworkController+Send.swift */; };
 		DBAC9C291EF03C7000CDDA72 /* ToDoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBAC9C281EF03C7000CDDA72 /* ToDoCell.swift */; };
@@ -44,6 +46,7 @@
 		DBCA39911F1D302500EAEEA0 /* ShareViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBCA39901F1D302500EAEEA0 /* ShareViewController.swift */; };
 		DBCA39941F1D302500EAEEA0 /* MainInterface.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DBCA39921F1D302500EAEEA0 /* MainInterface.storyboard */; };
 		DBCA39981F1D302500EAEEA0 /* ShareExtension.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = DBCA398E1F1D302500EAEEA0 /* ShareExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		DBE06BEF1F338A8100CA6C9F /* TicketFlyEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBE06BEE1F338A8100CA6C9F /* TicketFlyEvent.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -120,6 +123,8 @@
 		DB7177131EA7E713008666AC /* MusiqueDataEntryUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MusiqueDataEntryUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		DB7177171EA7E713008666AC /* MusiqueDataEntryUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MusiqueDataEntryUITests.swift; sourceTree = "<group>"; };
 		DB7177191EA7E713008666AC /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		DB78929F1F33820D00C3DD8F /* TicketflyVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TicketflyVC.swift; sourceTree = "<group>"; };
+		DB7892A11F33822200C3DD8F /* TicketflyController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TicketflyController.swift; sourceTree = "<group>"; };
 		DBAC9C241EF0333400CDDA72 /* NetworkController+ToDo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NetworkController+ToDo.swift"; sourceTree = "<group>"; };
 		DBAC9C261EF033B900CDDA72 /* NetworkController+Send.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NetworkController+Send.swift"; sourceTree = "<group>"; };
 		DBAC9C281EF03C7000CDDA72 /* ToDoCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ToDoCell.swift; sourceTree = "<group>"; };
@@ -133,6 +138,7 @@
 		DBCA39951F1D302500EAEEA0 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		DBCA399D1F1D303A00EAEEA0 /* ShareExtension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = ShareExtension.entitlements; sourceTree = "<group>"; };
 		DBCA399E1F1D304500EAEEA0 /* MusiqueDataEntry.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = MusiqueDataEntry.entitlements; sourceTree = "<group>"; };
+		DBE06BEE1F338A8100CA6C9F /* TicketFlyEvent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TicketFlyEvent.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -195,6 +201,8 @@
 		DB1C807D1EA7EC3B008A9B6C /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				DB78929E1F3381E000C3DD8F /* SeatGeekScrape */,
+				DB2A2F2D1F1D37E5000A9641 /* FacebookShareVC.swift */,
 				DB7177001EA7E713008666AC /* LaunchScreen.storyboard */,
 				DB7177031EA7E713008666AC /* Info.plist */,
 				DB7176FE1EA7E713008666AC /* Assets.xcassets */,
@@ -260,10 +268,30 @@
 			path = MusiqueDataEntryUITests;
 			sourceTree = "<group>";
 		};
+		DB78929D1F3381D300C3DD8F /* To Do */ = {
+			isa = PBXGroup;
+			children = (
+				DBAC9C281EF03C7000CDDA72 /* ToDoCell.swift */,
+				DB65986B1EAE8D560085BD05 /* ToDoVC.swift */,
+			);
+			name = "To Do";
+			sourceTree = "<group>";
+		};
+		DB78929E1F3381E000C3DD8F /* SeatGeekScrape */ = {
+			isa = PBXGroup;
+			children = (
+				DB1D550A1EF07EC4005A1099 /* VideoVC.swift */,
+				DBAC9C2C1EF0535700CDDA72 /* SeatGeekVC.swift */,
+				DB1D55081EF06C4E005A1099 /* SeatGeekCell.swift */,
+			);
+			name = SeatGeekScrape;
+			sourceTree = "<group>";
+		};
 		DBAC9C201EF031F400CDDA72 /* Models */ = {
 			isa = PBXGroup;
 			children = (
 				DBAC9C2E1EF0560300CDDA72 /* SeatGeekEvent.swift */,
+				DBE06BEE1F338A8100CA6C9F /* TicketFlyEvent.swift */,
 				DB1DEA8C1EA9291600FD27BD /* Band.swift */,
 				DB1DEA901EA92A6900FD27BD /* Event.swift */,
 				DB1DEA921EA92A7800FD27BD /* Venue.swift */,
@@ -274,18 +302,14 @@
 		DBAC9C211EF0320500CDDA72 /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				DBBD055E1F034C0000C6179E /* ContainerViewController.swift */,
-				DB3839761F037A2100721326 /* DeleteEventsVC.swift */,
-				DBAC9C2C1EF0535700CDDA72 /* SeatGeekVC.swift */,
-				DB1D55081EF06C4E005A1099 /* SeatGeekCell.swift */,
-				DB1D550A1EF07EC4005A1099 /* VideoVC.swift */,
-				DB65986B1EAE8D560085BD05 /* ToDoVC.swift */,
-				DBAC9C281EF03C7000CDDA72 /* ToDoCell.swift */,
+				DB78929F1F33820D00C3DD8F /* TicketflyVC.swift */,
+				DB1DEA961EA92EBF00FD27BD /* EventEntryVC.swift */,
 				DB7176F91EA7E713008666AC /* BandEntryVC.swift */,
 				DB5B1A901EF102E400C80D20 /* EditBandVC.swift */,
-				DB1DEA961EA92EBF00FD27BD /* EventEntryVC.swift */,
 				DB6598691EAAF2920085BD05 /* VenueEntryVC.swift */,
-				DB2A2F2D1F1D37E5000A9641 /* FacebookShareVC.swift */,
+				DB3839761F037A2100721326 /* DeleteEventsVC.swift */,
+				DBBD055E1F034C0000C6179E /* ContainerViewController.swift */,
+				DB78929D1F3381D300C3DD8F /* To Do */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -303,6 +327,7 @@
 		DBAC9C231EF0322300CDDA72 /* Network */ = {
 			isa = PBXGroup;
 			children = (
+				DB7892A11F33822200C3DD8F /* TicketflyController.swift */,
 				DBAC9C2A1EF04FB700CDDA72 /* SeatGeekController.swift */,
 				DB1DEA8E1EA9293E00FD27BD /* NetworkController.swift */,
 				DBAC9C241EF0333400CDDA72 /* NetworkController+ToDo.swift */,
@@ -574,9 +599,11 @@
 				DB1D55091EF06C4E005A1099 /* SeatGeekCell.swift in Sources */,
 				DB1DEA8D1EA9291600FD27BD /* Band.swift in Sources */,
 				DB7176FA1EA7E713008666AC /* BandEntryVC.swift in Sources */,
+				DB7892A21F33822200C3DD8F /* TicketflyController.swift in Sources */,
 				DB1DEA951EA92E0000FD27BD /* TabBarController.swift in Sources */,
 				DBAC9C291EF03C7000CDDA72 /* ToDoCell.swift in Sources */,
 				DBAC9C2B1EF04FB700CDDA72 /* SeatGeekController.swift in Sources */,
+				DB7892A01F33820D00C3DD8F /* TicketflyVC.swift in Sources */,
 				DB3839771F037A2100721326 /* DeleteEventsVC.swift in Sources */,
 				DBAC9C2F1EF0560300CDDA72 /* SeatGeekEvent.swift in Sources */,
 				DB1D550B1EF07EC4005A1099 /* VideoVC.swift in Sources */,
@@ -585,6 +612,7 @@
 				DBBD055F1F034C0000C6179E /* ContainerViewController.swift in Sources */,
 				DB1DEA911EA92A6900FD27BD /* Event.swift in Sources */,
 				DBAC9C2D1EF0535700CDDA72 /* SeatGeekVC.swift in Sources */,
+				DBE06BEF1F338A8100CA6C9F /* TicketFlyEvent.swift in Sources */,
 				DB2A2F2E1F1D37E5000A9641 /* FacebookShareVC.swift in Sources */,
 				DBAC9C251EF0333400CDDA72 /* NetworkController+ToDo.swift in Sources */,
 				DB65986A1EAAF2920085BD05 /* VenueEntryVC.swift in Sources */,

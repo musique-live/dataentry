@@ -87,8 +87,8 @@ class FacebookShareVC: UIViewController {
                 copyButton.backgroundColor = UIColor.green
                 let when = DispatchTime.now() + 2
                 DispatchQueue.main.asyncAfter(deadline: when) {
-                    copyButton.setTitle("COPY", for: .normal)
-                    copyButton.backgroundColor = UIColor.red
+                    self.copyButton.setTitle("COPY", for: .normal)
+                    self.copyButton.backgroundColor = UIColor.red
                 }
             }
         }

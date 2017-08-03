@@ -59,27 +59,38 @@ class ContainerViewController: UIViewController {
         buttonFive.setTitleColor(UIColor.white, for: .normal)
         view.addSubview(buttonFive)
         
+        /*
         let buttonSix = UIButton(frame: CGRect(x: 10, y: 480, width: width - 20, height: 60))
         buttonSix.setTitle("Scraping (Tara)", for: .normal)
         buttonSix.addTarget(self, action: #selector(ContainerViewController.openScrape), for: .touchUpInside)
         buttonSix.setTitleColor(UIColor.white, for: .normal)
         view.addSubview(buttonSix)
+        */
         
-        let buttonSeven = UIButton(frame: CGRect(x: 10, y: 560, width: width - 20, height: 60))
+        let buttonSeven = UIButton(frame: CGRect(x: 10, y: 480, width: width - 20, height: 60))
         buttonSeven.setTitle("Delete Events", for: .normal)
         buttonSeven.addTarget(self, action: #selector(ContainerViewController.openDelete), for: .touchUpInside)
         buttonSeven.setTitleColor(UIColor.white, for: .normal)
         view.addSubview(buttonSeven)
         
-        let buttonEight = UIButton(frame: CGRect(x: 10, y: 640, width: width - 20, height: 60))
-        buttonEight.setTitle("Share to Facebook", for: .normal)
-        buttonEight.addTarget(self, action: #selector(ContainerViewController.openShare), for: .touchUpInside)
+        let buttonEight = UIButton(frame: CGRect(x: 10, y: 560, width: width - 20, height: 60))
+        buttonEight.setTitle("Ticketfly Scrape (Tara)", for: .normal)
+        buttonEight.addTarget(self, action: #selector(ContainerViewController.openTicketFly), for: .touchUpInside)
         buttonEight.setTitleColor(UIColor.white, for: .normal)
         view.addSubview(buttonEight)
         
+        /*
+         let buttonEight = UIButton(frame: CGRect(x: 10, y: 640, width: width - 20, height: 60))
+         buttonEight.setTitle("Share to Facebook", for: .normal)
+         buttonEight.addTarget(self, action: #selector(ContainerViewController.openShare), for: .touchUpInside)
+         buttonEight.setTitleColor(UIColor.white, for: .normal)
+         view.addSubview(buttonEight)
+    */
+        
     }
     
-    func openShare() {
+    func openTicketFly() {
+        print("clicked")
         self.slideMenuController()?.closeLeft()
         tab?.selectedIndex = 7
     }

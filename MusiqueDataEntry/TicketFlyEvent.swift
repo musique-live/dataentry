@@ -23,13 +23,55 @@ class TicketFlyEvent: Mappable {
     var urlEventDetailsUrl: String?
     var headliners: [TicketFlyBand]?
     var supports: [TicketFlyBand]?
+    var eventDate: Date?
+    var timeString: String?
+    var venue: String?
+    var startDate: String?
     
     required init?(map: Map) {
         
     }
     
     func postProcess() {
-        //doors date to real date
+        if let doorsDate = doorsDate {
+            let dateFormatter = DateFormatter()
+            dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
+            let dateObj = dateFormatter.date(from: doorsDate)
+            self.eventDate = dateObj
+            
+            if let startingDate = self.eventDate {
+                let calendar = Calendar.current
+                let hour = calendar.component(.hour, from: startingDate as Date) + 4
+                let minutes = calendar.component(.minute, from: startingDate as Date)
+                
+                let timeFormatter = DateFormatter()
+                timeFormatter.dateFormat = "h:mm"
+                self.timeString = timeFormatter.string(from: startingDate)
+                
+                let secondspast = 0 - ((60*60*hour) + (60*minutes))
+                let newdate = (startingDate).addingTimeInterval(TimeInterval(secondspast))
+                self.eventDate = newdate
+            }
+        } else if let doorsDate = startDate {
+            let dateFormatter = DateFormatter()
+            dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
+            let dateObj = dateFormatter.date(from: doorsDate)
+            self.eventDate = dateObj
+            
+            if let startingDate = self.eventDate {
+                let calendar = Calendar.current
+                let hour = calendar.component(.hour, from: startingDate as Date) + 4
+                let minutes = calendar.component(.minute, from: startingDate as Date)
+                
+                let timeFormatter = DateFormatter()
+                timeFormatter.dateFormat = "h:mm"
+                self.timeString = timeFormatter.string(from: startingDate)
+                
+                let secondspast = 0 - ((60*60*hour) + (60*minutes))
+                let newdate = (startingDate).addingTimeInterval(TimeInterval(secondspast))
+                self.eventDate = newdate
+            }
+        }
     }
     
     func mapping(map: Map) {
@@ -39,6 +81,7 @@ class TicketFlyEvent: Mappable {
         supportsName <- map["supportsName"]
         image <- map["image.large.path"]
         doorsDate <- map["doorsDate"]
+        startDate <- map["startDate"]
         ticketPurchaseUrl <- map["ticketPurchaseUrl"]
         ticketPrice <- map["ticketPrice"]
         urlEventDetailsUrl <- map["urlEventDetailsUrl"]
@@ -58,15 +101,15 @@ class TicketFlyBand: Mappable {
     var urlInstagram: String?
     var image: String?
     var youtube: String?
+    var name: String?
     
     func postProcess() {
         if let description = self.eventDescription {
             if String(description.characters.prefix(7)) == "<iframe" {
                 if String(description[50..<57]) == "youtube" {
                     let descriptionSplit = description.components(separatedBy: "https://www.youtube.com/embed/")
-                    let youtubeSplit = descriptionSplit[1][0..<10]
+                    let youtubeSplit = descriptionSplit[1][0..<11]
                     self.youtube = youtubeSplit
-                    print(self.youtube)
                 }
             }
             let descriptWithoutEmbed = description.components(separatedBy: "iframe>")
@@ -86,6 +129,7 @@ class TicketFlyBand: Mappable {
         eventDescription <- map["eventDescription"]
         urlOfficialWebsite <- map["urlOfficialWebsite"]
         urlFacebook <- map["urlFacebook"]
+        name <- map["name"]
         urlInstagram <- map["urlInstagram"]
         image <- map["image.large.path"]
         postProcess()

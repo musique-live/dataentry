@@ -18,7 +18,6 @@ class BandEntryVC: FormViewController {
     var newBandObject: BandObject?
     var imageView: UIImageView!
     let loginManager = FBSDKLoginManager()
-    var seatGeekObject: SeatGeekObject?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -125,14 +124,6 @@ class BandEntryVC: FormViewController {
                     selected in
                     self.sendBand()
                 })
-            <<< ButtonRow(){
-                $0.title = "Skip."
-                }.onCellSelection({
-                    selected in
-                    if let seat = self.seatGeekObject {
-                        self.skip()
-                    }
-                })
         
         navigationOptions = RowNavigationOptions.Enabled.union(.StopDisabledRow)
         animateScroll = true
@@ -149,65 +140,11 @@ class BandEntryVC: FormViewController {
         self.slideMenuController()?.openLeft()
     }
     
-    func skip() {
-        if let seatGeekObject = self.seatGeekObject {
-            if let nextvc = self.tabBarController?.viewControllers?[2] as? VenueEntryVC {
-                nextvc.seatGeekObject = seatGeekObject
-                self.tabBarController?.selectedIndex = 2
-            }
-        }
-    }
-    
-    override func viewDidAppear(_ animated: Bool) {
-        if self.seatGeekObject != nil {
-            populateWithSeatGeek()
-        }
-    }
     
     func clearImage() {
         let imageRow: TextRow? = form.rowBy(tag: "image")
         imageRow?.value = ""
         imageRow?.updateCell()
-    }
-    
-    func populateWithSeatGeek() {
-        guard let seatGeekObject = seatGeekObject else { return }
-        
-        SeatGeekController().getImagesForBand(band: seatGeekObject.name ?? "", completion: {
-            results in
-            
-        })
-        
-        let nameRow: TextRow? = form.rowBy(tag: "name")
-        nameRow?.value = seatGeekObject.name
-        nameRow?.updateCell()
-        
-        let imageRow: TextRow? = form.rowBy(tag: "image")
-        imageRow?.value = seatGeekObject.imageURL
-        imageRow?.updateCell()
-        
-        if let image = seatGeekObject.imageURL {
-            let url = URL(string: image)
-            imageView.sd_setImage(with: url)
-        }
-        
-        var genrestring = ""
-        for genre in seatGeekObject.genres {
-            genrestring = genrestring + genre + " "
-        }
-        let genreRow: TextRow? = form.rowBy(tag: "genre")
-        genreRow?.value = genrestring
-        genreRow?.updateCell()
-        
-        
-        let ytrow: TextRow? = form.rowBy(tag: "youtube")
-        if let yt = seatGeekObject.youtube {
-            ytrow?.value = "https://www.youtube.com/watch?v=" + yt
-            ytrow?.updateCell()
-        }
-        
-        self.newBandObject = BandObject(name: seatGeekObject.name ?? "")
-        
     }
     
     override func textInput<T>(_ textInput: UITextInput, shouldChangeCharactersInRange range: NSRange, replacementString string: String, cell: Cell<T>) -> Bool {
@@ -228,10 +165,6 @@ class BandEntryVC: FormViewController {
         return text!.characters.count + string.characters.count - range.length <= maxLength!
     }
     
-    override func viewDidDisappear(_ animated: Bool) {
-        self.seatGeekObject = nil
-    }
-    
     func sendBand() {
         guard let newBandObject = newBandObject else { return }
         
@@ -245,7 +178,7 @@ class BandEntryVC: FormViewController {
         newBandObject.youtube = ytrow?.value
         
         let nameRow: TextRow? = form.rowBy(tag: "name")
-        newBandObject.name = nameRow?.value
+        newBandObject.band = nameRow?.value
         
         let imageRow: TextRow? = form.rowBy(tag: "image")
         newBandObject.image = imageRow?.value
@@ -287,12 +220,6 @@ class BandEntryVC: FormViewController {
             row?.value = ""
             row?.updateCell()
             
-            if let seatGeekObject = self.seatGeekObject {
-                if let nextvc = self.tabBarController?.viewControllers?[2] as? VenueEntryVC {
-                    nextvc.seatGeekObject = seatGeekObject
-                    self.tabBarController?.selectedIndex = 2
-                }
-            }
         })
     }
     
@@ -345,14 +272,7 @@ class BandEntryVC: FormViewController {
                 self.tryAll(value: band)
             }
         }
-        
-        if let sgobj = seatGeekObject {
-            row?.placeholder = "Testing..."
-            row?.updateCell()
-            if let newband = sgobj.name {
-                tryAll(value: newband)
-            }
-        }
+
     }
     
     func tryFacebook(value: String, completion: @escaping (Bool) -> Void) {
@@ -411,7 +331,7 @@ class BandEntryVC: FormViewController {
         fbrow?.updateCell()
         
         let nameRow: TextRow? = form.rowBy(tag: "name")
-        nameRow?.value = newBandObject.name
+        nameRow?.value = newBandObject.band
         nameRow?.updateCell()
         
         
@@ -449,7 +369,7 @@ class BandEntryVC: FormViewController {
     func searchYoutube() {
         let nameRow: TextRow? = form.rowBy(tag: "name")
         if let name = nameRow?.value {
-            SeatGeekController().getYoutubeForBand(band: name, completion: {
+            NetworkController().getYoutubeForBand(band: name, completion: {
                 youtubelink in
                 self.updateYoutube(url: youtubelink)
             })
@@ -492,7 +412,8 @@ class BandEntryVC: FormViewController {
     
     func createBandObject(_ dict: NSDictionary) -> BandObject? {
         if let name = dict["name"] as? String {
-            let bandObj = BandObject(name: name)
+            let bandObj = BandObject()
+            bandObj.band = name
             
             if let email = dict["press_contact"] as? String {
                 bandObj.email = email

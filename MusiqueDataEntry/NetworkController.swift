@@ -9,12 +9,15 @@
 import Foundation
 import CoreLocation
 import Firebase
+import Alamofire
 
 let database = "https://musiquelive-2167e.firebaseio.com/"
+let yelpclientid = "xNWMinRpWtYPu1c1SA28xA"
+let yelpsecret = "joxqtrACR9pH9BE3ACp3gEZ1tSNgf41iJlmdfZJnQbsoKigNCWJsdGZSU73L8xFS"
+let youtubeURL = "https://www.googleapis.com/youtube/v3/search?part=snippet&type=video&key=AIzaSyDDqTGpVR7jxeozoOEjH6SLaRdw0YY-HPQ"
 
 class NetworkController: NSObject {
     
-    var ref: FIRDatabaseReference!
     let geocoder = CLGeocoder()
     var myGroup = DispatchGroup()
     
@@ -23,9 +26,7 @@ class NetworkController: NSObject {
         let currentdate = String(NSDate().timeIntervalSince1970)
         var querystring = "/DC/Events"
         let ref = FIRDatabase.database().reference()
-        
 
-        
         let query = ref.child(querystring).queryOrdered(byChild: "date").queryStarting(atValue: currentdate).queryEnding(atValue: fourweek)
         query.observeSingleEvent(of: .value, with: {
             snapshot in
@@ -43,35 +44,12 @@ class NetworkController: NSObject {
         })
 
     }
-    
-    
-    //for delete
-    //        let fourweekago = String(NSDate().addingTimeInterval(-86400*7*4).timeIntervalSince1970)
-    //        let query = ref.child(querystring).queryOrdered(byChild: "date").queryEnding(atValue: fourweekago)
-    //        query.observeSingleEvent(of: .value, with: {
-    //            snapshot in
-    //            if snapshot.hasChildren() {
-    //                self.processEventSnapshot(snapArray: snapshot, completion: {
-    //                    newevents in
-    //                    for event in newevents {
-    //                        self.deleteEvent(event: event)
-    //                    }
-    //                    completion(newevents)
-    //                })
-    //            } else {
-    //                completion([EventObject]())
-    //            }
-    //        }, withCancel: {
-    //            (error) in
-    //            completion([EventObject]())
-    //        })
-    
+
     func deleteEvent(event: EventObject) {
-        guard let id = event.id, let band = event.band?.name, let venue = event.venue?.venue else { return }
+        guard let id = event.id, let band = event.band?.band, let venue = event.venue?.venue else { return }
         
         let formatter = DateFormatter()
         formatter.dateStyle = .long
-        print(formatter.string(from: event.timestamp as? Date ?? Date()))
         
         let query = FIRDatabase.database().reference().child("DC/Events/\(id)")
         query.removeValue()
@@ -89,7 +67,7 @@ class NetworkController: NSObject {
             snapshot in
             if let val = snapshot.value as? NSDictionary {
                 let keys = val.allKeys as! [String]
-                self.getOwner(venues: keys.sorted(), completion: {
+                self.getOwnerForVenue(venues: keys.sorted(), completion: {
                     result in
                     completion(result)
                 })
@@ -102,8 +80,8 @@ class NetworkController: NSObject {
         })
     }
 
-    func getOwner(venues: [String], completion: @escaping((NSDictionary) -> Void)) {
-        var returndict = NSMutableDictionary()
+    func getOwnerForVenue(venues: [String], completion: @escaping((NSDictionary) -> Void)) {
+        let returndict = NSMutableDictionary()
         
         for venue in venues {
             myGroup.enter()
@@ -123,7 +101,7 @@ class NetworkController: NSObject {
         }
     }
     
-    func getIdsList(venue: String, completion: @escaping (([String]) -> Void)) {
+    func getIdsListForVenueEvents(venue: String, completion: @escaping (([String]) -> Void)) {
         let query = FIRDatabase.database().reference().child("DC/Venues/\(venue)/Events").queryOrderedByKey()
         query.observeSingleEvent(of: .value, with: {
             snapshot in
@@ -138,53 +116,14 @@ class NetworkController: NSObject {
         })
     }
     
-    func getSeatGeekList(completion: @escaping (([Int]) -> Void)) {
-        let query = FIRDatabase.database().reference().child("DC/SeatGeek").queryOrderedByKey()
-        query.observeSingleEvent(of: .value, with: {
-            snapshot in
-            if let val = snapshot.value as? NSDictionary {
-                let keys = val.allKeys as! [String]
-                var ints = [Int]()
-                for key in keys {
-                    if let newint = Int(key) {
-                        ints.append(newint)
-                    }
-                }
-                completion(ints)
-            } else {
-                completion([])
-            }
-        }, withCancel: {
-            (error) in
-            completion([])
-        })
-    }
-    
-    func getBand(band: String, completion: @escaping (BandObject) -> Void) {
+    func getBandInfo(band: String, completion: @escaping (BandObject) -> Void) {
         let query = FIRDatabase.database().reference().child("DC/Bands/\(cleanFBString(string: band))/info")
         query.observeSingleEvent(of: .value, with: {
             snapshot in
             if let val = snapshot.value as? NSDictionary {
-                let band = BandObject(name: band)
-                if let fb = val["facebook"] as? String {
-                    band.facebook = fb
-                }
-                if let genre = val["genre"] as? String {
-                    band.genre = genre
-                }
-                if let image = val["image"] as? String {
-                    band.image = image
-                }
-                if let youtube = val["youtube"] as? String {
-                    band.youtube = youtube
-                }
-                if let website = val["website"] as? String {
-                    band.website = website
-                }
-                if let descript = val["descriptionString"] as? String {
-                    band.bandDescription = descript
-                }
-                completion(band)
+                let newband = BandObject(JSON: val as! [String : Any])
+                newband?.band = band
+                completion(newband!)
             }
         })
     }
@@ -229,25 +168,84 @@ class NetworkController: NSObject {
     }
     
     func processEvent(newObject: NSDictionary, key: String) -> EventObject {
-        let date = (newObject["date"] as? String ?? "")
-        let event = EventObject(
-            body: "",
-            eventimage: "",
-            eventlink: "",
-            price: 0,
-            time: NSDate(jsonDate: date),
-            title: "",
-            id: newObject["id"] as? String,
-            bandName: newObject["bandname"] as? String,
-            venueName: newObject["venuename"] as? String)
-        if let coord = newObject["coordinates"] as? [Double] {
-            event.coordinates = CLLocationCoordinate2D(latitude: coord[0], longitude: coord[1])
+        let event = EventObject(JSON: newObject as! [String : Any])
+        event?.band = BandObject(JSON: newObject as! [String : Any])
+        if let bandname = newObject["bandname"] as? String {
+            event?.band?.band = bandname
         }
-        if let image = newObject["bandimage"] as? String {
-            event.band?.image = image
+        event?.venue = VenueObject(JSON: newObject as! [String : Any])
+        if let venuename = newObject["venuename"] as? String {
+            event?.venue?.venue = venuename
         }
-        
-        return event
+        return event!
+    }
+
+    func getYoutubeForBand(band: String, completion: @escaping(String) -> Void) {
+        let searchband = band.replacingOccurrences(of: " ", with: "+")
+        let url = youtubeURL + "&q=\(searchband)+music+band"
+        Alamofire.request(url).responseJSON { response in
+            if let result = response.result.value as? NSDictionary {
+                if let answers = result["items"] as? [NSDictionary] {
+                    if let itemsid = answers.first?["id"] as? NSDictionary {
+                        if let youtubeid = itemsid["videoId"] as? String {
+                            completion("https://www.youtube.com/watch?v=" + youtubeid)
+                        }
+                    }
+                }
+            }
+        }
+    }
+    
+    func getBandForString(band: String, completion: @escaping ((BandObject?) -> Void)) {
+        let query = FIRDatabase.database().reference().child("DC/Bands/\(cleanFBString(string: band))")
+        query.observeSingleEvent(of: .value, with: {
+            snapshot in
+            if let dict = snapshot.value as? NSDictionary {
+                if let infodict = dict["info"] as? NSDictionary {
+                    let newband = BandObject(JSON: infodict as! [String : Any])
+                    newband?.band = band
+                    completion(newband)
+                }
+            } else {
+                completion(nil)
+            }
+        }, withCancel: {
+            error in
+            completion(nil)
+        })
+    }
+    
+    func getVenueForString(venue: String, completion: @escaping ((VenueObject?) -> Void)) {
+        let newquery = FIRDatabase.database().reference().child("DC/Venues/\(cleanFBString(string: venue))")
+        newquery.observeSingleEvent(of: .value, with: {
+            snapshot in
+            if let newObject = snapshot.value as? NSDictionary {
+                if let infodict = newObject["info"] as? NSDictionary {
+                    let newven = VenueObject(JSON: infodict as! [String : Any])
+                    newven?.venue = venue
+                    completion(newven)
+                } else {
+                    completion(nil)
+                }
+            } else {
+                completion(nil)
+            }
+        }, withCancel: {
+            error in
+            completion(nil)
+        })
+    }
+    
+    func getAllBandEvents(band: BandObject, completion: @escaping ([String]) -> Void) {
+        let query = FIRDatabase.database().reference().child("DC/Bands/\(cleanFBString(string: band.band!))/Events").queryOrderedByKey()
+        query.observeSingleEvent(of: .value, with: {
+            snapshot in
+            if let val = snapshot.value as? NSDictionary {
+                completion(val.allKeys as! [String])
+            } else {
+                completion([])
+            }
+        })
     }
 
 }

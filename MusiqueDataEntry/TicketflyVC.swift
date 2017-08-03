@@ -9,7 +9,7 @@
 import Foundation
 import UIKit
 
-class TicketflyVC: UIViewController, UITextFieldDelegate {
+class TicketflyVC: UIViewController, UITextFieldDelegate, UITableViewDelegate, UITableViewDataSource {
 
     var bands: [String]?
     var venues: [String]?
@@ -17,6 +17,14 @@ class TicketflyVC: UIViewController, UITextFieldDelegate {
     var venueString: String?
     var idEntry = UITextField()
     var goButton = UIButton()
+    var tableView: UITableView!
+    var events: [EventObject]?
+    var didload = false
+    var venueDict: [String: String]?
+    
+    override func viewWillAppear(_ animated: Bool) {
+        self.navigationController?.navigationBar.isHidden = true
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -32,6 +40,26 @@ class TicketflyVC: UIViewController, UITextFieldDelegate {
         menuButton.addTarget(self, action: #selector(TicketflyVC.openMenu), for: .touchUpInside)
         view.addSubview(menuButton)
         
+        goButton = UIButton(frame: CGRect(x: 140, y: 50, width: 100, height: 50))
+        goButton.setTitle("Fetch", for: .normal)
+        goButton.backgroundColor = UIColor.blue
+        goButton.setTitleColor(.white, for: .normal)
+        goButton.addTarget(self, action: "fetchData", for: .touchUpInside)
+        view.addSubview(goButton)
+        
+        let sendAllButton = UIButton(frame: CGRect(x: 260, y: 50, width: 100, height: 50))
+        sendAllButton.setTitle("SEND ALL", for: .normal)
+        sendAllButton.setTitleColor(.black, for: .normal)
+        sendAllButton.addTarget(self, action: #selector(TicketflyVC.sendAll), for: .touchUpInside)
+        view.addSubview(sendAllButton)
+        
+        tableView = UITableView(frame: CGRect(x: 20, y: 200, width: view.frame.width - 40, height: view.frame.height - 350))
+        tableView.register(UITableViewCell.self, forCellReuseIdentifier: "cell")
+        tableView.layer.borderColor = UIColor.black.cgColor
+        tableView.layer.borderWidth = 3
+        tableView.delegate = self
+        tableView.dataSource = self
+        view.addSubview(tableView)
         
         venueField.backgroundColor = UIColor.white.withAlphaComponent(0.5)
         venueField.autoCompleteTextColor = UIColor.black
@@ -54,13 +82,11 @@ class TicketflyVC: UIViewController, UITextFieldDelegate {
         }
         venueField.backgroundColor = UIColor.lightGray.withAlphaComponent(0.5)
         
-        
-        
         let paddingView = UIView(frame: CGRect(x: 0, y: 0, width: 20, height: venueField.frame.size.height))
         venueField.leftView = paddingView
         venueField.leftViewMode = .always
         
-
+        /*
         idEntry = UITextField(frame: CGRect(x: halfwidth + 20, y: 120, width: halfwidth - 40, height: 50))
         idEntry.delegate = self
         idEntry.placeholder = "Ticketfly ID"
@@ -70,19 +96,47 @@ class TicketflyVC: UIViewController, UITextFieldDelegate {
         let paddingView2 = UIView(frame: CGRect(x: 0, y: 0, width: 20, height: venueField.frame.size.height))
         idEntry.leftView = paddingView2
         idEntry.leftViewMode = .always
+ */
         
-        goButton = UIButton(frame: CGRect(x: 20, y: 190, width: 80, height: 50))
-        goButton.setTitle("Fetch", for: .normal)
-        goButton.backgroundColor = UIColor.blue
-        goButton.setTitleColor(.white, for: .normal)
-        goButton.addTarget(self, action: "fetchData", for: .touchUpInside)
-        view.addSubview(goButton)
+    }
+    
+    func sendAll() {
+        let intID = Int((venueDict?[venueString!])!)
+        TicketFlyController().sendEvents(bands: self.bands!, id: intID!, events: self.events!, completion: {
+            success in
+            self.events = nil
+            self.tableView.reloadData()
+        })
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        
+        let alert = UIAlertController(title: "ACTION", message: "What do you want to do?", preferredStyle: UIAlertControllerStyle.alert)
+        alert.addAction(UIAlertAction(title: "Delete", style: UIAlertActionStyle.default, handler: {
+            handle in
+            self.events?.remove(at: indexPath.row)
+            self.tableView.reloadData()
+        }))
+        alert.addAction(UIAlertAction(title: "Open this", style: UIAlertActionStyle.default, handler: {
+            handle in
+            self.openView(index: indexPath.row)
+        }))
+        self.present(alert, animated: true, completion: nil)
+    }
+    
+    func openView(index: Int) {
+        let vc = DetailVC()
+        vc.event = events?[index]
+        navigationController?.present(vc, animated: true, completion: nil)
     }
     
     func fetchData() {
-        if let id = idEntry.text {
-            //set ID with venue if needed
-            TicketFlyController().getEventsForID(id: id)
+        if let venue = self.venueString, let id = venueDict?[venue] {
+            TicketFlyController().getEventsForID(id: id, venue: venue, completion: {
+                events in
+                self.events = events
+                self.tableView.reloadData()
+            })
         }
     }
     
@@ -92,9 +146,10 @@ class TicketflyVC: UIViewController, UITextFieldDelegate {
  
 
     func refresh() {
-        NetworkController().getVenuesList(completion: {
-            venues in
-            self.venues = venues.allKeys as! [String]
+        NetworkController().getTicketFlyVenues(completion: {
+            venuesDict in
+            self.venues = Array(venuesDict.keys)
+            self.venueDict = venuesDict
         })
         
         NetworkController().getBandObjectsList(completion: {
@@ -102,6 +157,25 @@ class TicketflyVC: UIViewController, UITextFieldDelegate {
             self.bands = bands
         })
     }
+    
+    func numberOfSections(in tableView: UITableView) -> Int {
+        return 1
+    }
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return events?.count ?? 0
+    }
  
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        if let cell = tableView.dequeueReusableCell(withIdentifier: "cell") {
+            if let band = events?[indexPath.row].band?.band {
+                cell.textLabel?.text = band
+            } else {
+                cell.textLabel?.text = "WTF"
+            }
+            return cell
+        }
+        return UITableViewCell()
+    }
  
 }

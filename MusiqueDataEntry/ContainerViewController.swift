@@ -59,14 +59,6 @@ class ContainerViewController: UIViewController {
         buttonFive.setTitleColor(UIColor.white, for: .normal)
         view.addSubview(buttonFive)
         
-        /*
-        let buttonSix = UIButton(frame: CGRect(x: 10, y: 480, width: width - 20, height: 60))
-        buttonSix.setTitle("Scraping (Tara)", for: .normal)
-        buttonSix.addTarget(self, action: #selector(ContainerViewController.openScrape), for: .touchUpInside)
-        buttonSix.setTitleColor(UIColor.white, for: .normal)
-        view.addSubview(buttonSix)
-        */
-        
         let buttonSeven = UIButton(frame: CGRect(x: 10, y: 480, width: width - 20, height: 60))
         buttonSeven.setTitle("Delete Events", for: .normal)
         buttonSeven.addTarget(self, action: #selector(ContainerViewController.openDelete), for: .touchUpInside)
@@ -79,20 +71,11 @@ class ContainerViewController: UIViewController {
         buttonEight.setTitleColor(UIColor.white, for: .normal)
         view.addSubview(buttonEight)
         
-        /*
-         let buttonEight = UIButton(frame: CGRect(x: 10, y: 640, width: width - 20, height: 60))
-         buttonEight.setTitle("Share to Facebook", for: .normal)
-         buttonEight.addTarget(self, action: #selector(ContainerViewController.openShare), for: .touchUpInside)
-         buttonEight.setTitleColor(UIColor.white, for: .normal)
-         view.addSubview(buttonEight)
-    */
-        
     }
     
     func openTicketFly() {
-        print("clicked")
         self.slideMenuController()?.closeLeft()
-        tab?.selectedIndex = 7
+        tab?.selectedIndex = 6
     }
     
     func openToDo() {
@@ -120,14 +103,9 @@ class ContainerViewController: UIViewController {
         tab?.selectedIndex = 4
     }
     
-    func openScrape() {
-        self.slideMenuController()?.closeLeft()
-        tab?.selectedIndex = 5
-    }
-    
     func openDelete() {
         self.slideMenuController()?.closeLeft()
-        tab?.selectedIndex = 6
+        tab?.selectedIndex = 5
     }
     
 }

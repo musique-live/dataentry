@@ -1,5 +1,4 @@
-
-//
+  //
 //  VenueObject.swift
 //  musique
 //
@@ -9,29 +8,56 @@
 
 import Foundation
 import CoreLocation
+import ObjectMapper
 
-class VenueObject: NSObject {
+
+class VenueObject: NSObject, Mappable {
     var address: String?
-    var facebook: String?
     var venue: String?
     var website: String?
     var yelp: String?
     var coordinates: CLLocation?
-    var email: String?
     var region: String?
+    var facebook: String?
+    var email: String?
     var reservationsNum: Int?
     
-    init(address: String?, facebook: String?, venue: String?, yelp: String?, website: String?) {
-        self.address = address
-        self.facebook = facebook
-        self.venue = venue
-        self.yelp = yelp
-        self.website = website
+    var tempCoordinates1: Double?
+    var tempCoordinates2: Double?
+    
+    func updateTypes() {
+        if let c1 = tempCoordinates1, let c2 = tempCoordinates2 {
+            coordinates = CLLocation(latitude: c1, longitude: c2)
+        }
+        
     }
     
-    init(name: String) {
-        self.venue = name
+    required init?(map: Map) {
+        
     }
+    
+    override init() {
+        super.init()
+    }
+    
+    func mapping(map: Map) {
+        address <- map["venueaddress"]
+        website <- map["venuewebsite"]
+        yelp <- map["venueyelp"]
+        region <- map["venueregion"]
+        address <- map["address"]
+        website <- map["website"]
+        facebook <- map["facebook"]
+        facebook <- map["venuefacebook"]
+        yelp <- map["yelp"]
+        region <- map["region"]
+        tempCoordinates1 <- map["coordinates.0"]
+        tempCoordinates2 <- map["coordinates.1"]
+        
+        updateTypes()
+    }
+    
     
 }
+
 

@@ -122,7 +122,7 @@ class EditBandVC: FormViewController {
         let descriptionRow: TextAreaRow? = form.rowBy(tag: "description")
         
         
-        NetworkController().getBand(band: nameRow?.value ?? "", completion: {
+        NetworkController().getBandInfo(band: nameRow?.value ?? "", completion: {
             band in
           
             if let fb = band.facebook {
@@ -167,7 +167,8 @@ class EditBandVC: FormViewController {
         
         
         if let name = nameRow?.value {
-            let updateBand = BandObject(name: name)
+            let updateBand = BandObject()
+            updateBand.band = name
             
             if let email = emailRow?.value {
                 updateBand.email = email
@@ -234,7 +235,7 @@ class EditBandVC: FormViewController {
     func searchYoutube() {
         let nameRow: TextRow? = form.rowBy(tag: "name")
         if let name = nameRow?.value {
-            SeatGeekController().getYoutubeForBand(band: name, completion: {
+            NetworkController().getYoutubeForBand(band: name, completion: {
                 youtubelink in
                 self.updateYoutube(url: youtubelink)
             })

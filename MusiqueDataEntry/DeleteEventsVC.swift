@@ -231,7 +231,8 @@ extension ResultsVC {
     }
     
     func doFeature(event: EventObject) {
-        NetworkController().sendFeaturedEvent(event: event)
+        //bring this back ugh
+        //NetworkController().sendFeaturedEvent(event: event)
     }
     
 
@@ -386,7 +387,7 @@ class EventCell: UICollectionViewCell {
                     completion in
                 })
             }
-            if let band = event?.band?.name {
+            if let band = event?.band?.band {
                 label.text = band.capitalized
             }
             if let loc = event?.venue?.venue {

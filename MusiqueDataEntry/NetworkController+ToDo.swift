@@ -60,15 +60,8 @@ extension NetworkController {
     }
     
     func fixCoordinates(venue: String, newCoords: CLLocationCoordinate2D) {
-        print(venue)
-        print(newCoords.latitude)
-        print(newCoords.longitude)
-        print("")
-        
-        NetworkController().getIdsList(venue: venue, completion: {
+        NetworkController().getIdsListForVenueEvents(venue: venue, completion: {
             ids in
-            print(ids)
-            
             for id in ids {
                 let ref = FIRDatabase.database().reference().child("DC/Venues/\(venue)/Events/\(id)")
                 
@@ -139,7 +132,5 @@ extension NetworkController {
         })
         
     }
-    
-    
     
 }

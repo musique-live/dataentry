@@ -18,7 +18,6 @@ class EventEntryVC: UIViewController, UITextFieldDelegate {
     var datepicker: UIDatePicker?
     var actInd: UIActivityIndicatorView?
     let event = EventObject()
-    var seatGeekObject: SeatGeekObject?
     var goButton = UIButton()
     
     var timeEntry = UITextField()
@@ -51,7 +50,7 @@ class EventEntryVC: UIViewController, UITextFieldDelegate {
         view.addSubview(bandField)
         
         bandField.onSelect = {text, indexpath in
-            self.event.bandString = text
+            self.event.band?.band = text
             self.bandField.resignFirstResponder()
         }
         
@@ -77,7 +76,7 @@ class EventEntryVC: UIViewController, UITextFieldDelegate {
         view.addSubview(venueField)
         
         venueField.onSelect = {text, indexpath in
-            self.event.venueString = text
+            self.event.venue?.venue = text
             self.venueField.resignFirstResponder()
         }
         
@@ -121,7 +120,7 @@ class EventEntryVC: UIViewController, UITextFieldDelegate {
     func sendData() {
         goButton.isEnabled = false
         goButton.backgroundColor = UIColor.gray
-        NetworkController().sendEventData(event: event, completion: {
+        NetworkController().sendEventDataWithoutBandVenueInfo(event: event, completion: {
             success in
             self.bandField.text = ""
             self.venueField.text = ""
@@ -134,7 +133,7 @@ class EventEntryVC: UIViewController, UITextFieldDelegate {
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         if textField.tag == 0 {
-            event.timeString = textField.text
+            event.time = textField.text
         } else {
             if let pricenum = Int(textField.text!) {
                 event.price = pricenum
@@ -152,61 +151,10 @@ class EventEntryVC: UIViewController, UITextFieldDelegate {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         refresh()
-        if self.seatGeekObject != nil {
-            populateWithSeatGeek()
-        }
     }
     
     func openMenu() {
         self.slideMenuController()?.openLeft()
-    }
-    
-    func populateWithSeatGeek() {
-        guard let seatGeekObject = seatGeekObject else { return }
-        if let band = seatGeekObject.name {
-            self.bandField.text = cleanFBString(string: band)
-            event.bandString = band
-        }
-        if let venue = seatGeekObject.venuename {
-            self.venueField.text = cleanFBString(string: venue)
-            event.venueString = venue
-        }
-        if let date = seatGeekObject.date {
-            let calendar = Calendar.current
-            
-            let components = calendar.dateComponents([.hour, .minute, .year, .month, .day], from: date)
-
-            if let newdate = calendar.date(from: components) {
-                datepicker?.setDate(newdate, animated: true)
-            }
-            
-            let hour = calendar.component(.hour, from: date)
-            let minute = calendar.component(.minute, from: date)
-            var newhour = hour
-            var newminute = "00"
-            if hour > 12 {
-                newhour = hour - 12
-            }
-            if minute != 0 {
-                newminute = "\(minute)"
-            }
-            self.timeEntry.text = "\(newhour):\(newminute)"
-
-            event.timestamp = date as NSDate
-            event.timeString = "\(newhour):\(newminute)"
-            
-        }
-        if let price = seatGeekObject.lowestprice {
-            self.priceEntry.text = "\(price)"
-            event.price = Int(price)
-        }
-        if let id = seatGeekObject.id {
-            event.seatGeekID = id
-        }
-        if let url = seatGeekObject.URL {
-            event.ticketURL = url
-        }
-        
     }
     
     func cleanFBString(string: String) -> String {
@@ -216,10 +164,6 @@ class EventEntryVC: UIViewController, UITextFieldDelegate {
         newstring = newstring.replacingOccurrences(of: "[", with: "")
         newstring = newstring.replacingOccurrences(of: "]", with: "")
         return newstring
-    }
-    
-    override func viewDidDisappear(_ animated: Bool) {
-        self.seatGeekObject = nil
     }
     
     func handleDatePicker() {

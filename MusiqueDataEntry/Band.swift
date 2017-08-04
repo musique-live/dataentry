@@ -43,6 +43,13 @@ class BandObject: NSObject, Mappable {
         genre <- map["bandgenre"]
         website <- map["bandwebsite"]
         youtube <- map["bandyoutube"]
+        descriptionString <- map["descriptionString"]
+        facebook <- map["facebook"]
+        image <- map["image"]
+        genre <- map["genre"]
+        website <- map["website"]
+        youtube <- map["youtube"]
+        region <- map["region"]
         
         updateItems()
     }

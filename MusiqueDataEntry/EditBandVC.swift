@@ -14,6 +14,29 @@ import FBSDKLoginKit
 
 class EditBandVC: FormViewController {
     
+    var bandName: String?
+    var menuButton = UIButton()
+    
+    override func viewDidAppear(_ animated: Bool) {
+        if let bandName = bandName {
+            let nameRow: TextRow? = form.rowBy(tag: "name")
+            nameRow?.value = bandName
+            nameRow?.updateCell()
+            self.populateFromDatabase()
+            
+            self.menuButton.setTitle("CLOSE", for: .normal)
+            self.menuButton.addTarget(self, action: #selector(self.popClose), for: .touchUpInside)
+        }
+    }
+    
+    func popClose() {
+        navigationController?.popViewController(animated: true)
+    }
+    
+    override func viewDidDisappear(_ animated: Bool) {
+        self.bandName = nil
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -22,11 +45,11 @@ class EditBandVC: FormViewController {
                     var header = HeaderFooterView<UIView>(.callback({
                         let view = UIView(frame: CGRect(x: 0, y: 0, width: 200, height: 100))
                         view.backgroundColor = .darkGray
-                        let menuButton = UIButton(frame: CGRect(x: 30, y: 20, width: 100, height: 50))
-                        menuButton.setTitle("MENU", for: .normal)
-                        menuButton.setTitleColor(.white, for: .normal)
-                        menuButton.addTarget(self, action: #selector(self.openMenu), for: .touchUpInside)
-                        view.addSubview(menuButton)
+                        self.menuButton = UIButton(frame: CGRect(x: 30, y: 20, width: 100, height: 50))
+                        self.menuButton.setTitle("MENU", for: .normal)
+                        self.menuButton.setTitleColor(.white, for: .normal)
+                        self.menuButton.addTarget(self, action: #selector(self.openMenu), for: .touchUpInside)
+                        view.addSubview(self.menuButton)
                         return view
                     }))
                     header.height = { 100 }

@@ -15,7 +15,8 @@ extension NetworkController {
     
     func getLastDate(fullvenue: String, completion: @escaping([EventObject]?) -> Void) {
         let venue = cleanFBString(string: fullvenue)
-        let newquery = FIRDatabase.database().reference().child("DC/Venues/\(venue)/Events").queryOrdered(byChild: "date")
+        let currentdate = String(NSDate().timeIntervalSince1970)
+        let newquery = FIRDatabase.database().reference().child("DC/Venues/\(venue)/Events").queryOrdered(byChild: "date").queryStarting(atValue: currentdate)
         newquery.observeSingleEvent(of: .value, with: {
             
             snapshot in

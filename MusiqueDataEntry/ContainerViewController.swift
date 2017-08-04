@@ -60,7 +60,7 @@ class ContainerViewController: UIViewController {
         view.addSubview(buttonFive)
         
         let buttonSeven = UIButton(frame: CGRect(x: 10, y: 480, width: width - 20, height: 60))
-        buttonSeven.setTitle("Delete Events", for: .normal)
+        buttonSeven.setTitle("View Events", for: .normal)
         buttonSeven.addTarget(self, action: #selector(ContainerViewController.openDelete), for: .touchUpInside)
         buttonSeven.setTitleColor(UIColor.white, for: .normal)
         view.addSubview(buttonSeven)

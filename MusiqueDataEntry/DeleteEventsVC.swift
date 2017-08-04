@@ -23,10 +23,13 @@ class ResultsVC: UIViewController, UICollectionViewDataSource, UICollectionViewD
     var currentTimestamp: NSDate?
     var currentTimestampIndex: Int?
 
-
+    var lastIndex: Int?
+    
     var label: UILabel?
 
-
+    override func viewDidAppear(_ animated: Bool) {
+        navigationController?.navigationBar.isHidden = true
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -50,6 +53,10 @@ class ResultsVC: UIViewController, UICollectionViewDataSource, UICollectionViewD
         self.slideMenuController()?.openLeft()
     }
     
+    func setIndex(index: Int?) {
+        self.lastIndex = index
+    }
+    
     func getNewEvents() {
         NetworkController().getAllEvents(completion: {
             result in
@@ -57,6 +64,10 @@ class ResultsVC: UIViewController, UICollectionViewDataSource, UICollectionViewD
             if self.events.count > 0 {
                 self.collectionView?.isHidden = false
                 self.collectionView?.reloadData()
+                if let ix = self.lastIndex {
+                    self.lastIndex = nil
+                    self.scrollToIndex(index: ix)
+                }
                 self.label?.isHidden = true
             } else {
                 self.collectionView?.isHidden = true
@@ -84,7 +95,7 @@ class ResultsVC: UIViewController, UICollectionViewDataSource, UICollectionViewD
     
     func setUpCollectionView() {
         if collectionView == nil {
-            let dateHeader = UIView(frame: CGRect(x: 150, y: 110, width: view.frame.width - 300, height: 40))
+            let dateHeader = UIView(frame: CGRect(x: 200, y: 100, width: view.frame.width - 400, height: 40))
             dateHeader.backgroundColor = UIColor.blue
             
             dateLabel = UILabel(frame: CGRect(x: 15, y: 0, width: view.frame.width, height: 40))
@@ -92,21 +103,22 @@ class ResultsVC: UIViewController, UICollectionViewDataSource, UICollectionViewD
             dateLabel?.textAlignment = .left
             dateHeader.addSubview(dateLabel!)
             
-            let topButton = UIButton(frame: CGRect(x: view.frame.width - 400, y: 0, width: 50, height: 40))
+            let topButton = UIButton(frame: CGRect(x: view.frame.width - 500, y: 0, width: 50, height: 40))
             topButton.setTitle("Top", for: .normal)
+            topButton.setTitleColor(.white, for: .normal)
             topButton.addTarget(self, action: #selector(ResultsVC.goToTop), for: .touchUpInside)
             dateHeader.addSubview(topButton)
             
-            let datelabelButton = UIButton(frame: CGRect(x: view.frame.width - 350, y: 0, width: 50, height: 40))
-            datelabelButton.setImage(UIImage(named: "download")?.withRenderingMode(.alwaysTemplate), for: .normal)
-            datelabelButton.imageView?.tintColor = .white
+            let datelabelButton = UIButton(frame: CGRect(x: view.frame.width - 550, y: 0, width: 50, height: 40))
+            datelabelButton.setTitle("Down", for: .normal)
+            datelabelButton.setTitleColor(.white, for: .normal)
             datelabelButton.addTarget(self, action: #selector(ResultsVC.scrollToNextDate), for: .touchUpInside)
             dateHeader.addSubview(datelabelButton)
             
             view.addSubview(dateHeader)
             
             let layout = UltravisualLayout()
-            collectionView = UICollectionView(frame: CGRect(x: 150, y: 150, width: view.frame.width - 300, height: view.frame.height - 180), collectionViewLayout: layout)
+            collectionView = UICollectionView(frame: CGRect(x: 200, y: 140, width: view.frame.width - 400, height: view.frame.height - 180), collectionViewLayout: layout)
             
             guard let collectionView = collectionView else {
                 return
@@ -136,6 +148,17 @@ extension ResultsVC {
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return events.count
+    }
+    
+    func scrollToIndex(index: Int) {
+        guard let collectionView = collectionView else {
+            return
+        }
+        let layout = collectionView.collectionViewLayout as! UltravisualLayout
+        let offset = layout.dragOffset * CGFloat(index)
+        if collectionView.contentOffset.y != offset {
+            collectionView.setContentOffset(CGPoint(x: 0, y: offset), animated: true)
+        }
     }
     
     func scrollToNextDate() {
@@ -205,14 +228,36 @@ extension ResultsVC {
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let alert = UIAlertController(title: "ACTION", message: "What would you like to do?", preferredStyle: UIAlertControllerStyle.alert)
+        alert.addAction(UIAlertAction(title: "EDIT", style: UIAlertActionStyle.default, handler: {
+            handle in
+            self.goToEdit(index: indexPath.row)
+        }))
+        alert.addAction(UIAlertAction(title: "DELETE", style: UIAlertActionStyle.default, handler: {
+            handle in
+            self.reaskDelete(index: indexPath.row)
+        }))
+        self.present(alert, animated: true, completion: nil)
+    }
+    
+    func goToEdit(index: Int) {
+        let event = events[index]
+        if let band = event.band?.band {
+            let edit = EditBandVC()
+            edit.bandName = band
+            navigationController?.pushViewController(edit, animated: true)
+        }
+    }
+    
+    func reaskDelete(index: Int) {
         let alert = UIAlertController(title: "DELETE", message: "Are you sure you want to delete this?", preferredStyle: UIAlertControllerStyle.alert)
         alert.addAction(UIAlertAction(title: "Yes", style: UIAlertActionStyle.default, handler: {
             handle in
-            NetworkController().deleteEvent(event: self.events[indexPath.row])
+            NetworkController().deleteEvent(event: self.events[index])
         }))
         alert.addAction(UIAlertAction(title: "Cancel", style: UIAlertActionStyle.default, handler: {
             handle in
-            self.featureEvent(event: self.events[indexPath.row])
+            self.featureEvent(event: self.events[index])
         }))
         self.present(alert, animated: true, completion: nil)
     }
@@ -407,6 +452,15 @@ class EventCell: UICollectionViewCell {
             }
             if let bandgenre = event?.band?.genre {
                 genre.text = bandgenre
+            } else {
+                contentView.layer.borderColor = UIColor.red.cgColor
+                contentView.layer.borderWidth = 15
+            }
+            if let yt = event?.band?.youtube {
+                
+            } else {
+                contentView.layer.borderColor = UIColor.red.cgColor
+                contentView.layer.borderWidth = 15
             }
         }
     }
@@ -521,6 +575,7 @@ class EventCell: UICollectionViewCell {
         distance.text = ""
         date.text = ""
         genre.text = ""
+        contentView.layer.borderWidth = 0
     }
     
     

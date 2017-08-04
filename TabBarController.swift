@@ -29,7 +29,7 @@ class TabBarController: UITabBarController, UITabBarControllerDelegate {
         
         let item5 = EditBandVC()
         
-        let item6 = ResultsVC()
+        let item6 = UINavigationController(rootViewController: ResultsVC())
         
         let item7 = UINavigationController(rootViewController: TicketflyVC())
         

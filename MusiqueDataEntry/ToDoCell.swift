@@ -50,7 +50,7 @@ class ToDoCell: UITableViewCell {
         contentView.addSubview(numEvents)
         
         contentView.addConstraints([
-            NSLayoutConstraint(item: numEvents, attribute: .leading, relatedBy: .equal, toItem: contentView, attribute: .trailing, multiplier: 1, constant: -80),
+            NSLayoutConstraint(item: numEvents, attribute: .leading, relatedBy: .equal, toItem: contentView, attribute: .trailing, multiplier: 1, constant: -300),
             NSLayoutConstraint(item: numEvents, attribute: .trailing, relatedBy: .equal, toItem: contentView, attribute: .trailing, multiplier: 1, constant: -10),
             NSLayoutConstraint(item: numEvents, attribute: .top, relatedBy: .equal, toItem: contentView, attribute: .bottom, multiplier: 1, constant: -50),
             NSLayoutConstraint(item: numEvents, attribute: .bottom, relatedBy: .equal, toItem: contentView, attribute: .bottom, multiplier: 1, constant: 0)
@@ -138,10 +138,13 @@ class ToDoCell: UITableViewCell {
                     let currentdate = Date()
                     let calendar = NSCalendar.current
                     let components = calendar.dateComponents([.day], from: currentdate, to: date as Date)
+                    self.backgroundColor = .white
                     if components.day! < 3 {
                         self.backgroundColor = UIColor.red.withAlphaComponent(0.5)
-                    } else if components.day! < 14 {
+                        self.numEvents.text = self.numEvents.text! + ", EXPIRING WITHIN THREE DAYS"
+                    } else if components.day! < 7 {
                         self.backgroundColor = UIColor.yellow.withAlphaComponent(0.5)
+                        self.numEvents.text = self.numEvents.text! + ", EXPIRING WITHIN ONE WEEK"
                     }
                     else if components.day! > 40 {
                         NetworkController().getFirstDate(fullvenue: venue, completion: {
@@ -152,6 +155,7 @@ class ToDoCell: UITableViewCell {
                                 let components = calendar.dateComponents([.day], from: currentdate, to: date as Date)
                                 if components.day! > 14 {
                                     self.backgroundColor = UIColor.yellow.withAlphaComponent(0.5)
+                                    self.numEvents.text = self.numEvents.text! + ", NO EVENTS FOR NEXT TWO WEEKS"
                                 }
                             }
                         })
@@ -178,6 +182,7 @@ class ToDoCell: UITableViewCell {
     
     override func prepareForReuse() {
         self.backgroundColor = UIColor.white
+        self.numEvents.text = ""
         self.label.text = nil
         self.date.text = nil
         self.claimed.text = nil

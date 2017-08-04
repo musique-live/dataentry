@@ -18,6 +18,7 @@ class VenueEntryVC: FormViewController {
     var client: YLPClient?
     var enteredValue: String?
     var newVenueObject: VenueObject?
+    var seatGeekObject: SeatGeekObject?
     var buttonOne = UIButton()
     var buttonTwo = UIButton()
     var buttonThree = UIButton()
@@ -34,20 +35,20 @@ class VenueEntryVC: FormViewController {
         
         
         form +++ Section(){ section in
-                section.header = {
-                    var header = HeaderFooterView<UIView>(.callback({
-                        let view = UIView(frame: CGRect(x: 0, y: 0, width: 200, height: 100))
-                        view.backgroundColor = .darkGray
-                        let menuButton = UIButton(frame: CGRect(x: 30, y: 20, width: 100, height: 50))
-                        menuButton.setTitle("MENU", for: .normal)
-                        menuButton.setTitleColor(.white, for: .normal)
-                        menuButton.addTarget(self, action: #selector(self.openMenu), for: .touchUpInside)
-                        view.addSubview(menuButton)
-                        return view
-                    }))
-                    header.height = { 100 }
-                    return header
-                }()
+            section.header = {
+                var header = HeaderFooterView<UIView>(.callback({
+                    let view = UIView(frame: CGRect(x: 0, y: 0, width: 200, height: 100))
+                    view.backgroundColor = .darkGray
+                    let menuButton = UIButton(frame: CGRect(x: 30, y: 20, width: 100, height: 50))
+                    menuButton.setTitle("MENU", for: .normal)
+                    menuButton.setTitleColor(.white, for: .normal)
+                    menuButton.addTarget(self, action: #selector(self.openMenu), for: .touchUpInside)
+                    view.addSubview(menuButton)
+                    return view
+                }))
+                header.height = { 100 }
+                return header
+            }()
             }
             +++ Section("Venue")
             <<< TextRow("venuename"){
@@ -85,6 +86,14 @@ class VenueEntryVC: FormViewController {
                 }.onCellSelection({
                     selected in
                     self.sendVenue()
+                })
+            <<< ButtonRow(){
+                $0.title = "Skip."
+                }.onCellSelection({
+                    selected in
+                    if let seat = self.seatGeekObject {
+                        self.skip()
+                    }
                 })
         
         navigationOptions = RowNavigationOptions.Enabled.union(.StopDisabledRow)
@@ -177,18 +186,47 @@ class VenueEntryVC: FormViewController {
         }
     }
     
+    func skip() {
+        if let seatGeekObject = self.seatGeekObject {
+            if let nextvc = self.tabBarController?.viewControllers?[3] as? EventEntryVC {
+                nextvc.seatGeekObject = seatGeekObject
+                self.tabBarController?.selectedIndex = 3
+            }
+        }
+    }
+    
     override func viewDidAppear(_ animated: Bool) {
         self.currentRegion = nil
         buttonOne.backgroundColor = UIColor.blue
         buttonTwo.backgroundColor = UIColor.blue
         buttonThree.backgroundColor = UIColor.blue
         buttonFour.backgroundColor = UIColor.blue
+        if self.seatGeekObject != nil {
+            populateWithSeatGeek()
+        }
     }
+    
+    func populateWithSeatGeek() {
+        guard let seatGeekObject = seatGeekObject else { return }
+        
+        let nameRow: TextRow? = form.rowBy(tag: "venuename")
+        nameRow?.value = seatGeekObject.venuename
+        nameRow?.updateCell()
+        
+        let addressRow: TextRow? = form.rowBy(tag: "venueAddress")
+        addressRow?.value = seatGeekObject.address
+        addressRow?.updateCell()
+    }
+    
+    override func viewDidDisappear(_ animated: Bool) {
+        self.seatGeekObject = nil
+    }
+    
     
     func sendVenue() {
         guard let nameRow: TextRow = form.rowBy(tag: "venuename"), let region = self.currentRegion else { return }
         newVenueObject = VenueObject()
-        newVenueObject?.venue = nameRow.value ?? "Error"
+        newVenueObject?.venue = nameRow.value
         
         let emailRow: EmailRow? = form.rowBy(tag: "venueemail")
         newVenueObject?.email = emailRow?.value
@@ -212,6 +250,13 @@ class VenueEntryVC: FormViewController {
         
         newVenueObject?.region = region
         
+        if let seatGeekObject = seatGeekObject {
+            if let lat = seatGeekObject.latitude, let lon = seatGeekObject.longitude {
+                let location = CLLocation(latitude: CLLocationDegrees(lat), longitude: CLLocationDegrees(lon))
+                newVenueObject?.coordinates = location
+            }
+        }
+        
         NetworkController().sendVenueData(venue: newVenueObject!, completion: {
             done in
             
@@ -228,7 +273,13 @@ class VenueEntryVC: FormViewController {
             addrRow?.value = ""
             addrRow?.updateCell()
             
+            if let seatGeekObject = self.seatGeekObject {
+                if let nextvc = self.tabBarController?.viewControllers?[3] as? EventEntryVC {
+                    nextvc.seatGeekObject = seatGeekObject
+                    self.tabBarController?.selectedIndex = 3
+                }
+            }
         })
     }
-
+    
 }

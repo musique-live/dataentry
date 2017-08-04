@@ -35,6 +35,7 @@ class EventObject: NSObject, Mappable {
     var currentReserved: Int?
     var reserved: String?
     var eventLink: String?
+    var seatGeekID: Int?
     
     var tempdateString: String?
     var tempCoordinates1: Double?

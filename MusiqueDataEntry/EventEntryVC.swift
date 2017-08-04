@@ -18,6 +18,7 @@ class EventEntryVC: UIViewController, UITextFieldDelegate {
     var datepicker: UIDatePicker?
     var actInd: UIActivityIndicatorView?
     let event = EventObject()
+    var seatGeekObject: SeatGeekObject?
     var goButton = UIButton()
     
     var timeEntry = UITextField()
@@ -26,6 +27,10 @@ class EventEntryVC: UIViewController, UITextFieldDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        event.band = BandObject()
+        event.venue = VenueObject()
+        
         view.backgroundColor = UIColor.white
         
         let halfwidth = view.frame.width/2
@@ -122,12 +127,18 @@ class EventEntryVC: UIViewController, UITextFieldDelegate {
         goButton.backgroundColor = UIColor.gray
         NetworkController().sendEventDataWithoutBandVenueInfo(event: event, completion: {
             success in
-            self.bandField.text = ""
-            self.venueField.text = ""
-            self.timeEntry.text = ""
-            self.priceEntry.text = ""
-            self.goButton.isEnabled = true
-            self.goButton.backgroundColor = UIColor.blue
+            if success {
+                self.bandField.text = ""
+                self.venueField.text = ""
+                self.timeEntry.text = ""
+                self.priceEntry.text = ""
+                self.goButton.isEnabled = true
+                self.goButton.backgroundColor = UIColor.blue
+            }
+            else {
+                self.goButton.isEnabled = true
+                self.goButton.backgroundColor = UIColor.red
+            }
         })
     }
     
@@ -151,10 +162,61 @@ class EventEntryVC: UIViewController, UITextFieldDelegate {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         refresh()
+        if self.seatGeekObject != nil {
+            populateWithSeatGeek()
+        }
     }
     
     func openMenu() {
         self.slideMenuController()?.openLeft()
+    }
+    
+    func populateWithSeatGeek() {
+        guard let seatGeekObject = seatGeekObject else { return }
+        if let band = seatGeekObject.name {
+            self.bandField.text = cleanFBString(string: band)
+            event.band?.band = band
+        }
+        if let venue = seatGeekObject.venuename {
+            self.venueField.text = cleanFBString(string: venue)
+            event.venue?.venue = venue
+        }
+        if let date = seatGeekObject.date {
+            let calendar = Calendar.current
+            
+            let components = calendar.dateComponents([.hour, .minute, .year, .month, .day], from: date)
+            
+            if let newdate = calendar.date(from: components) {
+                datepicker?.setDate(newdate, animated: true)
+            }
+            
+            let hour = calendar.component(.hour, from: date)
+            let minute = calendar.component(.minute, from: date)
+            var newhour = hour
+            var newminute = "00"
+            if hour > 12 {
+                newhour = hour - 12
+            }
+            if minute != 0 {
+                newminute = "\(minute)"
+            }
+            self.timeEntry.text = "\(newhour):\(newminute)"
+            
+            event.timestamp = date as NSDate
+            event.time = "\(newhour):\(newminute)"
+            
+        }
+        if let price = seatGeekObject.lowestprice {
+            self.priceEntry.text = "\(price)"
+            event.price = Int(price)
+        }
+        if let id = seatGeekObject.id {
+            event.seatGeekID = id
+        }
+        if let url = seatGeekObject.URL {
+            event.ticketURL = url
+        }
+        
     }
     
     func cleanFBString(string: String) -> String {
@@ -164,6 +226,10 @@ class EventEntryVC: UIViewController, UITextFieldDelegate {
         newstring = newstring.replacingOccurrences(of: "[", with: "")
         newstring = newstring.replacingOccurrences(of: "]", with: "")
         return newstring
+    }
+    
+    override func viewDidDisappear(_ animated: Bool) {
+        self.seatGeekObject = nil
     }
     
     func handleDatePicker() {

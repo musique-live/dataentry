@@ -43,6 +43,8 @@
 		DBCA39981F1D302500EAEEA0 /* ShareExtension.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = DBCA398E1F1D302500EAEEA0 /* ShareExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		DBE06BEF1F338A8100CA6C9F /* TicketFlyEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBE06BEE1F338A8100CA6C9F /* TicketFlyEvent.swift */; };
 		DBE06BF11F33ABE300CA6C9F /* DetailVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBE06BF01F33ABE300CA6C9F /* DetailVC.swift */; };
+		DBE06BF71F33E3C800CA6C9F /* SeatGeekController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBE06BF61F33E3C800CA6C9F /* SeatGeekController.swift */; };
+		DBE06BF91F33E4A300CA6C9F /* SeatGeekVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBE06BF81F33E4A300CA6C9F /* SeatGeekVC.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -131,6 +133,8 @@
 		DBCA399E1F1D304500EAEEA0 /* MusiqueDataEntry.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = MusiqueDataEntry.entitlements; sourceTree = "<group>"; };
 		DBE06BEE1F338A8100CA6C9F /* TicketFlyEvent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TicketFlyEvent.swift; sourceTree = "<group>"; };
 		DBE06BF01F33ABE300CA6C9F /* DetailVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DetailVC.swift; sourceTree = "<group>"; };
+		DBE06BF61F33E3C800CA6C9F /* SeatGeekController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SeatGeekController.swift; sourceTree = "<group>"; };
+		DBE06BF81F33E4A300CA6C9F /* SeatGeekVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SeatGeekVC.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -283,6 +287,7 @@
 			isa = PBXGroup;
 			children = (
 				DB78929F1F33820D00C3DD8F /* TicketflyVC.swift */,
+				DBE06BF81F33E4A300CA6C9F /* SeatGeekVC.swift */,
 				DBE06BF01F33ABE300CA6C9F /* DetailVC.swift */,
 				DB1DEA961EA92EBF00FD27BD /* EventEntryVC.swift */,
 				DB7176F91EA7E713008666AC /* BandEntryVC.swift */,
@@ -308,6 +313,7 @@
 		DBAC9C231EF0322300CDDA72 /* Network */ = {
 			isa = PBXGroup;
 			children = (
+				DBE06BF61F33E3C800CA6C9F /* SeatGeekController.swift */,
 				DB7892A11F33822200C3DD8F /* TicketflyController.swift */,
 				DB1DEA8E1EA9293E00FD27BD /* NetworkController.swift */,
 				DBAC9C241EF0333400CDDA72 /* NetworkController+ToDo.swift */,
@@ -589,7 +595,9 @@
 				DBBD055F1F034C0000C6179E /* ContainerViewController.swift in Sources */,
 				DB1DEA911EA92A6900FD27BD /* Event.swift in Sources */,
 				DBE06BEF1F338A8100CA6C9F /* TicketFlyEvent.swift in Sources */,
+				DBE06BF71F33E3C800CA6C9F /* SeatGeekController.swift in Sources */,
 				DB2A2F2E1F1D37E5000A9641 /* FacebookShareVC.swift in Sources */,
+				DBE06BF91F33E4A300CA6C9F /* SeatGeekVC.swift in Sources */,
 				DBAC9C251EF0333400CDDA72 /* NetworkController+ToDo.swift in Sources */,
 				DB65986A1EAAF2920085BD05 /* VenueEntryVC.swift in Sources */,
 			);

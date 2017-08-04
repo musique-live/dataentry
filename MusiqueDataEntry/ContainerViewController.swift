@@ -71,6 +71,17 @@ class ContainerViewController: UIViewController {
         buttonEight.setTitleColor(UIColor.white, for: .normal)
         view.addSubview(buttonEight)
         
+        let buttonNine = UIButton(frame: CGRect(x: 10, y: 640, width: width - 20, height: 60))
+        buttonNine.setTitle("SeatGeek Scrape (Tara)", for: .normal)
+        buttonNine.addTarget(self, action: #selector(ContainerViewController.openSG), for: .touchUpInside)
+        buttonNine.setTitleColor(UIColor.white, for: .normal)
+        view.addSubview(buttonNine)
+        
+    }
+    
+    func openSG() {
+        self.slideMenuController()?.closeLeft()
+        tab?.selectedIndex = 7
     }
     
     func openTicketFly() {

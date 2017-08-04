@@ -156,6 +156,8 @@ extension NetworkController {
                     })
                 })
             })
+        } else {
+            completion(false)
         }
     }
 

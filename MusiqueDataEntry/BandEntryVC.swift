@@ -18,25 +18,26 @@ class BandEntryVC: FormViewController {
     var newBandObject: BandObject?
     var imageView: UIImageView!
     let loginManager = FBSDKLoginManager()
+    var seatGeekObject: SeatGeekObject?
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         form +++ Section(){ section in
-                section.header = {
-                    var header = HeaderFooterView<UIView>(.callback({
-                        let view = UIView(frame: CGRect(x: 0, y: 0, width: 200, height: 100))
-                        view.backgroundColor = .darkGray
-                        let menuButton = UIButton(frame: CGRect(x: 30, y: 20, width: 100, height: 50))
-                        menuButton.setTitle("MENU", for: .normal)
-                        menuButton.setTitleColor(.white, for: .normal)
-                        menuButton.addTarget(self, action: #selector(self.openMenu), for: .touchUpInside)
-                        view.addSubview(menuButton)
-                        return view
-                    }))
-                    header.height = { 100 }
-                    return header
-                }()
+            section.header = {
+                var header = HeaderFooterView<UIView>(.callback({
+                    let view = UIView(frame: CGRect(x: 0, y: 0, width: 200, height: 100))
+                    view.backgroundColor = .darkGray
+                    let menuButton = UIButton(frame: CGRect(x: 30, y: 20, width: 100, height: 50))
+                    menuButton.setTitle("MENU", for: .normal)
+                    menuButton.setTitleColor(.white, for: .normal)
+                    menuButton.addTarget(self, action: #selector(self.openMenu), for: .touchUpInside)
+                    view.addSubview(menuButton)
+                    return view
+                }))
+                header.height = { 100 }
+                return header
+            }()
             }
             +++ Section("Enter BandObject Facebook Username:")
             <<< TextRow("username"){ row in
@@ -124,27 +125,90 @@ class BandEntryVC: FormViewController {
                     selected in
                     self.sendBand()
                 })
+            <<< ButtonRow(){
+                $0.title = "Skip."
+                }.onCellSelection({
+                    selected in
+                    if let seat = self.seatGeekObject {
+                        self.skip()
+                    }
+                })
         
         navigationOptions = RowNavigationOptions.Enabled.union(.StopDisabledRow)
         animateScroll = true
         rowKeyboardSpacing = 20
         
-     
+        
         imageView = UIImageView(frame: CGRect(x: 20, y: view.frame.height - 250, width: 180, height: 180))
         imageView.backgroundColor = UIColor.gray
         view.addSubview(imageView)
-
+        
     }
     
     func openMenu() {
         self.slideMenuController()?.openLeft()
     }
     
+    func skip() {
+        if let seatGeekObject = self.seatGeekObject {
+            if let nextvc = self.tabBarController?.viewControllers?[2] as? VenueEntryVC {
+                nextvc.seatGeekObject = seatGeekObject
+                self.tabBarController?.selectedIndex = 2
+            }
+        }
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        if self.seatGeekObject != nil {
+            populateWithSeatGeek()
+        }
+    }
     
     func clearImage() {
         let imageRow: TextRow? = form.rowBy(tag: "image")
         imageRow?.value = ""
         imageRow?.updateCell()
+    }
+    
+    func populateWithSeatGeek() {
+        guard let seatGeekObject = seatGeekObject else { return }
+        
+        SeatGeekController().getImagesForBand(band: seatGeekObject.name ?? "", completion: {
+            results in
+            
+        })
+        
+        let nameRow: TextRow? = form.rowBy(tag: "name")
+        nameRow?.value = seatGeekObject.name
+        nameRow?.updateCell()
+        
+        let imageRow: TextRow? = form.rowBy(tag: "image")
+        imageRow?.value = seatGeekObject.imageURL
+        imageRow?.updateCell()
+        
+        if let image = seatGeekObject.imageURL {
+            let url = URL(string: image)
+            imageView.sd_setImage(with: url)
+        }
+        
+        var genrestring = ""
+        for genre in seatGeekObject.genres {
+            genrestring = genrestring + genre + " "
+        }
+        let genreRow: TextRow? = form.rowBy(tag: "genre")
+        genreRow?.value = genrestring
+        genreRow?.updateCell()
+        
+        
+        let ytrow: TextRow? = form.rowBy(tag: "youtube")
+        if let yt = seatGeekObject.youtube {
+            ytrow?.value = "https://www.youtube.com/watch?v=" + yt
+            ytrow?.updateCell()
+        }
+        
+        self.newBandObject = BandObject()
+        newBandObject?.band = seatGeekObject.name ?? ""
+        
     }
     
     override func textInput<T>(_ textInput: UITextInput, shouldChangeCharactersInRange range: NSRange, replacementString string: String, cell: Cell<T>) -> Bool {
@@ -163,6 +227,10 @@ class BandEntryVC: FormViewController {
             return true
         }
         return text!.characters.count + string.characters.count - range.length <= maxLength!
+    }
+    
+    override func viewDidDisappear(_ animated: Bool) {
+        self.seatGeekObject = nil
     }
     
     func sendBand() {
@@ -220,6 +288,12 @@ class BandEntryVC: FormViewController {
             row?.value = ""
             row?.updateCell()
             
+            if let seatGeekObject = self.seatGeekObject {
+                if let nextvc = self.tabBarController?.viewControllers?[2] as? VenueEntryVC {
+                    nextvc.seatGeekObject = seatGeekObject
+                    self.tabBarController?.selectedIndex = 2
+                }
+            }
         })
     }
     
@@ -256,7 +330,7 @@ class BandEntryVC: FormViewController {
                 })
             }
         })
-
+        
     }
     
     func doFacebookCollect() {
@@ -272,7 +346,14 @@ class BandEntryVC: FormViewController {
                 self.tryAll(value: band)
             }
         }
-
+        
+        if let sgobj = seatGeekObject {
+            row?.placeholder = "Testing..."
+            row?.updateCell()
+            if let newband = sgobj.name {
+                tryAll(value: newband)
+            }
+        }
     }
     
     func tryFacebook(value: String, completion: @escaping (Bool) -> Void) {
@@ -336,22 +417,22 @@ class BandEntryVC: FormViewController {
         
         
         let imageRow: TextRow? = form.rowBy(tag: "image")
-
-            imageRow?.value = newBandObject.image
-            imageRow?.updateCell()
-            
-            if let image = newBandObject.image {
-                let url = URL(string: image)
-                imageView.sd_setImage(with: url)
-            }
-
+        
+        imageRow?.value = newBandObject.image
+        imageRow?.updateCell()
+        
+        if let image = newBandObject.image {
+            let url = URL(string: image)
+            imageView.sd_setImage(with: url)
+        }
+        
         
         
         let genreRow: TextRow? = form.rowBy(tag: "genre")
-
-            genreRow?.value = newBandObject.genre
-            genreRow?.updateCell()
-
+        
+        genreRow?.value = newBandObject.genre
+        genreRow?.updateCell()
+        
         
         let webRow: TextRow? = form.rowBy(tag: "website")
         webRow?.value = newBandObject.website
@@ -369,7 +450,7 @@ class BandEntryVC: FormViewController {
     func searchYoutube() {
         let nameRow: TextRow? = form.rowBy(tag: "name")
         if let name = nameRow?.value {
-            NetworkController().getYoutubeForBand(band: name, completion: {
+            SeatGeekController().getYoutubeForBand(band: name, completion: {
                 youtubelink in
                 self.updateYoutube(url: youtubelink)
             })
@@ -377,9 +458,9 @@ class BandEntryVC: FormViewController {
     }
     
     func updateYoutube(url: String) {
-            let ytrow: TextRow? = form.rowBy(tag: "youtube")
-            ytrow?.value = url
-            ytrow?.updateCell()
+        let ytrow: TextRow? = form.rowBy(tag: "youtube")
+        ytrow?.value = url
+        ytrow?.updateCell()
     }
     
     func openYoutube() {

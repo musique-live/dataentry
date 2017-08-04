@@ -33,7 +33,9 @@ class TabBarController: UITabBarController, UITabBarControllerDelegate {
         
         let item7 = UINavigationController(rootViewController: TicketflyVC())
         
-        let controllers = [item4, item1, item3, item2, item5, item6, item7]
+        let item8 = SeatGeekVC()
+        
+        let controllers = [item4, item1, item3, item2, item5, item6, item7, item8]
         self.viewControllers = controllers
     }
 }

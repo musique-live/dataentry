@@ -96,7 +96,6 @@ class EventObject: NSObject, Mappable {
                 if let bandname = band.name {
                     let newBand = BandObject()
                     newBand.band = bandname
-                    newBand.genre = "Rock"
                     if let tfid = band.ticketFlyBandID {
                         newBand.ticketFlyID = tfid
                     }

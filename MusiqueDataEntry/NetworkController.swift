@@ -270,6 +270,31 @@ class NetworkController: NSObject {
             completion([])
         })
     }
+    
+    func getAllEmails() {
+        let query = FIRDatabase.database().reference().child("DC/Bands").queryOrderedByKey()
+        query.observeSingleEvent(of: .value, with: {
+            snapshot in
+            if let val = snapshot.value as? NSDictionary {
+                if let keys = val.allKeys as? [String] {
+                    for key in keys {
+                        if let object = val[key] as? NSDictionary {
+                            if let infodict = object["info"] as? NSDictionary {
+                                if let email = infodict["email"] as? String, !email.isEmpty {
+                                    print(email + " : " + "\(key)")
+                                }
+                            }
+                            if let email = object["email"] as? String, !email.isEmpty {
+                                print(email + " : " + "\(key)")
+                            }
+                        }
+                    }
+                }
+            }
+        }, withCancel: {
+            (error) in
+        })
+    }
 }
 
 

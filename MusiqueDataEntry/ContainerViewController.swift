@@ -77,6 +77,16 @@ class ContainerViewController: UIViewController {
         buttonNine.setTitleColor(UIColor.white, for: .normal)
         view.addSubview(buttonNine)
         
+        let ten = UIButton(frame: CGRect(x: 10, y: 720, width: width - 20, height: 60))
+        ten.addTarget(self, action: #selector(ContainerViewController.openTara), for: .touchUpInside)
+        ten.setTitleColor(UIColor.white, for: .normal)
+        view.addSubview(ten)
+        
+    }
+    
+    func openTara() {
+        self.slideMenuController()?.closeLeft()
+        tab?.selectedIndex = 8
     }
     
     func openSG() {

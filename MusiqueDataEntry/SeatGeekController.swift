@@ -101,6 +101,7 @@ class SeatGeekController: NSObject {
                                 "Ottobar",
                                 "Rams Head Dockside",
                                 "Rams Head Live",
+                                "Rams Head Live!",
                                 "Rams Head On Stage",
                                 "Rams Head Tavern",
                                 "Rock and Roll Hotel",

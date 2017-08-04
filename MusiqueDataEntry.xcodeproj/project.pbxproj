@@ -38,6 +38,7 @@
 		DBAC9C271EF033B900CDDA72 /* NetworkController+Send.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBAC9C261EF033B900CDDA72 /* NetworkController+Send.swift */; };
 		DBAC9C291EF03C7000CDDA72 /* ToDoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBAC9C281EF03C7000CDDA72 /* ToDoCell.swift */; };
 		DBBD055F1F034C0000C6179E /* ContainerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBBD055E1F034C0000C6179E /* ContainerViewController.swift */; };
+		DBC094C91F34424300C9E2E2 /* TaraTestVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBC094C81F34424300C9E2E2 /* TaraTestVC.swift */; };
 		DBCA39911F1D302500EAEEA0 /* ShareViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBCA39901F1D302500EAEEA0 /* ShareViewController.swift */; };
 		DBCA39941F1D302500EAEEA0 /* MainInterface.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DBCA39921F1D302500EAEEA0 /* MainInterface.storyboard */; };
 		DBCA39981F1D302500EAEEA0 /* ShareExtension.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = DBCA398E1F1D302500EAEEA0 /* ShareExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
@@ -125,6 +126,7 @@
 		DBAC9C261EF033B900CDDA72 /* NetworkController+Send.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NetworkController+Send.swift"; sourceTree = "<group>"; };
 		DBAC9C281EF03C7000CDDA72 /* ToDoCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ToDoCell.swift; sourceTree = "<group>"; };
 		DBBD055E1F034C0000C6179E /* ContainerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContainerViewController.swift; sourceTree = "<group>"; };
+		DBC094C81F34424300C9E2E2 /* TaraTestVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TaraTestVC.swift; sourceTree = "<group>"; };
 		DBCA398E1F1D302500EAEEA0 /* ShareExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = ShareExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		DBCA39901F1D302500EAEEA0 /* ShareViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareViewController.swift; sourceTree = "<group>"; };
 		DBCA39931F1D302500EAEEA0 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/MainInterface.storyboard; sourceTree = "<group>"; };
@@ -287,6 +289,7 @@
 			isa = PBXGroup;
 			children = (
 				DB78929F1F33820D00C3DD8F /* TicketflyVC.swift */,
+				DBC094C81F34424300C9E2E2 /* TaraTestVC.swift */,
 				DBE06BF81F33E4A300CA6C9F /* SeatGeekVC.swift */,
 				DBE06BF01F33ABE300CA6C9F /* DetailVC.swift */,
 				DB1DEA961EA92EBF00FD27BD /* EventEntryVC.swift */,
@@ -582,6 +585,7 @@
 				DB1DEA971EA92EBF00FD27BD /* EventEntryVC.swift in Sources */,
 				DB65986C1EAE8D560085BD05 /* ToDoVC.swift in Sources */,
 				DB6598661EAAEC680085BD05 /* AutoCompleteTextField.swift in Sources */,
+				DBC094C91F34424300C9E2E2 /* TaraTestVC.swift in Sources */,
 				DB1DEA8D1EA9291600FD27BD /* Band.swift in Sources */,
 				DB7176FA1EA7E713008666AC /* BandEntryVC.swift in Sources */,
 				DB7892A21F33822200C3DD8F /* TicketflyController.swift in Sources */,

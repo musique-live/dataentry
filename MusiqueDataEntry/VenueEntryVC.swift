@@ -23,6 +23,7 @@ class VenueEntryVC: FormViewController {
     var buttonTwo = UIButton()
     var buttonThree = UIButton()
     var buttonFour = UIButton()
+    var buttonFive = UIButton()
     var currentRegion: String?
     
     override func viewDidLoad() {
@@ -128,6 +129,13 @@ class VenueEntryVC: FormViewController {
         buttonFour.backgroundColor = UIColor.blue
         view.addSubview(buttonFour)
         
+        buttonFive = UIButton(frame: CGRect(x: 380, y: view.frame.height/2 + 50, width: 100, height: 40))
+        buttonFive.tag = 4
+        buttonFive.setTitle("Virginia", for: .normal)
+        buttonFive.addTarget(self, action: #selector(clickRegion), for: .touchUpInside)
+        buttonFive.backgroundColor = UIColor.blue
+        view.addSubview(buttonFive)
+        
     }
     
     func openMenu() {
@@ -139,6 +147,7 @@ class VenueEntryVC: FormViewController {
         buttonTwo.backgroundColor = UIColor.blue
         buttonThree.backgroundColor = UIColor.blue
         buttonFour.backgroundColor = UIColor.blue
+        buttonFive.backgroundColor = UIColor.blue
         button.backgroundColor = UIColor.gray
         switch button.tag {
         case 0:
@@ -149,6 +158,8 @@ class VenueEntryVC: FormViewController {
             self.currentRegion = "Baltimore"
         case 3:
             self.currentRegion = "OC"
+        case 4:
+            self.currentRegion = "Virginia"
         default:
             print("")
         }
@@ -201,6 +212,7 @@ class VenueEntryVC: FormViewController {
         buttonTwo.backgroundColor = UIColor.blue
         buttonThree.backgroundColor = UIColor.blue
         buttonFour.backgroundColor = UIColor.blue
+        buttonFive.backgroundColor = UIColor.blue
         if self.seatGeekObject != nil {
             populateWithSeatGeek()
         }

@@ -22,6 +22,8 @@ class EventObject: NSObject, Mappable {
         super.init()
     }
     
+    var myGroup = DispatchGroup()
+    var extraBands: [BandObject]?
     var price: Int?
     var timestamp: NSDate?
     var id: String?
@@ -92,34 +94,6 @@ class EventObject: NSObject, Mappable {
                 newEvent.time = tm
                 newEvent.time = tm
             }
-            if let band = ticketfly.headliners?.first {
-                if let bandname = band.name {
-                    let newBand = BandObject()
-                    newBand.band = bandname
-                    if let tfid = band.ticketFlyBandID {
-                        newBand.ticketFlyID = tfid
-                    }
-                    if let descrip = band.eventDescription {
-                        newBand.bandDescription = descrip
-                    }
-                    if let web = band.urlOfficialWebsite {
-                        newBand.website = web
-                    }
-                    if let fb = band.urlFacebook {
-                        newBand.facebook = fb
-                    }
-                    if let ig = band.urlInstagram {
-                        newBand.instagram = ig
-                    }
-                    if let imag = band.image {
-                        newBand.image = imag
-                    }
-                    if let yt = band.youtube {
-                        newBand.youtube = yt
-                    }
-                    newEvent.band = newBand
-                }
-            }
             if let image = ticketfly.image {
                 if newEvent.band?.image == nil {
                     newEvent.band?.image = image
@@ -129,7 +103,102 @@ class EventObject: NSObject, Mappable {
                 NetworkController().getVenueForString(venue: venue, completion: {
                     venueobj in
                     newEvent.venue = venueobj
-                    completion(newEvent)
+                    
+                    
+                    
+                    for (index, band) in ticketfly.allbands!.enumerated() {
+                        self.myGroup.enter()
+                        
+                        if index == 0 {
+                            if let bandname = band.name {
+                                let newBand = BandObject()
+                                newBand.band = bandname
+                                if let tfid = band.ticketFlyBandID {
+                                    newBand.ticketFlyID = tfid
+                                }
+                                if let descrip = band.eventDescription {
+                                    newBand.bandDescription = descrip
+                                }
+                                if let web = band.urlOfficialWebsite {
+                                    newBand.website = web
+                                }
+                                if let fb = band.urlFacebook {
+                                    newBand.facebook = fb
+                                }
+                                if let ig = band.urlInstagram {
+                                    newBand.instagram = ig
+                                }
+                                if let imag = band.image {
+                                    newBand.image = imag
+                                }
+                                if let yt = band.youtube {
+                                    newBand.youtube = yt
+                                    newEvent.band = newBand
+                                    self.myGroup.leave()
+                                } else {
+                                    NetworkController().getYoutubeForBand(band: newBand.band ?? "", completion: {
+                                        newYoutube in
+                                        newBand.youtube = newYoutube
+                                        newEvent.band = newBand
+                                        self.myGroup.leave()
+                                    })
+                                }
+                                
+                            }
+
+                        } else {
+                            if let bandname = band.name {
+                                let newBand = BandObject()
+                                newBand.band = bandname
+                                if let tfid = band.ticketFlyBandID {
+                                    newBand.ticketFlyID = tfid
+                                }
+                                if let descrip = band.eventDescription {
+                                    newBand.bandDescription = descrip
+                                }
+                                if let web = band.urlOfficialWebsite {
+                                    newBand.website = web
+                                }
+                                if let fb = band.urlFacebook {
+                                    newBand.facebook = fb
+                                }
+                                if let ig = band.urlInstagram {
+                                    newBand.instagram = ig
+                                }
+                                if let imag = band.image {
+                                    newBand.image = imag
+                                }
+                                if let yt = band.youtube {
+                                    newBand.youtube = yt
+                                    if index == 1 {
+                                        newEvent.extraBands = [newBand]
+                                    } else {
+                                        newEvent.extraBands?.append(newBand)
+                                    }
+                                    self.myGroup.leave()
+                                } else {
+                                    NetworkController().getYoutubeForBand(band: newBand.band ?? "", completion: {
+                                        newYoutube in
+                                        newBand.youtube = newYoutube
+                                        if index == 1 {
+                                            newEvent.extraBands = [newBand]
+                                        } else {
+                                            newEvent.extraBands?.append(newBand)
+                                        }
+                                        self.myGroup.leave()
+                                    })
+                                }
+                                
+                            }
+                        }
+                        
+                        
+                    }
+                    self.myGroup.notify(queue: DispatchQueue.main, execute: {
+                        completion(newEvent)
+                    })
+                   
+                    
                 })
             }
         }
@@ -163,9 +232,6 @@ class EventObject: NSObject, Mappable {
         if let el = self.eventLink {
             newData["eventlink"] = el
         }
-        
-        
-        
         if let region = self.venue?.region {
             newData["venueregion"] = region
         }
@@ -208,7 +274,44 @@ class EventObject: NSObject, Mappable {
         if let descript = self.band?.bandDescription {
             newData["banddescription"] = descript
         }
+        
+        var extrabanddict = [String: Any]()
+        if let ex = self.extraBands {
+            for (index, extraband) in ex.enumerated() {
+                if let name = extraband.band {
+                    var extradict = ["bandname":name]
+                    if let genre = extraband.genre {
+                        extradict["bandgenre"] = genre
+                    }
+                    if let image = extraband.image {
+                        extradict["bandimage"] = image
+                    }
+                    if let fb = extraband.facebook {
+                        extradict["bandfacebook"] = fb
+                    }
+                    if let bandsite = extraband.website {
+                        extradict["bandwebsite"] = bandsite
+                    }
+                    if let yt = extraband.youtube {
+                        if yt.characters.count < 15 {
+                            extradict["bandyoutube"] = youtubeopenstring + yt
+                        } else {
+                            extradict["bandyoutube"] = yt
+                        }
+                    }
+                    if let descript = extraband.bandDescription {
+                        extradict["banddescription"] = descript
+                    }
+                    extrabanddict["\(index)"] = extradict
+                }
+                
+            }
+        }
+        
 
+        if extrabanddict.keys.count > 0 {
+            newData["extrabands"] = extrabanddict
+        }
         
         return newData
     }

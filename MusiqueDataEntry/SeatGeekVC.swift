@@ -20,6 +20,8 @@ class SeatGeekVC: UIViewController, UITableViewDelegate, UITableViewDataSource, 
     var morebutton = UIButton()
     
     override func viewDidLoad() {
+        navigationController?.navigationBar.isHidden = true
+        
         view.backgroundColor = UIColor.darkGray
         sgcontroller.loadNextEvents(completion: {
             events in

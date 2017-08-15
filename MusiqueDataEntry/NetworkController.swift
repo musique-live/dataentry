@@ -189,9 +189,17 @@ class NetworkController: NSObject {
                     if let itemsid = answers.first?["id"] as? NSDictionary {
                         if let youtubeid = itemsid["videoId"] as? String {
                             completion("https://www.youtube.com/watch?v=" + youtubeid)
+                        } else {
+                            completion("")
                         }
+                    } else {
+                        completion("")
                     }
+                } else {
+                    completion("")
                 }
+            } else {
+                completion("")
             }
         }
     }

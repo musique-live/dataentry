@@ -13,41 +13,51 @@ import CoreLocation
 
 extension NetworkController {
 
-    func sendBandData(band: BandObject, completion: @escaping (Bool) -> Void) {
+    func sendBandData(band: BandObject, shouldUpdate: Bool? = false, completion: @escaping (Bool) -> Void) {
         guard let newband = band.band else { return }
         let bandname = cleanFBString(string: newband)
-        if let youtube = band.youtube {
-            FIRDatabase.database().reference().child("DC/Bands/\(bandname)/info/youtube").setValue(youtube)
-        }
-        if let region = band.region {
-            FIRDatabase.database().reference().child("DC/Bands/\(bandname)/info/region").setValue(region)
-        }
-        if let descriptionString = band.bandDescription {
-            FIRDatabase.database().reference().child("DC/Bands/\(bandname)/info/descriptionString").setValue(descriptionString)
-        }
-        if let facebook = band.facebook {
-            FIRDatabase.database().reference().child("DC/Bands/\(bandname)/info/facebook").setValue(facebook)
-        }
-        if let image = band.image {
-            FIRDatabase.database().reference().child("DC/Bands/\(bandname)/info/image").setValue(image)
-        }
-        if let genre = band.genre {
-            FIRDatabase.database().reference().child("DC/Bands/\(bandname)/info/genre").setValue(genre)
-        }
-        if let website = band.website {
-            FIRDatabase.database().reference().child("DC/Bands/\(bandname)/info/website").setValue(website)
-        }
-        if let email = band.email {
-            FIRDatabase.database().reference().child("DC/Bands/\(bandname)/info/email").setValue(email)
-        }
-        if let tf = band.ticketFlyID {
-            FIRDatabase.database().reference().child("DC/Bands/\(bandname)/info/bandTicketflyID").setValue(tf)
-        }
-        completion(true)
+        
+        NetworkController().getBandObjectsList(completion: {
+            allbands in
+            
+            if allbands.contains(bandname) && shouldUpdate == false {
+                
+            } else {
+                if let youtube = band.youtube {
+                    FIRDatabase.database().reference().child("DC/Bands/\(bandname)/info/youtube").setValue(youtube)
+                }
+                if let region = band.region {
+                    FIRDatabase.database().reference().child("DC/Bands/\(bandname)/info/region").setValue(region)
+                }
+                if let descriptionString = band.bandDescription {
+                    FIRDatabase.database().reference().child("DC/Bands/\(bandname)/info/descriptionString").setValue(descriptionString)
+                }
+                if let facebook = band.facebook {
+                    FIRDatabase.database().reference().child("DC/Bands/\(bandname)/info/facebook").setValue(facebook)
+                }
+                if let image = band.image {
+                    FIRDatabase.database().reference().child("DC/Bands/\(bandname)/info/image").setValue(image)
+                }
+                if let genre = band.genre {
+                    FIRDatabase.database().reference().child("DC/Bands/\(bandname)/info/genre").setValue(genre)
+                }
+                if let website = band.website {
+                    FIRDatabase.database().reference().child("DC/Bands/\(bandname)/info/website").setValue(website)
+                }
+                if let email = band.email {
+                    FIRDatabase.database().reference().child("DC/Bands/\(bandname)/info/email").setValue(email)
+                }
+                if let tf = band.ticketFlyID {
+                    FIRDatabase.database().reference().child("DC/Bands/\(bandname)/info/bandTicketflyID").setValue(tf)
+                }
+                completion(true)
+            }
+            
+        })
     }
     
     func updateBandData(band: BandObject, completion: @escaping (Bool) -> Void) {
-        sendBandData(band: band, completion: {
+        sendBandData(band: band, shouldUpdate: true, completion: {
             success in
             
             self.getAllBandEvents(band: band, completion: {
@@ -188,6 +198,19 @@ extension NetworkController {
             let bandRef = FIRDatabase.database().reference()
                 .child("DC/Bands/\(newband)/Events/\(newEventID)")
             bandRef.setValue(newData)
+        }
+        
+        if let extra = event.extraBands {
+            for exband in extra {
+                self.sendBandData(band: exband, completion: {
+                    success in
+                    
+                    var newband = self.cleanFBString(string: exband.band ?? "")
+                    let bandRef = FIRDatabase.database().reference()
+                        .child("DC/Bands/\(newband)/Events/\(newEventID)")
+                    bandRef.setValue(newData)
+                })
+            }
         }
         
         if let venue = event.venue?.venue {

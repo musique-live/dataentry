@@ -27,6 +27,7 @@ class TicketFlyEvent: Mappable {
     var timeString: String?
     var venue: String?
     var startDate: String?
+    var allbands: [TicketFlyBand]?
     
     required init?(map: Map) {
         
@@ -70,6 +71,24 @@ class TicketFlyEvent: Mappable {
                 let secondspast = 0 - ((60*60*hour) + (60*minutes))
                 let newdate = (startingDate).addingTimeInterval(TimeInterval(secondspast))
                 self.eventDate = newdate
+            }
+        }
+        if let txurl = self.ticketPurchaseUrl {
+            let newurl = "http://www.shareasale.com/r.cfm?u=1572379&b=234786&m=27601&afftrack=&urllink=" + txurl
+            self.ticketPurchaseUrl = newurl
+        }
+        if let first = self.headliners {
+            for (index, it) in first.enumerated() {
+                if index == 0 {
+                    self.allbands = [it]
+                } else {
+                    self.allbands?.append(it)
+                }
+            }
+            if let second = self.supports {
+                for item in second {
+                    self.allbands?.append(item)
+                }
             }
         }
     }

@@ -19,9 +19,15 @@ class BandEntryVC: FormViewController {
     var imageView: UIImageView!
     let loginManager = FBSDKLoginManager()
     var seatGeekObject: SeatGeekObject?
+    var allbands: [String]?
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        NetworkController().getBandObjectsList(completion: {
+            bands in
+            self.allbands = bands
+        })
         
         form +++ Section(){ section in
             section.header = {
@@ -211,30 +217,14 @@ class BandEntryVC: FormViewController {
         
     }
     
-    override func textInput<T>(_ textInput: UITextInput, shouldChangeCharactersInRange range: NSRange, replacementString string: String, cell: Cell<T>) -> Bool {
-        var text: String?
-        var maxLength: Int?
-        let textAreaRow = cell.baseRow as? TextAreaRow
-        let textRow = cell.baseRow as? TextRow
-        if textAreaRow != nil {
-            text = textAreaRow?.value as String?
-            maxLength = textAreaRow?.maxLength
-        } else if textRow != nil {
-            text = textRow?.value as String?
-            maxLength = textRow?.maxLength
-        }
-        if text == nil || maxLength == nil {
-            return true
-        }
-        return text!.characters.count + string.characters.count - range.length <= maxLength!
-    }
-    
     override func viewDidDisappear(_ animated: Bool) {
         self.seatGeekObject = nil
     }
     
     func sendBand() {
         guard let newBandObject = newBandObject else { return }
+        let nameRow: TextRow? = form.rowBy(tag: "name")
+        newBandObject.band = nameRow?.value
         
         let emailRow: EmailRow? = form.rowBy(tag: "Email")
         newBandObject.email = emailRow?.value
@@ -244,9 +234,6 @@ class BandEntryVC: FormViewController {
         
         let ytrow: TextRow? = form.rowBy(tag: "youtube")
         newBandObject.youtube = ytrow?.value
-        
-        let nameRow: TextRow? = form.rowBy(tag: "name")
-        newBandObject.band = nameRow?.value
         
         let imageRow: TextRow? = form.rowBy(tag: "image")
         newBandObject.image = imageRow?.value
@@ -263,38 +250,76 @@ class BandEntryVC: FormViewController {
         let descriptionRow: TextAreaRow? = form.rowBy(tag: "description")
         newBandObject.bandDescription = descriptionRow?.value
         
-        NetworkController().sendBandData(band: newBandObject, completion: {
-            done in
-            
-            emailRow?.value = ""
-            emailRow?.updateCell()
-            fbrow?.value = ""
-            fbrow?.updateCell()
-            ytrow?.value = ""
-            ytrow?.updateCell()
-            nameRow?.value = ""
-            nameRow?.updateCell()
-            imageRow?.value = ""
-            imageRow?.updateCell()
-            genreRow?.value = ""
-            genreRow?.updateCell()
-            webRow?.value = ""
-            webRow?.updateCell()
-            regionRow?.value = ""
-            regionRow?.updateCell()
-            descriptionRow?.value = ""
-            descriptionRow?.updateCell()
-            let row: TextRow? = self.form.rowBy(tag: "username")
-            row?.value = ""
-            row?.updateCell()
-            
-            if let seatGeekObject = self.seatGeekObject {
-                if let nextvc = self.tabBarController?.viewControllers?[2] as? VenueEntryVC {
-                    nextvc.seatGeekObject = seatGeekObject
-                    self.tabBarController?.selectedIndex = 2
-                }
+        if let bnd = newBandObject.band {
+            if (allbands?.contains(bnd))! {
+                
+                let alert = UIAlertController(title: "HEY", message: "This band already existed so we didn't enter it again.", preferredStyle: UIAlertControllerStyle.alert)
+                alert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.default, handler: {
+                    handle in
+                }))
+                self.present(alert, animated: true, completion: nil)
+                
+                emailRow?.value = ""
+                emailRow?.updateCell()
+                fbrow?.value = ""
+                fbrow?.updateCell()
+                ytrow?.value = ""
+                ytrow?.updateCell()
+                nameRow?.value = ""
+                nameRow?.updateCell()
+                imageRow?.value = ""
+                imageRow?.updateCell()
+                genreRow?.value = ""
+                genreRow?.updateCell()
+                webRow?.value = ""
+                webRow?.updateCell()
+                regionRow?.value = ""
+                regionRow?.updateCell()
+                descriptionRow?.value = ""
+                descriptionRow?.updateCell()
+                let row: TextRow? = self.form.rowBy(tag: "username")
+                row?.value = ""
+                row?.updateCell()
+                
+            } else {
+                
+                NetworkController().sendBandData(band: newBandObject, completion: {
+                    done in
+                    
+                    emailRow?.value = ""
+                    emailRow?.updateCell()
+                    fbrow?.value = ""
+                    fbrow?.updateCell()
+                    ytrow?.value = ""
+                    ytrow?.updateCell()
+                    nameRow?.value = ""
+                    nameRow?.updateCell()
+                    imageRow?.value = ""
+                    imageRow?.updateCell()
+                    genreRow?.value = ""
+                    genreRow?.updateCell()
+                    webRow?.value = ""
+                    webRow?.updateCell()
+                    regionRow?.value = ""
+                    regionRow?.updateCell()
+                    descriptionRow?.value = ""
+                    descriptionRow?.updateCell()
+                    let row: TextRow? = self.form.rowBy(tag: "username")
+                    row?.value = ""
+                    row?.updateCell()
+                    
+                    if let seatGeekObject = self.seatGeekObject {
+                        if let nextvc = self.tabBarController?.viewControllers?[2] as? VenueEntryVC {
+                            nextvc.seatGeekObject = seatGeekObject
+                            self.tabBarController?.selectedIndex = 2
+                        }
+                    }
+                })
             }
-        })
+        }
+        
+        
+       
     }
     
     

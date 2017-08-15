@@ -86,6 +86,11 @@ class TicketflyVC: UIViewController, UITextFieldDelegate, UITableViewDelegate, U
         venueField.leftView = paddingView
         venueField.leftViewMode = .always
         
+        let notes = UILabel(frame: CGRect(x: 20, y: view.frame.height - 150, width: view.frame.width - 40, height: 130))
+        notes.text = "9:30 Club, Baltimore Soundstage, Black Cat, Bottle and Cork, DC9, Echostage, Fish Head Cantina, Flash, Gypsy Sallys, Hill Country DC, Horseshoe Casino, Jammin java, Lincoln Theatre, Live! Center Stage, Merriweather Post Pavilion, Metro Gallery, Ottobar, Pier Six Concert Pavilion, Rams Head Dockside, Rams Head Live, Rams Head On Stage, Rams Head Tavern, Rock and Roll Hotel, Sixth & I Synagogue, Smokehouse Live, Songbyrd Music House, Soundcheck, The Hamilton, U Street Music Hall, Vinyl Lounge at Gypsy Sallys"
+        notes.numberOfLines = 0
+        view.addSubview(notes)
+        
         /*
         idEntry = UITextField(frame: CGRect(x: halfwidth + 20, y: 120, width: halfwidth - 40, height: 50))
         idEntry.delegate = self

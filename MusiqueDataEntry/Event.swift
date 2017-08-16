@@ -116,6 +116,17 @@ class EventObject: NSObject, Mappable {
                                 if let tfid = band.ticketFlyBandID {
                                     newBand.ticketFlyID = tfid
                                 }
+                                if band.genres.count > 0 {
+                                    var genrestring = ""
+                                    for (index, genre) in band.genres.enumerated() {
+                                        if index == 0 {
+                                            genrestring = genre
+                                        } else {
+                                            genrestring = genrestring + ", " + genre
+                                        }
+                                    }
+                                    newBand.genre = genrestring
+                                }
                                 if let descrip = band.eventDescription {
                                     newBand.bandDescription = descrip
                                 }

@@ -121,6 +121,9 @@ class TicketFlyBand: Mappable {
     var image: String?
     var youtube: String?
     var name: String?
+    var genres = [String]()
+    
+    var allgenres = ["rock", "pop", "country", "acoustic", "blues", "folk", "punk", "metal", "indie", "oldies", "hip hop", "rap", "soul", "reggae", "dance", "edm", "classical", "jazz", "r&b"]
     
     func postProcess() {
         if let description = self.eventDescription {
@@ -134,6 +137,11 @@ class TicketFlyBand: Mappable {
             let descriptWithoutEmbed = description.components(separatedBy: "iframe>")
             if descriptWithoutEmbed.count > 1 {
                 self.eventDescription = descriptWithoutEmbed[1]
+            }
+            for genre in allgenres {
+                if description.lowercased().contains(genre) {
+                    genres.append(genre.capitalized)
+                }
             }
         }
     }

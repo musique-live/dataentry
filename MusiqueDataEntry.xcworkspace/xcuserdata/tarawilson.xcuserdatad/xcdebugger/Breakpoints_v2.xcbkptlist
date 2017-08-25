@@ -106,11 +106,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "MusiqueDataEntry/DeleteEventsVC.swift"
-            timestampString = "523503247.685738"
+            timestampString = "525209723.300787"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "154"
-            endingLineNumber = "154"
+            startingLineNumber = "236"
+            endingLineNumber = "236"
             landmarkName = "scrollToIndex(index:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -122,11 +122,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "MusiqueDataEntry/DeleteEventsVC.swift"
-            timestampString = "523503247.685738"
+            timestampString = "525209723.300787"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "69"
-            endingLineNumber = "69"
+            startingLineNumber = "151"
+            endingLineNumber = "151"
             landmarkName = "getNewEvents()"
             landmarkType = "7">
          </BreakpointContent>
@@ -138,11 +138,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "MusiqueDataEntry/DeleteEventsVC.swift"
-            timestampString = "523503247.685738"
+            timestampString = "525209723.300787"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "57"
-            endingLineNumber = "57"
+            startingLineNumber = "139"
+            endingLineNumber = "139"
             landmarkName = "setIndex(index:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -154,11 +154,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "MusiqueDataEntry/TicketFlyEvent.swift"
-            timestampString = "524538994.170833"
+            timestampString = "525140724.685381"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "143"
-            endingLineNumber = "143"
+            startingLineNumber = "116"
+            endingLineNumber = "116"
             landmarkName = "postProcess()"
             landmarkType = "7">
          </BreakpointContent>

@@ -78,6 +78,7 @@ class ContainerViewController: UIViewController {
         view.addSubview(buttonNine)
         
         let ten = UIButton(frame: CGRect(x: 10, y: 720, width: width - 20, height: 60))
+        ten.setTitle("All Bands and Venues", for: .normal)
         ten.addTarget(self, action: #selector(ContainerViewController.openTara), for: .touchUpInside)
         ten.setTitleColor(UIColor.white, for: .normal)
         view.addSubview(ten)

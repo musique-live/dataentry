@@ -38,7 +38,7 @@ class TicketFlyController: NSObject {
     }
     
     func postProcessTicketflyEvents(events: [TicketFlyEvent], completion: @escaping([EventObject]) -> Void) {
-        let twoWeeksFromNow = Date().addingTimeInterval(60*60*24*14)
+        let twoWeeksFromNow = Date().addingTimeInterval(60*60*24*30)
         let twoWeekEvents = events.filter({ $0.eventDate?.compare(twoWeeksFromNow) == ComparisonResult.orderedAscending})
         var allEvents = [EventObject]()
         for event in twoWeekEvents {

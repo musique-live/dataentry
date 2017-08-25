@@ -92,18 +92,6 @@ class TicketflyVC: UIViewController, UITextFieldDelegate, UITableViewDelegate, U
         view.addSubview(notes)
         
         
-        /*
-        idEntry = UITextField(frame: CGRect(x: halfwidth + 20, y: 120, width: halfwidth - 40, height: 50))
-        idEntry.delegate = self
-        idEntry.placeholder = "Ticketfly ID"
-        idEntry.tag = 0
-        idEntry.backgroundColor = UIColor.lightGray.withAlphaComponent(0.5)
-        view.addSubview(idEntry)
-        let paddingView2 = UIView(frame: CGRect(x: 0, y: 0, width: 20, height: venueField.frame.size.height))
-        idEntry.leftView = paddingView2
-        idEntry.leftViewMode = .always
- */
-        
     }
     
     func sendAll() {

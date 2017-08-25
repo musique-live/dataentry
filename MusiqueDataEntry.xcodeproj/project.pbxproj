@@ -21,6 +21,7 @@
 		DB1DEA971EA92EBF00FD27BD /* EventEntryVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB1DEA961EA92EBF00FD27BD /* EventEntryVC.swift */; };
 		DB2A2F2E1F1D37E5000A9641 /* FacebookShareVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB2A2F2D1F1D37E5000A9641 /* FacebookShareVC.swift */; };
 		DB3839771F037A2100721326 /* DeleteEventsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB3839761F037A2100721326 /* DeleteEventsVC.swift */; };
+		DB4C9F7F1F4E07E30013EBEB /* AllBandsVenuesVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB4C9F7E1F4E07E30013EBEB /* AllBandsVenuesVC.swift */; };
 		DB5B1A911EF102E400C80D20 /* EditBandVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB5B1A901EF102E400C80D20 /* EditBandVC.swift */; };
 		DB6598661EAAEC680085BD05 /* AutoCompleteTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB6598651EAAEC680085BD05 /* AutoCompleteTextField.swift */; };
 		DB6598681EAAEFB50085BD05 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = DB6598671EAAEFB50085BD05 /* GoogleService-Info.plist */; };
@@ -43,7 +44,7 @@
 		DBCA39941F1D302500EAEEA0 /* MainInterface.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DBCA39921F1D302500EAEEA0 /* MainInterface.storyboard */; };
 		DBCA39981F1D302500EAEEA0 /* ShareExtension.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = DBCA398E1F1D302500EAEEA0 /* ShareExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		DBE06BEF1F338A8100CA6C9F /* TicketFlyEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBE06BEE1F338A8100CA6C9F /* TicketFlyEvent.swift */; };
-		DBE06BF11F33ABE300CA6C9F /* DetailVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBE06BF01F33ABE300CA6C9F /* DetailVC.swift */; };
+		DBE06BF11F33ABE300CA6C9F /* EventDetailVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBE06BF01F33ABE300CA6C9F /* EventDetailVC.swift */; };
 		DBE06BF71F33E3C800CA6C9F /* SeatGeekController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBE06BF61F33E3C800CA6C9F /* SeatGeekController.swift */; };
 		DBE06BF91F33E4A300CA6C9F /* SeatGeekVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBE06BF81F33E4A300CA6C9F /* SeatGeekVC.swift */; };
 /* End PBXBuildFile section */
@@ -103,6 +104,7 @@
 		DB1DEA961EA92EBF00FD27BD /* EventEntryVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EventEntryVC.swift; sourceTree = "<group>"; };
 		DB2A2F2D1F1D37E5000A9641 /* FacebookShareVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FacebookShareVC.swift; sourceTree = "<group>"; };
 		DB3839761F037A2100721326 /* DeleteEventsVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DeleteEventsVC.swift; sourceTree = "<group>"; };
+		DB4C9F7E1F4E07E30013EBEB /* AllBandsVenuesVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AllBandsVenuesVC.swift; sourceTree = "<group>"; };
 		DB5B1A901EF102E400C80D20 /* EditBandVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditBandVC.swift; sourceTree = "<group>"; };
 		DB6598651EAAEC680085BD05 /* AutoCompleteTextField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AutoCompleteTextField.swift; sourceTree = "<group>"; };
 		DB6598671EAAEFB50085BD05 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
@@ -134,7 +136,7 @@
 		DBCA399D1F1D303A00EAEEA0 /* ShareExtension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = ShareExtension.entitlements; sourceTree = "<group>"; };
 		DBCA399E1F1D304500EAEEA0 /* MusiqueDataEntry.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = MusiqueDataEntry.entitlements; sourceTree = "<group>"; };
 		DBE06BEE1F338A8100CA6C9F /* TicketFlyEvent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TicketFlyEvent.swift; sourceTree = "<group>"; };
-		DBE06BF01F33ABE300CA6C9F /* DetailVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DetailVC.swift; sourceTree = "<group>"; };
+		DBE06BF01F33ABE300CA6C9F /* EventDetailVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EventDetailVC.swift; sourceTree = "<group>"; };
 		DBE06BF61F33E3C800CA6C9F /* SeatGeekController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SeatGeekController.swift; sourceTree = "<group>"; };
 		DBE06BF81F33E4A300CA6C9F /* SeatGeekVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SeatGeekVC.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -207,6 +209,34 @@
 				DB1C807C1EA7EC2F008A9B6C /* FBSDK */,
 			);
 			name = Resources;
+			sourceTree = "<group>";
+		};
+		DB4C9F801F4E08220013EBEB /* Entry VCs */ = {
+			isa = PBXGroup;
+			children = (
+				DB1DEA961EA92EBF00FD27BD /* EventEntryVC.swift */,
+				DB6598691EAAF2920085BD05 /* VenueEntryVC.swift */,
+				DB7176F91EA7E713008666AC /* BandEntryVC.swift */,
+			);
+			name = "Entry VCs";
+			sourceTree = "<group>";
+		};
+		DB4C9F811F4E082C0013EBEB /* Scrape VCs */ = {
+			isa = PBXGroup;
+			children = (
+				DB78929F1F33820D00C3DD8F /* TicketflyVC.swift */,
+				DBE06BF81F33E4A300CA6C9F /* SeatGeekVC.swift */,
+			);
+			name = "Scrape VCs";
+			sourceTree = "<group>";
+		};
+		DB4C9F821F4E08410013EBEB /* Edit VCs */ = {
+			isa = PBXGroup;
+			children = (
+				DB5B1A901EF102E400C80D20 /* EditBandVC.swift */,
+				DB3839761F037A2100721326 /* DeleteEventsVC.swift */,
+			);
+			name = "Edit VCs";
 			sourceTree = "<group>";
 		};
 		DB7176EB1EA7E712008666AC = {
@@ -288,16 +318,11 @@
 		DBAC9C211EF0320500CDDA72 /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				DB78929F1F33820D00C3DD8F /* TicketflyVC.swift */,
 				DBC094C81F34424300C9E2E2 /* TaraTestVC.swift */,
-				DBE06BF81F33E4A300CA6C9F /* SeatGeekVC.swift */,
-				DBE06BF01F33ABE300CA6C9F /* DetailVC.swift */,
-				DB1DEA961EA92EBF00FD27BD /* EventEntryVC.swift */,
-				DB7176F91EA7E713008666AC /* BandEntryVC.swift */,
-				DB5B1A901EF102E400C80D20 /* EditBandVC.swift */,
-				DB6598691EAAF2920085BD05 /* VenueEntryVC.swift */,
-				DB3839761F037A2100721326 /* DeleteEventsVC.swift */,
-				DBBD055E1F034C0000C6179E /* ContainerViewController.swift */,
+				DB4C9F7E1F4E07E30013EBEB /* AllBandsVenuesVC.swift */,
+				DB4C9F811F4E082C0013EBEB /* Scrape VCs */,
+				DB4C9F801F4E08220013EBEB /* Entry VCs */,
+				DB4C9F821F4E08410013EBEB /* Edit VCs */,
 				DB78929D1F3381D300C3DD8F /* To Do */,
 			);
 			name = Views;
@@ -307,8 +332,10 @@
 			isa = PBXGroup;
 			children = (
 				DB6598651EAAEC680085BD05 /* AutoCompleteTextField.swift */,
+				DBE06BF01F33ABE300CA6C9F /* EventDetailVC.swift */,
 				DB1DEA941EA92E0000FD27BD /* TabBarController.swift */,
 				DB7176F71EA7E712008666AC /* AppDelegate.swift */,
+				DBBD055E1F034C0000C6179E /* ContainerViewController.swift */,
 			);
 			name = Resources;
 			sourceTree = "<group>";
@@ -592,8 +619,9 @@
 				DB1DEA951EA92E0000FD27BD /* TabBarController.swift in Sources */,
 				DBAC9C291EF03C7000CDDA72 /* ToDoCell.swift in Sources */,
 				DB7892A01F33820D00C3DD8F /* TicketflyVC.swift in Sources */,
+				DB4C9F7F1F4E07E30013EBEB /* AllBandsVenuesVC.swift in Sources */,
 				DB3839771F037A2100721326 /* DeleteEventsVC.swift in Sources */,
-				DBE06BF11F33ABE300CA6C9F /* DetailVC.swift in Sources */,
+				DBE06BF11F33ABE300CA6C9F /* EventDetailVC.swift in Sources */,
 				DB7176F81EA7E713008666AC /* AppDelegate.swift in Sources */,
 				DB5B1A911EF102E400C80D20 /* EditBandVC.swift in Sources */,
 				DBBD055F1F034C0000C6179E /* ContainerViewController.swift in Sources */,

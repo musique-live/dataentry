@@ -40,38 +40,11 @@ class TicketFlyEvent: Mappable {
             let dateObj = dateFormatter.date(from: doorsDate)
             self.eventDate = dateObj
             
-            if let startingDate = self.eventDate {
-                let calendar = Calendar.current
-                let hour = calendar.component(.hour, from: startingDate as Date) + 4
-                let minutes = calendar.component(.minute, from: startingDate as Date)
-                
-                let timeFormatter = DateFormatter()
-                timeFormatter.dateFormat = "h:mm"
-                self.timeString = timeFormatter.string(from: startingDate)
-                
-                let secondspast = 0 - ((60*60*hour) + (60*minutes))
-                let newdate = (startingDate).addingTimeInterval(TimeInterval(secondspast))
-                self.eventDate = newdate
-            }
         } else if let doorsDate = startDate {
             let dateFormatter = DateFormatter()
             dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
             let dateObj = dateFormatter.date(from: doorsDate)
             self.eventDate = dateObj
-            
-            if let startingDate = self.eventDate {
-                let calendar = Calendar.current
-                let hour = calendar.component(.hour, from: startingDate as Date) + 4
-                let minutes = calendar.component(.minute, from: startingDate as Date)
-                
-                let timeFormatter = DateFormatter()
-                timeFormatter.dateFormat = "h:mm"
-                self.timeString = timeFormatter.string(from: startingDate)
-                
-                let secondspast = 0 - ((60*60*hour) + (60*minutes))
-                let newdate = (startingDate).addingTimeInterval(TimeInterval(secondspast))
-                self.eventDate = newdate
-            }
         }
         if let txurl = self.ticketPurchaseUrl {
             let newurl = "http://www.shareasale.com/r.cfm?u=1572379&b=234786&m=27601&afftrack=&urllink=" + txurl

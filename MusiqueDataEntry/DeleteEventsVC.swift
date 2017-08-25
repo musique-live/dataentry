@@ -18,14 +18,16 @@ class ResultsVC: UIViewController, UICollectionViewDataSource, UICollectionViewD
     var locValue = CLLocation(latitude: 39.00690000, longitude: -76.77900000)
     var events = [EventObject]()
     var collectionView: UICollectionView?
-
     var dateLabel: UILabel?
     var currentTimestamp: NSDate?
     var currentTimestampIndex: Int?
-
     var lastIndex: Int?
-    
     var label: UILabel?
+    
+    var venuesAndBands: [String]?
+    var venues: [String]?
+    var bands: [String]?
+    let deleteField = AutoCompleteTextField()
 
     override func viewDidAppear(_ animated: Bool) {
         navigationController?.navigationBar.isHidden = true
@@ -34,6 +36,19 @@ class ResultsVC: UIViewController, UICollectionViewDataSource, UICollectionViewD
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = UIColor.white
+        
+        NetworkController().getVenuesList(completion:  {
+            venues in
+            let newvenues = venues.allKeys as! [String]
+            self.venues = newvenues
+            
+            NetworkController().getBandObjectsList(completion: {
+                bands in
+                self.bands = bands
+                self.venuesAndBands = newvenues + bands
+            })
+            
+        })
         
         setUpCollectionView()
         collectionView?.isHidden = true
@@ -46,6 +61,73 @@ class ResultsVC: UIViewController, UICollectionViewDataSource, UICollectionViewD
         menuButton.setTitleColor(.black, for: .normal)
         menuButton.addTarget(self, action: "openMenu", for: .touchUpInside)
         view.addSubview(menuButton)
+        
+        deleteField.backgroundColor = UIColor.white.withAlphaComponent(0.5)
+        deleteField.autoCompleteTextColor = UIColor.black
+        deleteField.autoCompleteCellHeight = 50
+        deleteField.maximumAutoCompleteCount = 20
+        deleteField.hidesWhenSelected = true
+        deleteField.hidesWhenEmpty = true
+        deleteField.enableAttributedText = true
+        deleteField.placeholder = "Band"
+        deleteField.frame = CGRect(x: 200, y: 50, width: 400, height: 50)
+        view.addSubview(deleteField)
+        
+        deleteField.onSelect = {text, indexpath in
+            self.deleteField.resignFirstResponder()
+            self.didSelectVenue(string: text)
+        }
+        
+        deleteField.onTextChange = {text in
+            self.deleteField.autoCompleteStrings = self.venuesAndBands?.filter() {($0.lowercased().contains(text.lowercased()))}
+        }
+        
+        deleteField.backgroundColor = UIColor.lightGray.withAlphaComponent(0.5)
+        
+        let bandFieldpaddingView = UIView(frame: CGRect(x: 0, y: 0, width: 20, height: deleteField.frame.size.height))
+        deleteField.leftView = bandFieldpaddingView
+        deleteField.leftViewMode = .always
+        
+    }
+    
+    func didSelectVenue(string: String) {
+        if (self.venues?.contains(string))! {
+            NetworkController().getEventsFor(band: nil, venue: string, completion: {
+                result in
+                self.events = result
+                if self.events.count > 0 {
+                    self.collectionView?.isHidden = false
+                    self.collectionView?.reloadData()
+                    if let ix = self.lastIndex {
+                        self.lastIndex = nil
+                        self.scrollToIndex(index: ix)
+                    }
+                    self.label?.isHidden = true
+                } else {
+                    self.collectionView?.isHidden = true
+                    self.label?.isHidden = false
+                }
+                
+            })
+        } else if (self.bands?.contains(string))! {
+            NetworkController().getEventsFor(band: string, venue: nil, completion: {
+                result in
+                self.events = result
+                if self.events.count > 0 {
+                    self.collectionView?.isHidden = false
+                    self.collectionView?.reloadData()
+                    if let ix = self.lastIndex {
+                        self.lastIndex = nil
+                        self.scrollToIndex(index: ix)
+                    }
+                    self.label?.isHidden = true
+                } else {
+                    self.collectionView?.isHidden = true
+                    self.label?.isHidden = false
+                }
+                
+            })
+        }
         
     }
     
@@ -95,7 +177,7 @@ class ResultsVC: UIViewController, UICollectionViewDataSource, UICollectionViewD
     
     func setUpCollectionView() {
         if collectionView == nil {
-            let dateHeader = UIView(frame: CGRect(x: 200, y: 100, width: view.frame.width - 400, height: 40))
+            let dateHeader = UIView(frame: CGRect(x: 200, y: 150, width: view.frame.width - 400, height: 40))
             dateHeader.backgroundColor = UIColor.blue
             
             dateLabel = UILabel(frame: CGRect(x: 15, y: 0, width: view.frame.width, height: 40))
@@ -118,7 +200,7 @@ class ResultsVC: UIViewController, UICollectionViewDataSource, UICollectionViewD
             view.addSubview(dateHeader)
             
             let layout = UltravisualLayout()
-            collectionView = UICollectionView(frame: CGRect(x: 200, y: 140, width: view.frame.width - 400, height: view.frame.height - 180), collectionViewLayout: layout)
+            collectionView = UICollectionView(frame: CGRect(x: 200, y: 190, width: view.frame.width - 400, height: view.frame.height - 180), collectionViewLayout: layout)
             
             guard let collectionView = collectionView else {
                 return

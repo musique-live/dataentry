@@ -45,6 +45,36 @@ class NetworkController: NSObject {
 
     }
 
+    func getEventsFor(band: String?, venue: String?, completion: @escaping(([EventObject]) -> Void)) {
+        let currentdate = String(NSDate().timeIntervalSince1970)
+        var querystring = "/DC/Events"
+        
+        if let band = band {
+            querystring = "DC/Bands/\(band)/Events"
+        } else if let venue = venue {
+            querystring = "DC/Venues/\(venue)/Events"
+        }
+        
+        let ref = FIRDatabase.database().reference()
+        
+        let query = ref.child(querystring).queryOrdered(byChild: "date").queryStarting(atValue: currentdate)
+        query.observeSingleEvent(of: .value, with: {
+            snapshot in
+            if snapshot.hasChildren() {
+                self.processEventSnapshot(snapArray: snapshot, completion: {
+                    newevents in
+                    completion(newevents)
+                })
+            } else {
+                completion([EventObject]())
+            }
+        }, withCancel: {
+            (error) in
+            completion([EventObject]())
+        })
+
+    }
+    
     func deleteEvent(event: EventObject) {
         guard let id = event.id, let band = event.band?.band, let venue = event.venue?.venue else { return }
         

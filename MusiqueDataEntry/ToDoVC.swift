@@ -105,6 +105,8 @@ class ToDoList: UIViewController, UITableViewDelegate, UITableViewDataSource {
         view.addSubview(tableView)
         
         tableView.register(ToDoCell.self, forCellReuseIdentifier: "cell")
+        
+        
     }
     
     func filterUser(button: UIButton) {

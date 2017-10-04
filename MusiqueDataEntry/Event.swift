@@ -222,11 +222,11 @@ class EventObject: NSObject, Mappable {
     func createSendDict(newEventID: String) -> [String: Any] {
         var newData = [
             "id": newEventID,
-            "bandname": self.band?.band,
+            "bandname": self.band?.band!,
             "date": String(self.timestamp!.timeIntervalSince1970),
             "timeString": self.time ?? "",
             "updated": "true",
-            "venuename": self.venue?.venue,
+            "venuename": self.venue?.venue!,
             ]
             as [String : Any]
         if let ticket = self.ticketURL {

@@ -73,38 +73,6 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "MusiqueDataEntry/EventEntryVC.swift"
-            timestampString = "523496983.280859"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "237"
-            endingLineNumber = "237"
-            landmarkName = "handleDatePicker()"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "MusiqueDataEntry/EventEntryVC.swift"
-            timestampString = "523496983.280859"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "84"
-            endingLineNumber = "84"
-            landmarkName = "viewDidLoad()"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
             filePath = "MusiqueDataEntry/DeleteEventsVC.swift"
             timestampString = "525209723.300787"
             startingColumnNumber = "9223372036854775807"
@@ -160,6 +128,374 @@
             startingLineNumber = "116"
             endingLineNumber = "116"
             landmarkName = "postProcess()"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "MusiqueDataEntry/SeatGeekVC.swift"
+            timestampString = "526266145.92146"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "369"
+            endingLineNumber = "369"
+            landmarkName = "displayResultWithTicket(ticket:finishedWithObject:error:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "MusiqueDataEntry/SeatGeekVC.swift"
+            timestampString = "526318365.831087"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "377"
+            endingLineNumber = "377"
+            landmarkName = "displayResultWithTicket(ticket:finishedWithObject:error:)"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "MusiqueDataEntry.SeatGeekVC.displayResultWithTicket (ticket : __ObjC.GTLRServiceTicket, finishedWithObject : __ObjC.GTLRCalendar_Events, error : Swift.Optional&lt;__ObjC.NSError&gt;) -&gt; ()"
+                  moduleName = "MusiqueDataEntry"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/tarawilson/dataentry/MusiqueDataEntry/SeatGeekVC.swift"
+                  timestampString = "528801562.874558"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "377"
+                  endingLineNumber = "377"
+                  offsetFromSymbolStart = "751">
+               </Location>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "MusiqueDataEntry.SeatGeekVC.(displayResultWithTicket (ticket : __ObjC.GTLRServiceTicket, finishedWithObject : __ObjC.GTLRCalendar_Events, error : Swift.Optional&lt;__ObjC.NSError&gt;) -&gt; ()).(implicit closure #1)"
+                  moduleName = "MusiqueDataEntry"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/tarawilson/dataentry/MusiqueDataEntry/SeatGeekVC.swift"
+                  timestampString = "528801562.877443"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "377"
+                  endingLineNumber = "377"
+                  offsetFromSymbolStart = "16">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "MusiqueDataEntry/SeatGeekVC.swift"
+            timestampString = "526318374.723724"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "375"
+            endingLineNumber = "375"
+            landmarkName = "displayResultWithTicket(ticket:finishedWithObject:error:)"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "MusiqueDataEntry.SeatGeekVC.displayResultWithTicket (ticket : __ObjC.GTLRServiceTicket, finishedWithObject : __ObjC.GTLRCalendar_Events, error : Swift.Optional&lt;__ObjC.NSError&gt;) -&gt; ()"
+                  moduleName = "MusiqueDataEntry"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/tarawilson/dataentry/MusiqueDataEntry/SeatGeekVC.swift"
+                  timestampString = "528801562.883772"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "375"
+                  endingLineNumber = "375"
+                  offsetFromSymbolStart = "395">
+               </Location>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "MusiqueDataEntry.SeatGeekVC.displayResultWithTicket (ticket : __ObjC.GTLRServiceTicket, finishedWithObject : __ObjC.GTLRCalendar_Events, error : Swift.Optional&lt;__ObjC.NSError&gt;) -&gt; ()"
+                  moduleName = "MusiqueDataEntry"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/tarawilson/dataentry/MusiqueDataEntry/SeatGeekVC.swift"
+                  timestampString = "528801562.886829"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "375"
+                  endingLineNumber = "375"
+                  offsetFromSymbolStart = "537">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "MusiqueDataEntry/NetworkController+Send.swift"
+            timestampString = "527646389.689468"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "158"
+            endingLineNumber = "158"
+            landmarkName = "sendEventDataWithoutBandVenueInfo(event:completion:)"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "MusiqueDataEntry.NetworkController.sendEventDataWithoutBandVenueInfo (event : MusiqueDataEntry.EventObject, completion : (Swift.Bool) -&gt; ()) -&gt; ()"
+                  moduleName = "MusiqueDataEntry"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/tarawilson/dataentry/MusiqueDataEntry/NetworkController+Send.swift"
+                  timestampString = "528801562.89328"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "158"
+                  endingLineNumber = "158"
+                  offsetFromSymbolStart = "35">
+               </Location>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "MusiqueDataEntry.NetworkController.sendEventDataWithoutBandVenueInfo (event : MusiqueDataEntry.EventObject, completion : (Swift.Bool) -&gt; ()) -&gt; ()"
+                  moduleName = "MusiqueDataEntry"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/tarawilson/dataentry/MusiqueDataEntry/NetworkController+Send.swift"
+                  timestampString = "528801562.89633"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "158"
+                  endingLineNumber = "158"
+                  offsetFromSymbolStart = "404">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "MusiqueDataEntry/EventEntryVC.swift"
+            timestampString = "527645192.021758"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "128"
+            endingLineNumber = "128"
+            landmarkName = "sendData()"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "MusiqueDataEntry.EventEntryVC.sendData () -&gt; ()"
+                  moduleName = "MusiqueDataEntry"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/tarawilson/dataentry/MusiqueDataEntry/EventEntryVC.swift"
+                  timestampString = "528801562.903129"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "128"
+                  endingLineNumber = "128"
+                  offsetFromSymbolStart = "218">
+               </Location>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "MusiqueDataEntry.EventEntryVC.(sendData () -&gt; ()).(closure #1)"
+                  moduleName = "MusiqueDataEntry"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/tarawilson/dataentry/MusiqueDataEntry/EventEntryVC.swift"
+                  timestampString = "528801562.906079"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "130"
+                  endingLineNumber = "130"
+                  offsetFromSymbolStart = "26">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "MusiqueDataEntry/EventEntryVC.swift"
+            timestampString = "527645321.909693"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "130"
+            endingLineNumber = "130"
+            landmarkName = "sendData()"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "MusiqueDataEntry/NetworkController+Send.swift"
+            timestampString = "527646389.689468"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "162"
+            endingLineNumber = "162"
+            landmarkName = "sendEventDataWithoutBandVenueInfo(event:completion:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "MusiqueDataEntry/NetworkController.swift"
+            timestampString = "528801701.125623"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "274"
+            endingLineNumber = "274"
+            landmarkName = "getBandForString(band:completion:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "MusiqueDataEntry/NetworkController.swift"
+            timestampString = "528801701.125623"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "278"
+            endingLineNumber = "278"
+            landmarkName = "getBandForString(band:completion:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "MusiqueDataEntry/NetworkController.swift"
+            timestampString = "528801701.125623"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "289"
+            endingLineNumber = "289"
+            landmarkName = "getBandForString(band:completion:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "MusiqueDataEntry/EditBandVC.swift"
+            timestampString = "527646206.03997"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "189"
+            endingLineNumber = "189"
+            landmarkName = "deleteBand()"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "MusiqueDataEntry/NetworkController+Send.swift"
+            timestampString = "527646389.689468"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "60"
+            endingLineNumber = "60"
+            landmarkName = "deleteBand(band:completion:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "MusiqueDataEntry/NetworkController+Send.swift"
+            timestampString = "528061458.898958"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "226"
+            endingLineNumber = "226"
+            landmarkName = "sendBuiltEvent(event:createBand:completion:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "MusiqueDataEntry/NetworkController+Send.swift"
+            timestampString = "528061592.094823"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "167"
+            endingLineNumber = "167"
+            landmarkName = "sendEventDataWithoutBandVenueInfo(event:completion:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "MusiqueDataEntry/NetworkController+Send.swift"
+            timestampString = "528061600.30478"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "169"
+            endingLineNumber = "169"
+            landmarkName = "sendEventDataWithoutBandVenueInfo(event:completion:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

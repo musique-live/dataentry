@@ -21,6 +21,28 @@ class NetworkController: NSObject {
     let geocoder = CLGeocoder()
     var myGroup = DispatchGroup()
     
+    func getAllOldEvents() {
+        let olddate = String(NSDate().addingTimeInterval(86400 * -7).timeIntervalSince1970)
+        let ref = FIRDatabase.database().reference()
+        var querystring = "/DC/Events"
+        
+        let query = ref.child(querystring).queryOrdered(byChild: "date").queryEnding(atValue: olddate).queryLimited(toFirst: 1000)
+        query.observeSingleEvent(of: .value, with: {
+            snapshot in
+            if snapshot.hasChildren() {
+                self.processEventSnapshot(snapArray: snapshot, completion: {
+                    newevents in
+                    for event in newevents {
+                        self.justEventDelete(event: event)
+                    }
+                })
+            }
+        }, withCancel: {
+            (error) in
+        })
+
+    }
+    
     func getAllEvents(completion: @escaping(([EventObject]) -> Void)) {
         let fourweek = String(NSDate().addingTimeInterval(86400*7*4).timeIntervalSince1970)
         let currentdate = String(NSDate().timeIntervalSince1970)
@@ -75,11 +97,25 @@ class NetworkController: NSObject {
 
     }
     
+    func justEventDelete(event: EventObject) {
+        if let id = event.id {
+            if let stamp = event.timestamp?.timeIntervalSince1970 {
+                if stamp < TimeInterval(1507100000) {
+                    print(stamp)
+                    print(id)
+                    let query = FIRDatabase.database().reference().child("DC/Events/\(id)")
+                    query.removeValue()
+                } else {
+                    print("problemo")
+                }
+            }
+            
+            
+        }
+    }
+    
     func deleteEvent(event: EventObject) {
         guard let id = event.id, let band = event.band?.band, let venue = event.venue?.venue else { return }
-        
-        let formatter = DateFormatter()
-        formatter.dateStyle = .long
         
         let query = FIRDatabase.database().reference().child("DC/Events/\(id)")
         query.removeValue()
@@ -190,10 +226,10 @@ class NetworkController: NSObject {
                 if let value = child.value as? NSDictionary {
                     let newEv = processEvent(newObject: value, key: child.key)
                     events.append(newEv)
-                    completion(events)
                 }
             }
         }
+        completion(events)
         
     }
     
@@ -238,6 +274,7 @@ class NetworkController: NSObject {
         let query = FIRDatabase.database().reference().child("DC/Bands/\(cleanFBString(string: band))")
         query.observeSingleEvent(of: .value, with: {
             snapshot in
+            print(snapshot.value)
             if let dict = snapshot.value as? NSDictionary {
                 if let infodict = dict["info"] as? NSDictionary {
                     let newband = BandObject(JSON: infodict as! [String : Any])
@@ -249,6 +286,7 @@ class NetworkController: NSObject {
             }
         }, withCancel: {
             error in
+            print(error)
             completion(nil)
         })
     }

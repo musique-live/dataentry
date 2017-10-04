@@ -10,6 +10,7 @@ import Foundation
 import Alamofire
 
 let getEventsString = "http://www.ticketfly.com/api/events/upcoming.json?orgId="
+let getEventsVenueString = "http://www.ticketfly.com/api/events/upcoming.json?venueId="
 
 class TicketFlyController: NSObject {
     
@@ -17,7 +18,10 @@ class TicketFlyController: NSObject {
     var myGroup2 = DispatchGroup()
     
     func getEventsForID(id: String, venue: String, completion: @escaping([EventObject]) -> Void) {
-        let currentsearchURL = getEventsString + id
+        var currentsearchURL = getEventsString + id
+        if venue == "The Anthem" || venue == "Baltimore Soundstage" || venue == "Soundcheck" {
+            currentsearchURL = getEventsVenueString + id
+        }
         Alamofire.request(currentsearchURL).responseJSON { response in
             var newevents = [TicketFlyEvent]()
             if let JSON = response.result.value as? NSDictionary {

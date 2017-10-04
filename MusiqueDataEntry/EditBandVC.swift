@@ -124,6 +124,12 @@ class EditBandVC: FormViewController {
                     selected in
                     self.sendBand()
                 })
+            <<< ButtonRow(){
+                $0.title = "Delete"
+                }.onCellSelection({
+                    selected in
+                    self.deleteBand()
+                })
         
         navigationOptions = RowNavigationOptions.Enabled.union(.StopDisabledRow)
         animateScroll = true
@@ -176,6 +182,18 @@ class EditBandVC: FormViewController {
 
     }
     
+    func deleteBand() {
+        let nameRow: TextRow? = form.rowBy(tag: "name")
+        if let name = nameRow?.value {
+            NetworkController().deleteBand(band: name, completion: {
+                success in
+                
+                nameRow?.value = ""
+                nameRow?.updateCell()
+
+            })
+        }
+    }
     
     func sendBand() {
         let nameRow: TextRow? = form.rowBy(tag: "name")

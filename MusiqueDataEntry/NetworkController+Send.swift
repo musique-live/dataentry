@@ -56,6 +56,11 @@ extension NetworkController {
         })
     }
     
+    func deleteBand(band: String, completion: @escaping (Bool) -> Void) {
+        FIRDatabase.database().reference().child("DC/Bands/\(band)").setValue(nil)
+        completion(true)
+    }
+    
     func updateBandData(band: BandObject, completion: @escaping (Bool) -> Void) {
         sendBandData(band: band, shouldUpdate: true, completion: {
             success in
@@ -161,8 +166,8 @@ extension NetworkController {
                     newvenue in
                     newevent.venue = newvenue
                     self.sendBuiltEvent(event: newevent, createBand: false, completion: {
-                        _ in
-                        completion(true)
+                        success in
+                        completion(success)
                     })
                 })
             })
@@ -217,6 +222,7 @@ extension NetworkController {
             var newvenue = cleanFBString(string: venue)
             let venueref = FIRDatabase.database().reference()
                 .child("DC/Venues/\(newvenue)/Events/\(newEventID)")
+            print(newData)
             venueref.setValue(newData)
             FIRDatabase.database().reference().child("DC/Venues/\(newvenue)/info/lastUpdated").setValue(String(NSDate().timeIntervalSince1970))
         }

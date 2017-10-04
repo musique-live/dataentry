@@ -241,11 +241,13 @@ class EventEntryVC: UIViewController, UITextFieldDelegate {
     func refresh() {
         NetworkController().getVenuesList(completion: {
             venues in
+            self.venueField.backgroundColor = UIColor.green
             self.venues = venues.allKeys as! [String]
         })
         
         NetworkController().getBandObjectsList(completion: {
             bands in
+            self.bandField.backgroundColor = UIColor.green
             self.bands = bands
         })
     }

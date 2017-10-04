@@ -86,6 +86,9 @@ strip_invalid_archs() {
 if [[ "$CONFIGURATION" == "Debug" ]]; then
   install_framework "$BUILT_PRODUCTS_DIR/Alamofire/Alamofire.framework"
   install_framework "$BUILT_PRODUCTS_DIR/Eureka/Eureka.framework"
+  install_framework "$BUILT_PRODUCTS_DIR/GTMOAuth2/GTMOAuth2.framework"
+  install_framework "$BUILT_PRODUCTS_DIR/GTMSessionFetcher/GTMSessionFetcher.framework"
+  install_framework "$BUILT_PRODUCTS_DIR/GoogleAPIClientForREST/GoogleAPIClientForREST.framework"
   install_framework "$BUILT_PRODUCTS_DIR/GoogleToolboxForMac/GoogleToolboxForMac.framework"
   install_framework "$BUILT_PRODUCTS_DIR/ObjectMapper/ObjectMapper.framework"
   install_framework "$BUILT_PRODUCTS_DIR/SDWebImage/SDWebImage.framework"
@@ -96,6 +99,9 @@ fi
 if [[ "$CONFIGURATION" == "Release" ]]; then
   install_framework "$BUILT_PRODUCTS_DIR/Alamofire/Alamofire.framework"
   install_framework "$BUILT_PRODUCTS_DIR/Eureka/Eureka.framework"
+  install_framework "$BUILT_PRODUCTS_DIR/GTMOAuth2/GTMOAuth2.framework"
+  install_framework "$BUILT_PRODUCTS_DIR/GTMSessionFetcher/GTMSessionFetcher.framework"
+  install_framework "$BUILT_PRODUCTS_DIR/GoogleAPIClientForREST/GoogleAPIClientForREST.framework"
   install_framework "$BUILT_PRODUCTS_DIR/GoogleToolboxForMac/GoogleToolboxForMac.framework"
   install_framework "$BUILT_PRODUCTS_DIR/ObjectMapper/ObjectMapper.framework"
   install_framework "$BUILT_PRODUCTS_DIR/SDWebImage/SDWebImage.framework"

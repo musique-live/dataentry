@@ -16,6 +16,7 @@ class ToDoList: UIViewController, UITableViewDelegate, UITableViewDataSource {
     var allVenues = [String]()
     var taraVenues = [String]()
     var kathiVenues = [String]()
+    var seasonalVenues = [String]()
     var tameraVenues = [String]()
     var unclaimedvenues = [String]()
     var name: String?
@@ -27,6 +28,8 @@ class ToDoList: UIViewController, UITableViewDelegate, UITableViewDataSource {
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = UIColor.darkGray
+        
+        NetworkController().getAllOldEvents()
         
         NetworkController().getVenuesList(completion:  {
             venues in
@@ -43,6 +46,8 @@ class ToDoList: UIViewController, UITableViewDelegate, UITableViewDataSource {
                         self.tameraVenues.append(venue)
                     case "kathi":
                         self.kathiVenues.append(venue)
+                    case "nc":
+                        self.seasonalVenues.append(venue)
                     case "unclaimed":
                         self.unclaimedvenues.append(venue)
                     default:
@@ -59,38 +64,45 @@ class ToDoList: UIViewController, UITableViewDelegate, UITableViewDataSource {
         menuButton.addTarget(self, action: "openMenu", for: .touchUpInside)
         view.addSubview(menuButton)
         
-        let kathiButton = UIButton(frame: CGRect(x: 150, y: 20, width: 100, height: 50))
+        let kathiButton = UIButton(frame: CGRect(x: 130, y: 20, width: 100, height: 50))
         kathiButton.setTitle("Kathi", for: .normal)
         kathiButton.setTitleColor(.white, for: .normal)
         kathiButton.tag = 0
         kathiButton.addTarget(self, action: #selector(ToDoList.filterUser), for: .touchUpInside)
         view.addSubview(kathiButton)
         
-        let tamerabutton = UIButton(frame: CGRect(x: 270, y: 20, width: 100, height: 50))
+        let tamerabutton = UIButton(frame: CGRect(x: 230, y: 20, width: 100, height: 50))
         tamerabutton.setTitle("Tamera", for: .normal)
         tamerabutton.setTitleColor(.white, for: .normal)
         tamerabutton.tag = 1
         tamerabutton.addTarget(self, action: #selector(ToDoList.filterUser), for: .touchUpInside)
         view.addSubview(tamerabutton)
         
-        let tarabutton = UIButton(frame: CGRect(x: 390, y: 20, width: 100, height: 50))
+        let tarabutton = UIButton(frame: CGRect(x: 330, y: 20, width: 100, height: 50))
         tarabutton.setTitle("Tara", for: .normal)
         tarabutton.setTitleColor(.white, for: .normal)
         tarabutton.tag = 2
         tarabutton.addTarget(self, action: #selector(ToDoList.filterUser), for: .touchUpInside)
         view.addSubview(tarabutton)
         
-        let unknown = UIButton(frame: CGRect(x: 510, y: 20, width: 100, height: 50))
+        let unknown = UIButton(frame: CGRect(x: 430, y: 20, width: 100, height: 50))
         unknown.setTitle("Unclaimed", for: .normal)
         unknown.setTitleColor(.white, for: .normal)
         unknown.tag = 3
         unknown.addTarget(self, action: #selector(ToDoList.filterUser), for: .touchUpInside)
         view.addSubview(unknown)
         
+        let seasonal = UIButton(frame: CGRect(x: 530, y: 20, width: 100, height: 50))
+        seasonal.setTitle("No Cal(nc)", for: .normal)
+        seasonal.setTitleColor(.white, for: .normal)
+        seasonal.tag = 4
+        seasonal.addTarget(self, action: #selector(ToDoList.filterUser), for: .touchUpInside)
+        view.addSubview(seasonal)
+        
         let all = UIButton(frame: CGRect(x: 630, y: 20, width: 100, height: 50))
         all.setTitle("All", for: .normal)
         all.setTitleColor(.white, for: .normal)
-        all.tag = 4
+        all.tag = 5
         all.addTarget(self, action: #selector(ToDoList.filterUser), for: .touchUpInside)
         view.addSubview(all)
         
@@ -140,6 +152,13 @@ class ToDoList: UIViewController, UITableViewDelegate, UITableViewDataSource {
             venues = dict
             tableView.reloadData()
         case 4:
+            let dict = NSMutableDictionary()
+            for val in seasonalVenues {
+                dict.setObject("nc", forKey: val as NSCopying)
+            }
+            venues = dict
+            tableView.reloadData()
+        case 5:
             let dict = NSMutableDictionary()
             for val in allVenues {
                 dict.setObject("", forKey: val as NSCopying)

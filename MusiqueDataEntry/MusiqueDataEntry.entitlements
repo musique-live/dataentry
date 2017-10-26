@@ -6,5 +6,9 @@
 	<array>
 		<string>group.musiquelive.datashare</string>
 	</array>
+	<key>keychain-access-groups</key>
+	<array>
+		<string>$(AppIdentifierPrefix)twil.MusiqueDataEntry</string>
+	</array>
 </dict>
 </plist>

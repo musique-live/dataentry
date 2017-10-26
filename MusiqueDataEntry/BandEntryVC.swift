@@ -397,7 +397,7 @@ class BandEntryVC: FormViewController {
                 }
             })
         } else {
-            loginManager.logIn(withPublishPermissions: ["manage_pages", "publish_pages", "pages_show_list", "pages_manage_cta"], from: self, handler: {
+            loginManager.logIn(withReadPermissions: ["email"], /*withPublishPermissions: ["manage_pages", "publish_pages", "pages_manage_cta", "pages_show_list"], */from: self, handler: {
                 loginResult in
                 let result = loginResult.0
                 if let token = result?.token.tokenString {

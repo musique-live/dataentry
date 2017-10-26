@@ -27,6 +27,8 @@
 		DB6598681EAAEFB50085BD05 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = DB6598671EAAEFB50085BD05 /* GoogleService-Info.plist */; };
 		DB65986A1EAAF2920085BD05 /* VenueEntryVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB6598691EAAF2920085BD05 /* VenueEntryVC.swift */; };
 		DB65986C1EAE8D560085BD05 /* ToDoVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB65986B1EAE8D560085BD05 /* ToDoVC.swift */; };
+		DB6C569F1FA15A440092CA49 /* FacebookEventsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB6C569E1FA15A440092CA49 /* FacebookEventsVC.swift */; };
+		DB6C56A11FA162F00092CA49 /* FacebookEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB6C56A01FA162F00092CA49 /* FacebookEvent.swift */; };
 		DB7176F81EA7E713008666AC /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB7176F71EA7E712008666AC /* AppDelegate.swift */; };
 		DB7176FA1EA7E713008666AC /* BandEntryVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB7176F91EA7E713008666AC /* BandEntryVC.swift */; };
 		DB7176FF1EA7E713008666AC /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DB7176FE1EA7E713008666AC /* Assets.xcassets */; };
@@ -110,6 +112,8 @@
 		DB6598671EAAEFB50085BD05 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		DB6598691EAAF2920085BD05 /* VenueEntryVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VenueEntryVC.swift; sourceTree = "<group>"; };
 		DB65986B1EAE8D560085BD05 /* ToDoVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ToDoVC.swift; sourceTree = "<group>"; };
+		DB6C569E1FA15A440092CA49 /* FacebookEventsVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FacebookEventsVC.swift; sourceTree = "<group>"; };
+		DB6C56A01FA162F00092CA49 /* FacebookEvent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FacebookEvent.swift; sourceTree = "<group>"; };
 		DB7176F41EA7E712008666AC /* MusiqueDataEntry.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MusiqueDataEntry.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		DB7176F71EA7E712008666AC /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		DB7176F91EA7E713008666AC /* BandEntryVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BandEntryVC.swift; sourceTree = "<group>"; };
@@ -225,6 +229,7 @@
 			isa = PBXGroup;
 			children = (
 				DB78929F1F33820D00C3DD8F /* TicketflyVC.swift */,
+				DB6C569E1FA15A440092CA49 /* FacebookEventsVC.swift */,
 				DBE06BF81F33E4A300CA6C9F /* SeatGeekVC.swift */,
 			);
 			name = "Scrape VCs";
@@ -308,6 +313,7 @@
 			isa = PBXGroup;
 			children = (
 				DBE06BEE1F338A8100CA6C9F /* TicketFlyEvent.swift */,
+				DB6C56A01FA162F00092CA49 /* FacebookEvent.swift */,
 				DB1DEA8C1EA9291600FD27BD /* Band.swift */,
 				DB1DEA901EA92A6900FD27BD /* Event.swift */,
 				DB1DEA921EA92A7800FD27BD /* Venue.swift */,
@@ -468,6 +474,9 @@
 							com.apple.ApplicationGroups.iOS = {
 								enabled = 1;
 							};
+							com.apple.Keychain = {
+								enabled = 1;
+							};
 						};
 					};
 					DB7177071EA7E713008666AC = {
@@ -620,7 +629,9 @@
 				DBAC9C291EF03C7000CDDA72 /* ToDoCell.swift in Sources */,
 				DB7892A01F33820D00C3DD8F /* TicketflyVC.swift in Sources */,
 				DB4C9F7F1F4E07E30013EBEB /* AllBandsVenuesVC.swift in Sources */,
+				DB6C56A11FA162F00092CA49 /* FacebookEvent.swift in Sources */,
 				DB3839771F037A2100721326 /* DeleteEventsVC.swift in Sources */,
+				DB6C569F1FA15A440092CA49 /* FacebookEventsVC.swift in Sources */,
 				DBE06BF11F33ABE300CA6C9F /* EventDetailVC.swift in Sources */,
 				DB7176F81EA7E713008666AC /* AppDelegate.swift in Sources */,
 				DB5B1A911EF102E400C80D20 /* EditBandVC.swift in Sources */,

@@ -37,7 +37,9 @@ class TabBarController: UITabBarController, UITabBarControllerDelegate {
         
         let item9 = AllBandsVenuesVC()
         
-        let controllers = [item4, item1, item3, item2, item5, item6, item7, item8, item9]
+        let item10 = UINavigationController(rootViewController: FacebookEventsVC())
+        
+        let controllers = [item4, item1, item3, item2, item5, item6, item7, item8, item9, item10]
         self.viewControllers = controllers
     }
 }

@@ -83,11 +83,22 @@ class ContainerViewController: UIViewController {
         ten.setTitleColor(UIColor.white, for: .normal)
         view.addSubview(ten)
         
+        let eleven = UIButton(frame: CGRect(x: 10, y: 800, width: width - 20, height: 60))
+        eleven.setTitle("Facebook Scrape", for: .normal)
+        eleven.addTarget(self, action: #selector(ContainerViewController.openFBScrape), for: .touchUpInside)
+        eleven.setTitleColor(UIColor.white, for: .normal)
+        view.addSubview(eleven)
+        
     }
     
     func openTara() {
         self.slideMenuController()?.closeLeft()
         tab?.selectedIndex = 8
+    }
+    
+    func openFBScrape() {
+        self.slideMenuController()?.closeLeft()
+        tab?.selectedIndex = 9
     }
     
     func openSG() {

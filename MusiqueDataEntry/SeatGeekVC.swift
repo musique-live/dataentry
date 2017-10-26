@@ -56,22 +56,22 @@ class SeatGeekVC: UIViewController, UITableViewDelegate, UITableViewDataSource, 
         
         tableView.register(SeatGeekCell.self, forCellReuseIdentifier: "cell")
         
-        // Configure Google Sign-in.
-        GIDSignIn.sharedInstance().delegate = self
-        GIDSignIn.sharedInstance().uiDelegate = self
-        GIDSignIn.sharedInstance().scopes = scopes
-        GIDSignIn.sharedInstance().signInSilently()
-        
-        // Add the sign-in button.
-        view.addSubview(signInButton)
-        
-        // Add a UITextView to display output.
-        output.frame = view.bounds
-        output.isEditable = false
-        output.contentInset = UIEdgeInsets(top: 20, left: 0, bottom: 20, right: 0)
-        output.autoresizingMask = [.flexibleHeight, .flexibleWidth]
-        output.isHidden = true
-        view.addSubview(output);
+//        // Configure Google Sign-in.
+//        GIDSignIn.sharedInstance().delegate = self
+//        GIDSignIn.sharedInstance().uiDelegate = self
+//        GIDSignIn.sharedInstance().scopes = scopes
+//        GIDSignIn.sharedInstance().signInSilently()
+//        
+//        // Add the sign-in button.
+//        view.addSubview(signInButton)
+//        
+//        // Add a UITextView to display output.
+//        output.frame = view.bounds
+//        output.isEditable = false
+//        output.contentInset = UIEdgeInsets(top: 20, left: 0, bottom: 20, right: 0)
+//        output.autoresizingMask = [.flexibleHeight, .flexibleWidth]
+//        output.isHidden = true
+//        view.addSubview(output);
     }
     
     func loadMore() {

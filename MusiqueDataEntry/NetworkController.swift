@@ -105,12 +105,8 @@ class NetworkController: NSObject {
                     print(id)
                     let query = FIRDatabase.database().reference().child("DC/Events/\(id)")
                     query.removeValue()
-                } else {
-                    print("problemo")
                 }
             }
-            
-            
         }
     }
     
@@ -280,6 +276,8 @@ class NetworkController: NSObject {
                     let newband = BandObject(JSON: infodict as! [String : Any])
                     newband?.band = band
                     completion(newband)
+                } else {
+                    completion(nil)
                 }
             } else {
                 completion(nil)

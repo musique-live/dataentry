@@ -126,7 +126,7 @@ class EventEntryVC: UIViewController, UITextFieldDelegate {
         goButton.isEnabled = false
         goButton.backgroundColor = UIColor.gray
         NetworkController().sendEventDataWithoutBandVenueInfo(event: event, completion: {
-            success in
+            success, message in
             if success {
                 self.bandField.text = ""
                 self.venueField.text = ""
@@ -136,6 +136,11 @@ class EventEntryVC: UIViewController, UITextFieldDelegate {
                 self.goButton.backgroundColor = UIColor.blue
             }
             else {
+                let alert = UIAlertController(title: "ERROR", message: message, preferredStyle: UIAlertControllerStyle.alert)
+                alert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.default, handler: {
+                    handle in
+                }))
+                self.present(alert, animated: true, completion: nil)
                 self.goButton.isEnabled = true
                 self.goButton.backgroundColor = UIColor.red
             }

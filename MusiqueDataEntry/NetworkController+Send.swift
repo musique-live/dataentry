@@ -154,25 +154,34 @@ extension NetworkController {
         
     }
     
-    func sendEventDataWithoutBandVenueInfo(event: EventObject, completion: @escaping (Bool) -> Void) {
+    func sendEventDataWithoutBandVenueInfo(event: EventObject, completion: @escaping (Bool, String) -> Void) {
         if let band = event.band?.band, let venue = event.venue?.venue {
             var newevent = event
             
             self.getBandForString(band: band, completion: {
                 band in
-                newevent.band = band
-                
-                self.getVenueForString(venue: venue, completion: {
-                    newvenue in
-                    newevent.venue = newvenue
-                    self.sendBuiltEvent(event: newevent, createBand: false, completion: {
-                        success in
-                        completion(success)
+                if let _ = band {
+                    newevent.band = band
+                    
+                    self.getVenueForString(venue: venue, completion: {
+                        newvenue in
+                        if let _ = newvenue {
+                            newevent.venue = newvenue
+                            self.sendBuiltEvent(event: newevent, createBand: false, completion: {
+                                success in
+                                completion(success, "")
+                            })
+                        } else {
+                            completion(false, "that venue doesn't exist. did you spell it right?")
+                        }
+                        
                     })
-                })
+                } else {
+                    completion(false, "that band doesn't exist. did you spell it right?")
+                }
             })
         } else {
-            completion(false)
+            completion(false, "no band or venue")
         }
     }
 

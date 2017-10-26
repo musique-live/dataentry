@@ -50,34 +50,33 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     func application(_ app: UIApplication, open url: URL, options: [UIApplicationOpenURLOptionsKey : Any] = [:]) -> Bool {
         print(url.absoluteString)
-        //tara fix this
-        if url.absoluteString == "facebook" {
+//        if url.absoluteString == "facebook" {
             return FBSDKApplicationDelegate.sharedInstance().application(app, open: url, options: options)
-        } else {
-            //com.googleusercontent.apps.403612539176-t1i4e0vjmrnvhgqa2vmi27ubkaiqut7m:/oauth2callback?code=4/yC2wmwqk65hqyXEAlh7f1gphJEhua3QIvqMz0U5QfF0#
-            if #available(iOS 9.0, *) {
-                let sourceApplication = options[UIApplicationOpenURLOptionsKey.sourceApplication] as? String
-                let annotation = options[UIApplicationOpenURLOptionsKey.annotation]
-                return GIDSignIn.sharedInstance().handle(url,
-                                                         sourceApplication: sourceApplication,
-                                                         annotation: annotation)
-            } else {
-                return false
-            }
-            
-        }
+//        } else {
+//            //com.googleusercontent.apps.403612539176-t1i4e0vjmrnvhgqa2vmi27ubkaiqut7m:/oauth2callback?code=4/yC2wmwqk65hqyXEAlh7f1gphJEhua3QIvqMz0U5QfF0#
+//            if #available(iOS 9.0, *) {
+//                let sourceApplication = options[UIApplicationOpenURLOptionsKey.sourceApplication] as? String
+//                let annotation = options[UIApplicationOpenURLOptionsKey.annotation]
+//                return GIDSignIn.sharedInstance().handle(url,
+//                                                         sourceApplication: sourceApplication,
+//                                                         annotation: annotation)
+//            } else {
+//                return false
+//            }
+//            
+//        }
     }
     
     func application(_ application: UIApplication, open url: URL, sourceApplication: String?, annotation: Any) -> Bool {
         print(sourceApplication)
         //tara fix this
-        if sourceApplication == "facebook" {
+//        if sourceApplication == "facebook" {
             return FBSDKApplicationDelegate.sharedInstance().application(application, open: url, options: nil)
-        } else {
-            return GIDSignIn.sharedInstance().handle(url,
-                                                     sourceApplication: sourceApplication,
-                                                     annotation: annotation)
-        }
+//        } else {
+//            return GIDSignIn.sharedInstance().handle(url,
+//                                                     sourceApplication: sourceApplication,
+//                                                     annotation: annotation)
+//        }
     }
 
 }

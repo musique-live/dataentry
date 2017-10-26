@@ -19,6 +19,7 @@ class FacebookEventsVC: UIViewController, UITextFieldDelegate, UITableViewDelega
     var tableView: UITableView!
     var events = [FacebookEvent]()
     var venueString: String?
+    var isVenue: Bool?
     var input: UITextField?
     
     override func viewWillAppear(_ animated: Bool) {
@@ -28,8 +29,6 @@ class FacebookEventsVC: UIViewController, UITextFieldDelegate, UITableViewDelega
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = UIColor.white
-        
-        refresh()
         
         let menuButton = UIButton(frame: CGRect(x: 20, y: 20, width: 100, height: 50))
         menuButton.setTitle("MENU", for: .normal)
@@ -51,9 +50,22 @@ class FacebookEventsVC: UIViewController, UITextFieldDelegate, UITableViewDelega
         view.addSubview(sendAllButton)
         
         input = UITextField(frame: CGRect(x: 20, y: 90, width: 100, height: 50))
-        input?.backgroundColor = UIColor.gray
+        input?.backgroundColor = UIColor.lightGray.withAlphaComponent(0.5)
         input?.delegate = self
         view.addSubview(input!)
+        
+        if let val = self.venueString {
+            if isVenue == true {
+                self.input?.text = val
+            } else {
+                goButton.backgroundColor = UIColor.gray
+                NetworkController().getFBFromBand(val: val, completion: {
+                    band in
+                    self.venueString = band
+                    self.fetchData()
+                })
+            }
+        }
         
         tableView = UITableView(frame: CGRect(x: 20, y: 200, width: view.frame.width - 40, height: view.frame.height - 350))
         tableView.register(FBScrapeCell.self, forCellReuseIdentifier: "cell")
@@ -87,6 +99,7 @@ class FacebookEventsVC: UIViewController, UITextFieldDelegate, UITableViewDelega
     func tryFacebook(value: String) {
         if let accesstoken = UserDefaults.standard.string(forKey: "fbkey") {
             let request = FBSDKGraphRequest(graphPath: "/\(value)", parameters: ["fields": "name, events"], tokenString: accesstoken, version: "", httpMethod: "GET")
+            goButton.backgroundColor = UIColor.blue
             let _ = request?.start(completionHandler: {
                 requesthandler in
                 if let dict = requesthandler.1 as? NSDictionary{
@@ -102,7 +115,6 @@ class FacebookEventsVC: UIViewController, UITextFieldDelegate, UITableViewDelega
     }
     
     func handleEvents(events: [NSDictionary]) {
-        goButton.backgroundColor = UIColor.blue
         for event in events {
             if let mappedEvent = FacebookEvent(JSON: event as! [String : Any]) {
                 self.events.append(mappedEvent)
@@ -113,11 +125,6 @@ class FacebookEventsVC: UIViewController, UITextFieldDelegate, UITableViewDelega
     
     func openMenu() {
         self.slideMenuController()?.openLeft()
-    }
-    
-    
-    func refresh() {
-
     }
     
     func numberOfSections(in tableView: UITableView) -> Int {

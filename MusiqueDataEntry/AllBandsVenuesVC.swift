@@ -127,7 +127,16 @@ class AllBandsVenuesVC: UIViewController, UITableViewDelegate, UITableViewDataSo
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-
+        let vc = FacebookEventsVC()
+        if indexPath.section == 0 {
+            vc.venueString = venues![indexPath.row]
+            vc.isVenue = true
+        }
+        if indexPath.section == 1 {
+            vc.venueString = bands![indexPath.row]
+            vc.isVenue = false
+        }
+        present(vc, animated: true, completion: nil)
     }
     
 }

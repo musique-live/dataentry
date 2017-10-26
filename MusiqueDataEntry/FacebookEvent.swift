@@ -32,7 +32,6 @@ class FacebookEvent: Mappable {
             dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ssZZZZ"
             let dateObj = dateFormatter.date(from: date)
             self.date = dateObj
-            print(dateObj)
         }
     }
     

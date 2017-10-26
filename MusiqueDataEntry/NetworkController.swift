@@ -369,6 +369,23 @@ class NetworkController: NSObject {
             (error) in
         })
     }
+    
+    func getFBFromBand(val: String, completion: @escaping ((String?) -> Void)) {
+        let query = FIRDatabase.database().reference().child("DC/Bands/\(val)/info/facebook")
+        query.observeSingleEvent(of: .value, with: {
+            snapshot in
+            print(snapshot.value)
+            if let fbstring = snapshot.value as? String {
+                let newstring = fbstring.replacingOccurrences(of: "https://www.facebook.com/", with: "")
+                completion(newstring.replacingOccurrences(of: "/", with: ""))
+            } else {
+                completion(nil)
+            }
+        }, withCancel: {
+            success in
+            completion(nil)
+        })
+    }
 }
 
 

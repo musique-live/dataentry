@@ -25,7 +25,7 @@ class NetworkController: NSObject {
         let olddate = String(NSDate().addingTimeInterval(86400 * -7).timeIntervalSince1970)
         let ref = FIRDatabase.database().reference()
         var querystring = "/DC/Events"
-        
+
         let query = ref.child(querystring).queryOrdered(byChild: "date").queryEnding(atValue: olddate).queryLimited(toFirst: 1000)
         query.observeSingleEvent(of: .value, with: {
             snapshot in
@@ -40,7 +40,28 @@ class NetworkController: NSObject {
         }, withCancel: {
             (error) in
         })
-
+    }
+    
+    func restructure() {
+        let query = FIRDatabase.database().reference().child("DC/Bands").queryOrderedByKey()
+        query.observeSingleEvent(of: .value, with: {
+            snapshot in
+            if let val = snapshot.value as? NSDictionary {
+                let keys = val.allKeys as! [String]
+                self.sendList(venues: keys)
+            }
+        }, withCancel: {
+            (error) in
+        })
+    }
+    
+    func sendList(venues: [String]) {
+        for place in venues {
+            let newEventRef = FIRDatabase.database().reference()
+                .child("/DC/AllBands/\(place)")
+            
+            newEventRef.setValue(true)
+        }
     }
     
     func getAllEvents(completion: @escaping(([EventObject]) -> Void)) {

@@ -23,13 +23,12 @@ class TicketFlyController: NSObject {
         let orgs = ["Vinyl Lounge at Gypsy Sallys", "U Street Music Hall", "The Hamilton", "Smokehouse Live", "Sixth & I Synagogue", "Rock and Roll Hotel", "Rams Head Tavern", "Rams Head On Stage", "9:30 Club", "Rams Head Live", "Rams Head Dockside", "Pier Six Concert Pavilion", "Ottobar", "Metro Gallery", "Merriweather Post Pavilion", "Live! Center Stage", "Lincoln Theatre", "Jammin java", "Hill Country DC", "Gypsy Sallys", "Flash", "Fish Head Cantina", "Echostage", "DC9", "Bottle and Cork", "Black Cat", "Bambou" ]
         
         if orgs.contains(venue) {
-            var currentsearchURL = getEventsVenueString + id
+            var currentsearchURL = getEventsString + id
         }
         
         Alamofire.request(currentsearchURL).responseJSON { response in
             var newevents = [TicketFlyEvent]()
             if let JSON = response.result.value as? NSDictionary {
-                print(JSON["events"])
                 if let events = JSON["events"] as? [NSDictionary] {
                     for event in events {
                         if let mappedEvent = TicketFlyEvent(JSON: event as! [String : Any]) {
@@ -37,6 +36,8 @@ class TicketFlyController: NSObject {
                             newevents.append(mappedEvent)
                         }
                     }
+                } else {
+                    print("no events")
                 }
             }
             self.postProcessTicketflyEvents(events: newevents, completion: {

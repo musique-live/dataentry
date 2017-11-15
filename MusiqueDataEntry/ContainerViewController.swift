@@ -87,7 +87,7 @@ class ContainerViewController: UIViewController {
         eleven.setTitle("Facebook Scrape", for: .normal)
         eleven.addTarget(self, action: #selector(ContainerViewController.openFBScrape), for: .touchUpInside)
         eleven.setTitleColor(UIColor.white, for: .normal)
-        view.addSubview(eleven)
+//        view.addSubview(eleven)
         
     }
     
